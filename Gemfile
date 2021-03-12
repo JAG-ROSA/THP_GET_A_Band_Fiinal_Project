@@ -58,3 +58,19 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# ----- Additionnal GEMS -----
+gem 'rubocop', '~> 0.57.2'
+gem 'faker'
+gem 'table_print'
+gem 'dotenv-rails'
+gem 'devise'
+gem 'stripe'
+gem "letter_opener"
+gem "better_errors"
+gem "binding_of_caller"
+# gem "aws-sdk-s3", require: false
+# gem 'mini_magick'
+# gem 'mailjet'
+# gem 'administrate'
+# gem 'administrate-field-active_storage', "0.1.8"
