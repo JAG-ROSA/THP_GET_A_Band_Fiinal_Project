@@ -46,23 +46,11 @@ Welcome to the Get A Band Platform!
 
 <!-- FEATURES -->
 ## Main Features
-* Visitors can create an account and log in and out of it
-* Visitors and connected users can browse through the items and see the items' individual product pages
-* Connected users can fill in a cart
-* Connected users can display their cart and remove items from it
-* Connected users can check out and pay for their order
-* After placing their order, connected users receive the cat pictures by e-mail
-* After an order is placed, the website administrator receives a recap of the order by e-mail at `kittenadmin@yopmail.com`
-* Connected users can visualize their account information and past orders on their profile
-* Connected users can edit their account information from their profile page
-* Visitors and connected users cannot see information pertaining to other users.
+* 
 
 
 ### Bonus Features
-* Visitors can fill in a cart
-* Visitors and connected users can add the same item to their cart several times
-* Visitors and connected users can visualize their cart at any point from a dropdown display in the navbar
-* Visitors and connected users can filter item display by category on the main page
+* 
 
 
 <!-- CONTACT -->
