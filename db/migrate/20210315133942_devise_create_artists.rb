@@ -10,6 +10,8 @@ class DeviseCreateArtists < ActiveRecord::Migration[5.2]
       t.text :description
       t.integer :hourly_price
 
+      t.belongs_to :location, index: true
+
       ## Recoverable
       t.string :reset_password_token
       t.datetime :reset_password_sent_at
