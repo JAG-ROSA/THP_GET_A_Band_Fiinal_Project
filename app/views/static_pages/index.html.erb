@@ -1,8 +1,9 @@
-<div class="text-center img-fluid px-0 " style="width:100%">
-  <%= image_tag "Wedding-Dances-Lessons-1500x630.jpg", class: "img-fluid w-100", alt:"wedding image"%>
+<div class="text-center jumobtron-container mb-5">
+  <%= image_tag "Wedding-Dances-Lessons-1500x630.jpg", class: "img-fluid w-100 backg-img-main", alt:"wedding image" %>
+  <h1 class="ml16 text-light centered"><span class="letters">Plan your wedding, Choose your band</span></h1>
 </div>
 
-<div class="container marketing pt-5 mt-5">
+<div class="container marketing">
  
 
   <!-- Three columns of text below the carousel -->
@@ -72,3 +73,23 @@
 
 </div><!-- /.container -->
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const textWrapper = document.querySelector('.ml16');
+    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+    anime.timeline({loop: true})
+      .add({
+        targets: '.ml16 .letter',
+        translateY: [-100,0],
+        easing: "easeOutExpo",
+        duration: 1400,
+        delay: (el, i) => 30 * i
+      }).add({
+        targets: '.ml16',
+        opacity: 0,
+        duration: 1000,
+        easing: "easeOutExpo",
+        delay: 1000
+      });
+  }, false);
+</script>
