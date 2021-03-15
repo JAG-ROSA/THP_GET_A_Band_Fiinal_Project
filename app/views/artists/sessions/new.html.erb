@@ -1,26 +1,86 @@
-<h2>Log in2</h2>
+<%= render "artists/shared/error_messages", resource: resource %>
+<div class="container vertical-center col-md-8 text-center mt-5 pt-5">
+<h1>I'm an Artist</h1>
+</div>
+<div class="container vertical-center col-md-8" id="artist_registration">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+	<div class="form-container sign-up-container">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "form") do |f| %>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+      <h1 class="mb-3">Create Account</h1>
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email" %>
+      </div>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end %>
+      <div class="field">
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password (6 characters min)" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
+      <div class="field">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: :password_confirmation %>
+      </div>
 
-<%= render "artists/shared/links" %>
+      <div class="actions">
+        <%= f.submit "Sign up", style: "border-radius: 20px;
+                                      border: 1px solid #FF4B2B;
+                                      background-color: #FF4B2B;
+                                      color: #FFFFFF;
+                                      font-size: 12px;
+                                      font-weight: bold;
+                                      padding: 12px 45px;
+                                      letter-spacing: 1px;
+                                      text-transform: uppercase;
+                                      transition: transform 80ms ease-in;" %>
+      </div>
+    <% end %>
+	</div>
+
+	<div class="form-container sign-in-container">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <h1 class="mb-3">Log in</h1>
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: :email %>
+      </div>
+
+      <div class="field">
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: :password %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+      <%= render "artists/shared/links" %>
+      <div class="actions">
+        <%= f.submit "Log in", style: "border-radius: 20px;
+                                      border: 1px solid #FF4B2B;
+                                      background-color: #FF4B2B;
+                                      color: #FFFFFF;
+                                      font-size: 12px;
+                                      font-weight: bold;
+                                      padding: 12px 45px;
+                                      letter-spacing: 1px;
+                                      text-transform: uppercase;
+                                      transition: transform 80ms ease-in;" %>
+      </div>
+      
+    <% end %>
+
+	</div>
+	<div class="overlay-container">
+		<div class="artist_overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Welcome Back!</h1>
+				<p>To keep connected with us please login with your personal info</p>
+				<button class="ghost" id="artist_signIn">Log In</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Hello, Friend!</h1>
+				<p>Enter your personal details and start journey with us</p>
+				<button class="ghost" id="artist_signUp">Sign Up</button>
+			</div>
+		</div>
+	</div>
+</div>
