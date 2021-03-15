@@ -4,6 +4,10 @@ class CreateBookings < ActiveRecord::Migration[5.2]
       t.datetime :start_date
       t.integer :duration
       t.text :description
+
+      t.belongs_to :user, index: true
+      t.belongs_to :availability, index: true
+
       t.timestamps
     end
   end
