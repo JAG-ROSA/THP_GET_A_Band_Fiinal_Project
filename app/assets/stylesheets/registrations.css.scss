@@ -157,7 +157,7 @@
 	transform: translateX(-100%);
 }
 
-.overlay {
+.users_overlay {
 	background: #161d6f;
 	background: -webkit-linear-gradient(to right, #161d6f, #5b6090);
 	background: linear-gradient(to right, #161d6f, #5b6090);
@@ -173,7 +173,7 @@
 	transition: transform 0.6s ease-in-out;
 }
 
-.container.right-panel-active .overlay {
+.container.right-panel-active .users_overlay {
   	transform: translateX(50%);
 }
 

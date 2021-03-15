@@ -21,14 +21,12 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
     t.string "artist_name", null: false
     t.text "description"
     t.integer "hourly_price"
-    t.bigint "location_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_artists_on_email", unique: true
-    t.index ["location_id"], name: "index_artists_on_location_id"
     t.index ["reset_password_token"], name: "index_artists_on_reset_password_token", unique: true
   end
 
