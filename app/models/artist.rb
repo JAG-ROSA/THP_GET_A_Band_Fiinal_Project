@@ -5,4 +5,5 @@ class Artist < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :location
+  has_many :availabilities
 end
