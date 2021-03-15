@@ -22,9 +22,9 @@
             Log In & Sign Up
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item text-center" href="#">Artist login</a>
+            <%= link_to "Artist login", artist_session_path, class: "dropdown-item text-center" %>
             <span>|</span>
-            <a class="dropdown-item text-center" href="#">Customer login</a>
+            <%= link_to "Customer login", user_session_path, class: "dropdown-item text-center" %>
           </div>
         </li>
         </ul>
