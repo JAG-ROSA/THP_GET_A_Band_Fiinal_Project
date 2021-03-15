@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = helpers.current_user
   end
 
   def create
