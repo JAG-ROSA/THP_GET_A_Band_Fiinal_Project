@@ -1,8 +1,14 @@
 <div class="container mt-5 pt-5">
   <div class="card">
     <div class="card-body">
-      <h1>Users#show</h1>
-      <p><%= @user.email %></p>
+      <% if @user.first_name && @user.last_name %>
+        <h1 class="card-title">Bienvenue <%= @user.first_name %> !</h1>
+      <% else %>
+        <h1 class="card-title">Bienvenue dans votre espace personnel !</h1>
+      <% end %>
+      <p>Adresse email : <%= @user.email %></p>
+      <hr>
+      <h3>A propos de mon évènement :</h3>
     </div>
   </div>
 </div>
