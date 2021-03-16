@@ -2,6 +2,9 @@ class Availability < ApplicationRecord
   belongs_to :artist
   has_one :booking
 
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+
   validate :start_prior_to_end_date
 
   def start_prior_to_end_date
