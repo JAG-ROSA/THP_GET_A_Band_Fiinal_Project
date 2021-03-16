@@ -17,6 +17,7 @@
         <li class="nav-item">
           <a class="nav-link text-white btn btn-primary m-1" href="#">Find a band <i class="fas fa-guitar"></i></a>
         </li>
+<<<<<<< HEAD
         <% if user_signed_in?%>
           <li class="nav-item">
             <%= link_to "Log Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
@@ -33,6 +34,18 @@
             </div>
           </li>
         <% end %>
+=======
+        <li class="nav-item dropdown">
+          <a class="nav-link text-white dropdown-toggle btn btn-dark m-1" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Log In & Sign Up
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <%= link_to "Artist login", artist_session_path, class: "dropdown-item text-center" %>
+            <span>|</span>
+            <%= link_to "Customer login", user_session_path, class: "dropdown-item text-center" %>
+          </div>
+        </li>
+>>>>>>> development
         </ul>
       </div>
   </div>
