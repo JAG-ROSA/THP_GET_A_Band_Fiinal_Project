@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2021_03_16_154319) do
   end
 
   create_table "availabilities", force: :cascade do |t|
-    t.datetime "date"
+    t.datetime "start_date"
     t.boolean "status"
     t.bigint "artist_id"
     t.datetime "created_at", null: false
