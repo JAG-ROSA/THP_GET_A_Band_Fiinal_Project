@@ -1,2 +1,12 @@
-<h1>Artists#index</h1>
-<p>Find me in app/views/artists/index.html.erb</p>
+
+<div class="d-flex flex-wrap justify-content-center pt-5 mt-5">
+  <% # Create a card for each item %>
+  <div class="container " id="anchor">
+    
+    <div class="row justify-content-center">
+      <% @artists.each_with_index do |artist, index| %>
+          <%= render "card", artist: artist %>
+      <% end %>
+    </div>
+  </div>
+</div>
