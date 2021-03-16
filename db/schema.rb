@@ -21,9 +21,7 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
     t.string "artist_name", default: "", null: false
     t.text "description"
     t.integer "hourly_price"
-
     t.string "status", default: "pending"
-
     t.bigint "location_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
