@@ -51,8 +51,10 @@ end
     hourly_price: 50,
     email: Faker::Name.first_name + "@yopmail.com",
     password: "azerty",
+
     location: Location.all.sample,
     status:  ["pending", "approved", "suspended"].sample,
+
   )
   puts "Create Artist"
 end
