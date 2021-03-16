@@ -3,12 +3,24 @@
     <div class="card-body">
       <% if @user.first_name && @user.last_name %>
         <h1 class="card-title">Bienvenue <%= @user.first_name %> !</h1>
+        <p>Prénom : <%= @user.first_name %></p>
+        <p>Nom : <%= @user.last_name %></p>
+        <p>Adresse email : <%= @user.email %></p>
+        <hr>
+        <h3>A propos de mon évènement :</h3>
+        <%= link_to "Modifier mes informations", edit_user_path(@user.id), class: "btn btn-primary"%>
       <% else %>
         <h1 class="card-title">Bienvenue dans votre espace personnel !</h1>
+        <div class="">
+          <p class="lead"><span class="font-weight-bold" style="font-variant: small-caps; color: #161d6f">Attention :</span> il semblerait que votre profil soit incomplet. Veillez à mettre vos informations à jour avant de procéder à une réservation afin que nos artistes puissent échanger avec vous au mieux !</p>
+        </div>
+        <p>Prénom : to be defined</p>
+        <p>Nom : to be defined </p>
+        <p>Adresse email : <%= @user.email %></p>
+        <hr>
+        <%= link_to "Compléter mes informations", edit_user_path(@user.id), class: "btn btn-primary"%>
       <% end %>
-      <p>Adresse email : <%= @user.email %></p>
-      <hr>
-      <h3>A propos de mon évènement :</h3>
+
     </div>
   </div>
 </div>
