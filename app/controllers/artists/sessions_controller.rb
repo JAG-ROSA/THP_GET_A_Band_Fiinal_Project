@@ -9,10 +9,9 @@ class Artists::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-   def create
+  # def create
   #   super
-  redirect_to artist_bookings_path(artist_id: current_artist.id)
-   end
+  # end
 
   # DELETE /resource/sign_out
   # def destroy
@@ -25,4 +24,8 @@ class Artists::SessionsController < Devise::SessionsController
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
+
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || artist_bookings_path(artist_id: current_artist.id)
+  end
 end
