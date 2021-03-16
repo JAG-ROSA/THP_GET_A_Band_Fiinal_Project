@@ -9,7 +9,7 @@ class DeviseCreateArtists < ActiveRecord::Migration[5.2]
       t.string :artist_name, null: false
       t.text :description
       t.integer :hourly_price
-      t.string :status, default: 'pending'
+      t.string :status, default: "pending"
 
       t.belongs_to :location, index: true
 
