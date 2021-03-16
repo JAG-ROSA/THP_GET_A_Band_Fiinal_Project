@@ -1,0 +1,82 @@
+<div class="container mt-5 pt-5">
+  <h1>Bienvenue sur votre espace de gestion</h1>
+  <h3>Vos identifiants de connexion</h3>
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <th scope="row">Email</th>
+        <td><%= current_artist.email %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="text-center mb-5">
+    <%= link_to "Modifier vos identifiants de connexion", edit_artist_registration_path, class: "btn btn-primary w-50" %>
+  </div>
+  <h3>Votre profil</h3>
+  <table class="table table-hover">
+    <tbody>
+      <tr>
+        <th scope="row">Nom d'artiste</th>
+        <td><%= current_artist.artist_name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Description</th>
+        <td colspan="2"><%= current_artist.description %></td>
+      </tr>
+      <tr>
+        <th scope="row">Tarif horaire</th>
+        <td colspan="2"><%= number_to_currency(current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+      </tr>
+      <tr>
+        <th scope="row">Département d'activité</th>
+        <td colspan="2"><%= current_artist.location.department %></td>
+      </tr>    
+    </tbody>
+  </table>
+  <div class="text-center mb-5">
+    <%= link_to "Modifier votre profil", "#", class: "btn btn-primary w-50" %>
+  </div>
+  <h3>Vos réservations</h3>
+  <h5>Réservations en attente</h5>
+  <table class="table table-hover">
+    <tbody>
+      <% @bookings.each do |booking| %>
+        <% if booking.status == "pending" %>
+          <tr>
+            <th scope="row"><%= booking.id %></th>
+            <td><%= booking.status %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <h5>Réservations confirmées à venir</h5>
+  <table class="table table-hover">
+    <tbody>
+      <% @bookings.each do |booking| %>
+        <% if booking.status == "confirmed" && booking.start_date >= DateTime.now %>
+          <tr>
+            <th scope="row"><%= booking.id %></th>
+            <td><%= booking.status %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <h5>Réservations passées</h5>
+    <table class="table table-hover">
+    <tbody>
+      <% @bookings.each do |booking| %>
+        <% if booking.status == "confirmed" && booking.start_date < DateTime.now %>
+          <tr>
+            <th scope="row"><%= booking.id %></th>
+            <td><%= booking.status %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
