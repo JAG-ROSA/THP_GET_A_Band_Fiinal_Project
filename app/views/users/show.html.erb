@@ -7,7 +7,6 @@
         <p>Nom : <%= @user.last_name %></p>
         <p>Adresse email : <%= @user.email %></p>
         <hr>
-        <h3>A propos de mon évènement :</h3>
         <%= link_to "Modifier mes informations", edit_user_path(@user.id), class: "btn btn-primary"%>
       <% else %>
         <h1 class="card-title">Bienvenue dans votre espace personnel !</h1>
