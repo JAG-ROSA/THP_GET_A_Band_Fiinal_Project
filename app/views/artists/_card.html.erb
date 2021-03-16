@@ -4,7 +4,7 @@
     <div class="card-body text-center">
       <h4 class="card-title text-primary"><%= artist.artist_name %></h4>
       <h4 class="card-title text-primary">Catégorie à modifier</h4>
-      <p class="card-text text-secondary"><%= artist.hourly_price%>€</p>
+      <p class="card-text text-secondary"><%= artist.hourly_price*24%>€/day</p>
       <p class="card-text text-secondary"><%= artist.location.department %></p>
       <%= link_to "En savoir plus sur l'artiste", artist_path(artist.id), class: "btn btn-primary mb-3" %>      
     </div>
