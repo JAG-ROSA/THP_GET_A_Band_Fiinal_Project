@@ -1,5 +1,5 @@
-<div class="container mt-5 pt-5">
-  <h1>Bienvenue sur votre espace de gestion</h1>
+<div class="col-lg-10 mx-auto mt-5 pt-5">
+  <h1 class="text-center text-primary mb-3">Bienvenue sur votre espace de gestion</h1>
   <h3>Vos identifiants de connexion</h3>
   <table class="table table-hover">
     <tbody>
@@ -38,60 +38,93 @@
   </div>
   <h3>Vos réservations</h3>
   <h5>Réservations en attente</h5>
-  <table class="table table-hover">
-    <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Email Client</th>
-      <th scope="col">Date de l'événement</th>
-      <th scope="col">Description de l'événement</th>
-      <th scope="col">Montant</th>
-      <th scope="col">Statut</th>
-      <th scope="col">Confirmer</th>
-    </tr>
-  </thead>
-    <tbody>
-      <% @bookings.each do |booking| %>
-        <% if booking.status == "pending" %>
+  <% if @bookings.where(status: "pending").empty? %>
+    <p class="text-center text-secondary py-4">Vous n'avez pas de réservation en attente.</p>
+  <% else %>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Email Client</th>
+        <th scope="col">Date de l'événement</th>
+        <th scope="col">Description de l'événement</th>
+        <th scope="col">Montant</th>
+        <th scope="col">Statut</th>
+        <th scope="col" colspan="2" class="text-center">Confirmer</th>
+      </tr>
+    </thead>
+      <tbody>
+        <% @bookings.where(status: "pending").each do |booking| %>
           <tr>
             <th scope="row"><%= booking.id %></th>
             <td><%= booking.user.email %></td>
             <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.description %></td>
-            <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+            <td><%= number_to_currency(booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
             <td><%= booking.status %></td>
-            <td><%= link_to %></td>
+            <td class="text-center"><%= link_to "Accepter", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :patch, class: "btn btn-success btn-sm" %></td>
+            <td class="text-center"><%= link_to "Refuser", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, class: "btn btn-danger btn-sm" %></td>
           </tr>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% end %>
   <h5>Réservations confirmées à venir</h5>
-  <table class="table table-hover">
-    <tbody>
-      <% @bookings.each do |booking| %>
-        <% if booking.status == "confirmed" && booking.start_date >= DateTime.now %>
-          <tr>
-            <th scope="row"><%= booking.id %></th>
-            <td><%= booking.status %></td>
-            <td></td>
-          </tr>
-        <% end %>
-      <% end %>
-    </tbody>
-  </table>
-  <h5>Réservations passées</h5>
+  <% if @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").empty? %>
+    <p class="text-center text-secondary py-4">Vous n'avez pas de réservation à venir.</p>
+  <% else %>
     <table class="table table-hover">
-    <tbody>
-      <% @bookings.each do |booking| %>
-        <% if booking.status == "confirmed" && booking.start_date < DateTime.now %>
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Email Client</th>
+        <th scope="col">Date de l'événement</th>
+        <th scope="col">Description de l'événement</th>
+        <th scope="col">Montant</th>
+        <th scope="col">Statut</th>
+        <th scope="col">Annuler</th>
+      </tr>
+    </thead>
+      <tbody>
+        <% @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").each do |booking| %>
           <tr>
             <th scope="row"><%= booking.id %></th>
-            <td><%= booking.status %></td>
-            <td></td>
+              <td><%= booking.user.email %></td>
+              <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+              <td><%= booking.description %></td>
+              <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+              <td><%= booking.status %></td>
+              <td><%= link_to "Annuler", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, class: "btn btn-danger btn-sm" %></td>
           </tr>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  <% end %>
+  <h5>Réservations passées</h5>
+  <% if @bookings.where("start_date < ?", DateTime.now).empty? %>
+    <p class="text-center text-secondary py-4">Vous n'avez pas de réservations passées.</p>
+  <% else %>
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Email Client</th>
+        <th scope="col">Date de l'événement</th>
+        <th scope="col">Description de l'événement</th>
+        <th scope="col">Montant</th>
+      </tr>
+    </thead>
+      <tbody>
+        <% @bookings.where("start_date < ?", DateTime.now).each do |booking| %>
+          <tr>
+            <th scope="row"><%= booking.id %></th>
+              <td><%= booking.user.email %></td>
+              <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+              <td><%= booking.description %></td>
+              <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
 </div>
