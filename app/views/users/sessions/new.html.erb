@@ -1,27 +1,27 @@
 <%= render "users/shared/error_messages", resource: resource %>
 <div class="container vertical-center col-md-8 text-center mt-5 pt-5">
-<h1>I'll be married !</h1>
+<h1>Je vais me marier !</h1>
 </div>
 <div class="container vertical-center col-md-8" id="registration">
 
 	<div class="form-container sign-up-container">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "form") do |f| %>
 
-      <h1 class="mb-3">Create Account</h1>
+      <h1 class="mb-3">S'inscrire</h1>
       <div class="field">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email" %>
       </div>
 
       <div class="field">
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Password (6 characters min)" %>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Mot de passe (6 * min)" %>
       </div>
 
       <div class="field">
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: :password_confirmation %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirmer mot de passe" %>
       </div>
 
       <div class="actions">
-        <%= f.submit "Sign up", style: "border-radius: 20px;
+        <%= f.submit "S'inscrire", style: "border-radius: 20px;
                                       border: 1px solid #161d6f;
                                       background-color: #161d6f;
                                       color: #FFFFFF;
@@ -37,24 +37,24 @@
 
 	<div class="form-container sign-in-container">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-      <h1 class="mb-3">Log in</h1>
+      <h1 class="mb-3">Se connecter</h1>
       <div class="field">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: :email %>
       </div>
 
       <div class="field">
-        <%= f.password_field :password, autocomplete: "current-password", placeholder: :password %>
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "Mot de passe" %>
       </div>
 
       <% if devise_mapping.rememberable? %>
         <div class="field">
           <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
+          <%= f.label "Se souvenir de moi" %>
         </div>
       <% end %>
       <%= render "users/shared/links" %>
       <div class="actions">
-        <%= f.submit "Log in", style: "border-radius: 20px;
+        <%= f.submit "S'inscrire", style: "border-radius: 20px;
                                       border: 1px solid #161d6f;
                                       background-color: #161d6f;
                                       color: #FFFFFF;
@@ -72,14 +72,14 @@
 	<div class="overlay-container">
 		<div class="users_overlay">
 			<div class="overlay-panel overlay-left">
-				<h1>Welcome Back!</h1>
-				<p>To keep connected with us please login with your personal info</p>
-				<button class="ghost" id="signIn">Log In</button>
+				<h1>Vous êtes de retour !</h1>
+				<p>Pour rester connecter avec nous, merci de vous connecter</p>
+				<button class="ghost" id="signIn">Se connecter</button>
 			</div>
 			<div class="overlay-panel overlay-right">
-				<h1>Hello, Friend!</h1>
-				<p>Enter your personal details and start journey with us</p>
-				<button class="ghost" id="signUp">Sign Up</button>
+				<h1>Bienvenue !</h1>
+				<p>Entrer vos informations pour démarrer votre voyage avec nous</p>
+				<button class="ghost" id="signUp">S'inscrire</button>
 			</div>
 		</div>
 	</div>
