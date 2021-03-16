@@ -9,9 +9,10 @@ class Artists::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
+   def create
   #   super
-  # end
+  redirect_to artist_bookings_path(artist_id: current_artist.id)
+   end
 
   # DELETE /resource/sign_out
   # def destroy
