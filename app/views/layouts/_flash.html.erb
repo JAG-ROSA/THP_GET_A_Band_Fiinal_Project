@@ -1,0 +1,12 @@
+<% flash.each do |type, message| %>
+  <% if %w(danger success warning).include?(type) %>
+    <div class="alert alert-<%= type %>" role="alert">
+  <% else %>
+    <div class="alert alert-info" role="alert">
+  <% end %>
+    <%= message %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>

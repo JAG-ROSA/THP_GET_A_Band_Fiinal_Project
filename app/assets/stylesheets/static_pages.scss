@@ -1,0 +1,47 @@
+.jumbotron-container{
+  position: relative;
+  text-align: center;
+  color: white;
+  z-index:-1;
+}
+
+.ml16 {
+  position: relative;
+  padding: -50px 0;
+  font-weight: 800;
+  font-size: 2.9vw;
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  
+}
+
+.ml16 .letter {
+  position: relative;
+  display: inline-block;
+  line-height: 1em;
+
+}
+
+.centered {
+  position: absolute;
+  
+}
+
+.backg-img-main{
+  opacity: 0.8;
+}
+
+.jumbotron-container > .overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.30);
+  z-index: 2;
+}

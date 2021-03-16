@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  mount ForestLiana::Engine => '/forest'
+  devise_for :users, path: 'users', controllers: { sessions: 'users/sessions', registrations:'users/registrations' }
+  devise_for :artists, path: 'artists', controllers: { sessions: 'artists/sessions', registrations:'artists/registrations' }
+  resources :artists do
+    resources :bookings
+  end
+  resources :users
+
+  root 'static_pages#index'
+
 end

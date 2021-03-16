@@ -1,0 +1,62 @@
+<div class="container" id="edit_registration">
+
+  <div class="form py-5">
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <h2>Editer <%= resource_name.to_s.humanize %></h2>
+
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: :email %>
+      </div>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+      <% end %>
+
+      <div class="field">
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Nouveau mot de passe"%><br>
+        <i>(laisser vide si il n'y a pas de changements)</i>
+      </div>
+
+      <div class="field">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirmer mot de passe" %>
+      </div>
+
+      <div class="field">
+        <%= f.password_field :current_password, autocomplete: "current-password", placeholder: "Mot de passe actuel" %><br>
+        <i>(nécessaire pour valider les changements)</i>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Metre à jour", style: "border-radius: 20px;
+                                                        border: 1px solid #161d6f;
+                                                        background-color: #161d6f;
+                                                        color: #FFFFFF;
+                                                        font-size: 12px;
+                                                        font-weight: bold;
+                                                        padding: 12px 45px;
+                                                        letter-spacing: 1px;
+                                                        text-transform: uppercase;
+                                                        transition: transform 80ms ease-in;" %>
+      </div>
+    <% end %>
+
+    <h3 class="pt-3">Supprimer mon compte</h3>
+
+    <%= button_to "Supprimer mon compte", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "mb-4", style: "border-radius: 20px;
+                                    border: 1px solid red;
+                                    background-color: red;
+                                    color: #FFFFFF;
+                                    font-size: 12px;
+                                    font-weight: bold;
+                                    padding: 12px 45px;
+                                    letter-spacing: 1px;
+                                    text-transform: uppercase;
+                                    transition: transform 80ms ease-in;" %>
+
+    <%= link_to "Retour", :back, class: "back" %>
+
+  </div>
+</div>
