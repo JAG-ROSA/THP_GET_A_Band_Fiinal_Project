@@ -39,13 +39,28 @@
   <h3>Vos réservations</h3>
   <h5>Réservations en attente</h5>
   <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email Client</th>
+      <th scope="col">Date de l'événement</th>
+      <th scope="col">Description de l'événement</th>
+      <th scope="col">Montant</th>
+      <th scope="col">Statut</th>
+      <th scope="col">Confirmer</th>
+    </tr>
+  </thead>
     <tbody>
       <% @bookings.each do |booking| %>
         <% if booking.status == "pending" %>
           <tr>
             <th scope="row"><%= booking.id %></th>
+            <td><%= booking.user.email %></td>
+            <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+            <td><%= booking.description %></td>
+            <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
             <td><%= booking.status %></td>
-            <td></td>
+            <td><%= link_to %></td>
           </tr>
         <% end %>
       <% end %>
