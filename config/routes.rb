@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   mount ForestLiana::Engine => '/forest'
-  devise_for :users, path: 'users'
-  devise_for :artists, path: 'artists'
+  devise_for :users, path: 'users', controllers: { sessions: 'users/sessions', registrations:'users/registrations' }
+  devise_for :artists, path: 'artists', controllers: { sessions: 'artists/sessions', registrations:'artists/registrations' }
   resources :artists do
     resources :bookings
   end
