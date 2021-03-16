@@ -25,7 +25,7 @@
           </li>
         <% elsif artist_signed_in? %>
           <li class="nav-item">
-            <%= link_to "Gérer mon activité", artist_dashboard_index_path(artist_id: current_artist.id), class: "nav-link" %>
+            <%= link_to "Gérer mon activité", artist_bookings_path(artist_id: current_artist.id), class: "nav-link" %>
           </li>
           <li class="nav-item">
             <%= link_to "Se déconnecter", destroy_artist_session_path, method: :delete, class: "nav-link" %>
@@ -38,7 +38,7 @@
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <%= link_to "Artistes", artist_session_path, class: "dropdown-item text-center" %>
               <span>|</span>
-              <%= link_to "Mariés", user_session_path, class: "dropdown-item text-center" %>
+              <%= link_to "Futurs mariés", user_session_path, class: "dropdown-item text-center" %>
             </div>
           </li>
         <% end %>
