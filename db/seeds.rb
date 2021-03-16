@@ -79,6 +79,7 @@ end
     description: Faker::Lorem.sentence(word_count: 8),
     user: User.all.sample,
     availability: Availability.all.sample,
+    status: ["payment_pending", "paid", "payment_rejected"].sample,
   )
   puts "Create booking"
 end
