@@ -14,7 +14,7 @@
   </div>
   <h3>Votre profil</h3>
   <% if current_artist.artist_name.nil? || current_artist.description.nil? || current_artist.hourly_price.nil? || current_artist.location.nil? %>
-    <p>Votre profil est incomplet. Complétez-le pour pouvoir commencer à utiliser Get a Band.</p>
+    <p class="alert alert-danger">Votre profil est incomplet. Complétez-le pour pouvoir commencer à utiliser Get a Band.</p>
   <% end %>
   <table class="table table-hover">
     <tbody>
