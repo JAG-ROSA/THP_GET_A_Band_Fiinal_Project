@@ -75,7 +75,7 @@ end
 5.times do 
   booking = Booking.create!(
     start_date: Faker::Time.between(from: DateTime.now, to: DateTime.now+100, format: :default),
-    duration: [1..6].sample,
+    duration: 24,
     description: Faker::Lorem.sentence(word_count: 8),
     user: User.all.sample,
     availability: Availability.all.sample,
