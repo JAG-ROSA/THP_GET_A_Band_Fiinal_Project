@@ -8,4 +8,8 @@ class Booking < ApplicationRecord
   def calculate_end_date
     end_date = start_date + duration.hours
   end
+
+  def total_price
+    return self.duration * self.artist.hourly_price
+  end
 end
