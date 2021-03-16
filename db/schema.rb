@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
   create_table "artists", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "artist_name", null: false
+    t.string "artist_name", default: "", null: false
     t.text "description"
     t.integer "hourly_price"
 
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
     t.datetime "start_date"
     t.integer "duration"
     t.text "description"
+    t.string "status", default: "payment_pending"
     t.bigint "user_id"
     t.bigint "availability_id"
     t.datetime "created_at", null: false
