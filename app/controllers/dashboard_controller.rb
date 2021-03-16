@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
   def index
-    @bookings = Booking.all.where(artist:current_artist.id)
+    @bookings = current_artist.bookings
   end
 end
