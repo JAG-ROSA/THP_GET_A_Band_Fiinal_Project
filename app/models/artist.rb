@@ -4,6 +4,6 @@ class Artist < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  belongs_to :location
+  belongs_to :location, optional: true
   has_many :availabilities
 end
