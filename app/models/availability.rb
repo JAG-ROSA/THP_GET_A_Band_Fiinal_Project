@@ -11,4 +11,22 @@ class Availability < ApplicationRecord
     errors.add(:start_date, "must be before end date") unless
       start_date < end_date
   end
+
+  def has_availability(start_requested_date, end_requested_date)
+    # List all the artists who filled out an availibility on the requested period.
+    Availability.where("start_date < (?) AND end_date > (?)", start_requested_date, end_requested_date).pluck(:artist_id)
+  end
+
+  def has_booking
+    # List all the artists who have a booking on the requested period.
+    Booking.where("start_date < (?) AND end_date > (?)", start_requested_date, end_requested_date).pluck(:artist_id)
+  end
+
+  def available_artists(start_requested_date, end_requested_date)
+    artists_with_availabilities = has_availability(start_requested_date, end_requested_date)
+    artists_with_bookings = has_bookings(start_requested_date, end_requested_date)
+
+    available_artists = artists_with_availabilities - artists_with_bookings
+    return available_artists
+  end
 end
