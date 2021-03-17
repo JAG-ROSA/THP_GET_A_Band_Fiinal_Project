@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_15_144035) do
+ActiveRecord::Schema.define(version: 2021_03_16_174538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,9 +18,10 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
   create_table "artists", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "artist_name", null: false
+    t.string "artist_name", default: "", null: false
     t.text "description"
     t.integer "hourly_price"
+    t.string "status", default: "pending"
     t.bigint "location_id"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -33,11 +34,12 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
   end
 
   create_table "availabilities", force: :cascade do |t|
-    t.datetime "date"
+    t.datetime "start_date"
     t.boolean "status"
     t.bigint "artist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "end_date"
     t.index ["artist_id"], name: "index_availabilities_on_artist_id"
   end
 
@@ -45,10 +47,12 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
     t.datetime "start_date"
     t.integer "duration"
     t.text "description"
+    t.string "status", default: "payment_pending"
     t.bigint "user_id"
     t.bigint "availability_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "end_date"
     t.index ["availability_id"], name: "index_bookings_on_availability_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
