@@ -18,7 +18,9 @@ class Booking < ApplicationRecord
   end
 
   def customer_confirmation
-    BookingMailer.customer_confirmation(self).deliver_now
+    if self.status == "approved"
+      BookingMailer.customer_confirmation(self).deliver_now
+    end
   end
 
   def customer_cancellation
