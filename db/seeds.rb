@@ -6,11 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 # require 'Faker'
-Artist.destroy_all
-Availability.destroy_all
 Booking.destroy_all
-Location.destroy_all
+Availability.destroy_all
+Artist.destroy_all
 User.destroy_all
+Location.destroy_all
 
 # Admin
 1.times do
@@ -43,7 +43,7 @@ end
   puts "Create location"
 end
 
-#Artits
+#Artists
 10.times do
   artist = Artist.create!(
     artist_name: Faker::Kpop.iii_groups,
@@ -52,7 +52,7 @@ end
     email: Faker::Name.first_name + "@yopmail.com",
     password: "azerty",
     location: Location.all.sample,
-    status: ["pending", "approved", "suspended"].sample,
+    status: "approved",
 
   )
   puts "Create Artist"
@@ -80,7 +80,7 @@ Availability.all.each do |available_slot|
     description: Faker::Lorem.sentence(word_count: 8),
     user: User.find(index),
     availability: available_slot,
-    status: ["payment_pending", "pending", "approved"].sample,
+    status: ["pending", "approved"].sample,
   )
   puts "Create booking"
   index += 1

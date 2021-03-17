@@ -1,25 +1,133 @@
-<div class="container mt-5 pt-5">
+<div class="col-lg-10 mt-5 pt-5 mx-auto">
   <div class="card">
     <div class="card-body">
-      <% if @user.first_name && @user.last_name %>
-        <h1 class="card-title">Bienvenue <%= @user.first_name %> !</h1>
-        <p>Prénom : <%= @user.first_name %></p>
-        <p>Nom : <%= @user.last_name %></p>
-        <p>Adresse email : <%= @user.email %></p>
-        <hr>
-        <%= link_to "Modifier mes informations", edit_user_path(@user.id), class: "btn btn-primary"%>
+      <% if @user.first_name && @user.first_name != "" && @user.last_name && @user.last_name != "" %>
+        <h1 class="card-title text-center text-primary mb-3">Bienvenue, <%= @user.first_name %> <%= @user.last_name %> !</h1>
       <% else %>
-        <h1 class="card-title">Bienvenue dans votre espace personnel !</h1>
-        <div class="">
-          <p class="lead"><span class="font-weight-bold" style="font-variant: small-caps; color: #161d6f">Attention :</span> il semblerait que votre profil soit incomplet. Veillez à mettre vos informations à jour avant de procéder à une réservation afin que nos artistes puissent échanger avec vous au mieux !</p>
-        </div>
-        <p>Prénom : to be defined</p>
-        <p>Nom : to be defined </p>
-        <p>Adresse email : <%= @user.email %></p>
-        <hr>
-        <%= link_to "Compléter mes informations", edit_user_path(@user.id), class: "btn btn-primary"%>
+        <h1 class="card-title text-center text-primary mb-3">Bienvenue dans votre espace personnel !</h1>
+        <p class="alert alert-danger">Votre profil est incomplet. Complétez-le pour pouvoir utiliser Get a Band.</p>
       <% end %>
+      <table class="table table-hover">
+        <tbody>
+          <tr>
+            <th scope="row">Prénom</th>
+            <td>
+              <% if @user.first_name.nil? || @user.first_name == "" %>
+                Indéfini
+              <% else %>
+                <%= @user.first_name %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Nom</th>
+            <td>
+              <% if @user.last_name.nil? || @user.last_name == "" %>
+                Indéfini
+              <% else %>
+                <%= @user.last_name %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Email</th>
+            <td>
+              <%= @user.email %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <div class="text-center mb-5">
+        <%= link_to "Compléter mes informations ou modifier mes identifiants", edit_user_path(@user.id), class: "btn btn-primary w-50" %>
+      </div>
 
+      <h3>Vos réservations</h3>
+      <h5>Réservations en attente</h5>
+      <% if @bookings.where(status: "pending").empty? %>
+        <p class="text-center text-secondary py-4">Vous n'avez pas de réservation en attente.</p>
+      <% else %>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Artiste</th>
+            <th scope="col">Date de l'événement</th>
+            <th scope="col">Description de l'événement</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Statut</th>
+          </tr>
+        </thead>
+          <tbody>
+            <% @bookings.where(status: "pending").each do |booking| %>
+              <tr>
+                <th scope="row"><%= booking.id %></th>
+                <td><%= booking.artist.artist_name %></td>
+                <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+                <td><%= booking.description %></td>
+                <td><%= number_to_currency(booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+                <td><%= booking.status %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      <h5>Réservations confirmées à venir</h5>
+      <% if @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").empty? %>
+        <p class="text-center text-secondary py-4">Vous n'avez pas de réservation à venir.</p>
+      <% else %>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Artiste</th>
+            <th scope="col">Date de l'événement</th>
+            <th scope="col">Description de l'événement</th>
+            <th scope="col">Montant</th>
+            <th scope="col">Statut</th>
+          </tr>
+        </thead>
+          <tbody>
+            <% @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").each do |booking| %>
+              <tr>
+                <th scope="row"><%= booking.id %></th>
+                  <td><%= booking.artist.artist_name %></td>
+                  <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+                  <td><%= booking.description %></td>
+                  <td><%= number_to_currency(booking.duration * booking.artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+                  <td><%= booking.status %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+      <h5>Réservations passées</h5>
+      <% if @bookings.where("start_date < ?", DateTime.now).empty? %>
+        <p class="text-center text-secondary py-4">Vous n'avez pas de réservations passées.</p>
+      <% else %>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Artiste</th>
+            <th scope="col">Date de l'événement</th>
+            <th scope="col">Description de l'événement</th>
+            <th scope="col">Montant</th>
+          </tr>
+        </thead>
+          <tbody>
+            <% @bookings.where("start_date < ?", DateTime.now).each do |booking| %>
+              <tr>
+                <th scope="row"><%= booking.id %></th>
+                  <td><%= booking.artist.artist_name %></td>
+                  <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+                  <td><%= booking.description %></td>
+                  <td><%= number_to_currency(booking.duration * booking.artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
     </div>
   </div>
 </div>
