@@ -2,11 +2,10 @@
 <div class="d-flex flex-wrap justify-content-center pt-5 mt-5">
   <div>
     <%= form_tag artists_path, method: "get" do %>
-      <%= label_tag "Date de début de l'évènement" %>
-      <%= datetime_field_tag 'start_date', @start_at, class: "form-control" %>
+      <%= label_tag "Jour de l'évènement" %>
+      <%= date_field_tag 'start_date', @start_at, class: "form-control" %>
 
-      <%= label_tag "Date de fin de l'évènement" %>
-      <%= datetime_field_tag 'end_date', @end_at, class: "form-control" %>
+
 
       <%= submit_tag "Rechercher les artistes disponibles", class: "form-control btn btn-info" %>
     <% end %>
