@@ -72,6 +72,6 @@ gem "binding_of_caller"
 gem 'forest_liana'
 # gem "aws-sdk-s3", require: false
 # gem 'mini_magick'
-# gem 'mailjet'
+gem 'mailjet'
 # gem 'administrate'
 # gem 'administrate-field-active_storage', "0.1.8"
