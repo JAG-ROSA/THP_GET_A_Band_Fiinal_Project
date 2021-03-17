@@ -4,6 +4,8 @@ class BookingsController < ApplicationController
   end
 
   def new
+    start_date = params.fetch(:start_date, Date.today).to_date
+    @bookings = current_artist.bookings
   end
 
   def create

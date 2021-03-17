@@ -12,4 +12,8 @@ class Booking < ApplicationRecord
   def total_price
     return self.duration * self.artist.hourly_price
   end
+
+  def start_time
+    self.start_date ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+end
 end
