@@ -7,5 +7,6 @@
       <p class="card-text text-secondary"><%= artist.hourly_price*24%>€/day</p>
       <p class="card-text text-secondary"><%= artist.location.department %></p>
       <%= link_to "En savoir plus sur l'artiste", artist_path(artist.id), class: "btn btn-primary mb-3" %>      
+      <%= link_to "Booking Recap", new_artist_booking_path(artist.id), class: "btn btn-primary mb-3" %>      
     </div>
   </div>
