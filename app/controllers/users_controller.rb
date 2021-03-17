@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = helpers.current_user
+    @bookings = current_user.bookings
   end
 
   def create
