@@ -1,8 +1,17 @@
 
 <div class="d-flex flex-wrap justify-content-center pt-5 mt-5">
-  <% # Create a card for each item %>
-  <div class="container " id="anchor">
-    
+  <div>
+    <%= form_tag artists_path, method: "get" do %>
+      <%= label_tag "Date de début de l'évènement" %>
+      <%= datetime_field_tag 'start_date', @availability.start_date, class: "form-control" %>
+
+      <%= label_tag "Date de fin de l'évènement" %>
+      <%= datetime_field_tag 'end_date', @availability.start_date, class: "form-control" %>
+    <% end %>
+  </div>
+
+  <div class="container" id="anchor">
+
     <div class="row justify-content-center">
       <% @artists.each_with_index do |artist, index| %>
           <%= render "card", artist: artist %>
