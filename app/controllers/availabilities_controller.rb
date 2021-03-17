@@ -14,7 +14,13 @@ class AvailabilitiesController < ApplicationController
 
   def create
     @availability = Availability.new(start_date: params[:start_date], artist_id: current_artist.id, end_date: params[:end_date])
-     @availability.save
-      redirect_back(fallback_location: root_path)
+    @availability.save
+    redirect_back(fallback_location: root_path)
+  end
+
+  def destroy
+    @availability = Availability.find(params[:id])
+    @availability.destroy
+    redirect_back(fallback_location: root_path)
   end
 end

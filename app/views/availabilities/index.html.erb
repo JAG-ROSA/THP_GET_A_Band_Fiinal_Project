@@ -17,18 +17,18 @@
         <% non_available << date %>
       <% else %>
         <% available << date %>
-      <%end %>
+      <% end %>
     <% end%>
     <% if available.empty? %>
       <%= content_tag :div, class: "calendar-day text-danger", data: {date: date} do %>
         <%= non_available[0].strftime('%d/%m/%y') %>
         <p>Indisponible</p>
-      <%end%>
-    <%else%>
+      <% end %>
+    <% else %>
       <%= content_tag :div, class: "calendar-day text-success", data: {date: date} do %>
         <%= non_available[0].strftime('%d/%m/%y') %>
-      <%end%>
-    <%end%>
+      <% end %>
+    <% end %>
     <% bookings.each do |booking| %>  
         <div>
           <%= booking.start_date.strftime('%H:%M') %>
@@ -37,6 +37,13 @@
         </div>  
       <% end %>
   <% end %>
+
+<h2 class="text-center">Mes disponibilités</h2>
+<% @availabilities.each do |availability| %>
+  <p>Date de début: <%= availability.start_date.strftime('%d/%m/%y')%></p>
+  <p>Date de fin: <%= availability.end_date.strftime('%d/%m/%y')%></p>
+  <%= link_to "Supprimer", artist_availability_path(id: availability.id), method: :delete, class: "btn btn-danger mb-5" %>
+<% end %>
 
 <h2 class="text-center">Mes événements</h2>
 <% if @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").empty? %>
