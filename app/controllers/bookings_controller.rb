@@ -5,17 +5,17 @@ class BookingsController < ApplicationController
 
   def new
     @artist = Artist.find_by(id:params[:artist_id])
-    @booking
+    
   end
 
   def create
-    @booking = Booking.new(start_date: params[:start_date], duration: 24, user_id: current_user.id)
+    @booking = Booking.new(start_date: params[:start_date], duration: 24, description: params[:description], user_id: current_user.id, artist_id: params[:artist_id])
 
     if @booking.save!
       # redirect_to checkout_create_path
-      redirect_to root_path
+      redirect_to root_path, success: "Booking well created!"
     else
-      redirect_back fallback_location: root_path
+      redirect_back fallback_location: root_path, danger: "Something went wrong, please retry!"
     end
   end
 
