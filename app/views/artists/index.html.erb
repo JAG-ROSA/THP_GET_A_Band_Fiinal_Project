@@ -7,6 +7,8 @@
 
       <%= label_tag "Date de fin de l'évènement" %>
       <%= datetime_field_tag 'end_date', @availability.start_date, class: "form-control" %>
+
+      <%= submit_tag "Rechercher les artistes disponibles", class: "form-control btn btn-info" %>
     <% end %>
   </div>
 
