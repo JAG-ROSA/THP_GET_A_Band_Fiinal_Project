@@ -1,15 +1,24 @@
-<div class = "container">
-  <h3> Récapitulatif de la réservation </h3>
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card text-white border-primary text-center">
-        <div class="card-header bg-primary">New Orleans</div>
-        <img class="card-img-top" src="../pictures/jazz session.jpg" alt="Card image jazz">
+<div class="container pt-5 mt-5">
+  <div class="card mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img src="https://i-dja.unimedias.fr/sites/art-de-vivre/files/styles/large/public/dj115_chaton_jardin_annala.jpg?auto=compress%2Cformat&crop=faces%2Cedges&cs=srgb&fit=crop&h=599&w=900" , alt= "Image", class= "card-img-top" >
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-white border-primary text-center">
-        <div class="card-header bg-primary">New Orleans</div>        
+      <div class="col-md-8">
+        <div class="card-body">
+          <button class= "btn btn-secondary float-right" onclick="goBack()">Return to list</button>
+          <h3 class="card-title"><%= @artist.artist_name %></h3>
+          <div class="pb-3">
+            
+          </div>
+          <h5 class="card-text">Price: </h5>
+          <p class="card-text"><%= @artist.description %></p>
+          <div class="card-text">
+            <%= form_tag url_for(artist_bookings_path(@artist.id)), method: "post", class: "form-inline" do %>              
+              <%= submit_tag "Confirmez la demande de réservation", class: "btn btn-danger mx-3" %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
