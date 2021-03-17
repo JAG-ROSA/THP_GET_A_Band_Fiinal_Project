@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 # require 'Faker'
+Booking.destroy_all
 Artist.destroy_all
 Availability.destroy_all
-Booking.destroy_all
 Location.destroy_all
 User.destroy_all
 
@@ -73,13 +73,13 @@ end
 
 #Booking
 index = User.first.id
-Availability.all.each do |available_slot|
+Artist.all.each do |artist|
   Booking.create!(
-    start_date: Faker::Time.between(from: available_slot.start_date, to: available_slot.end_date-1.day, format: :default),
+    start_date: Faker::Time.between(from: artist.availabilities.first.start_date, to: artist.availabilities.first.end_date-1.day, format: :default),
     duration: 24,
     description: Faker::Lorem.sentence(word_count: 8),
     user: User.find(index),
-    availability: available_slot,
+    artist: artist,
     status: ["payment_pending", "pending", "approved"].sample,
   )
   puts "Create booking"
