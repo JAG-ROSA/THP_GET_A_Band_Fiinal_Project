@@ -368,22 +368,6 @@
         "message": null,
         "type": "is present"
       }]
-    }, {
-      "field": "booking",
-      "type": "Number",
-      "default_value": null,
-      "enums": null,
-      "integration": null,
-      "is_filterable": true,
-      "is_read_only": false,
-      "is_required": false,
-      "is_sortable": true,
-      "is_virtual": false,
-      "reference": "Booking.id",
-      "inverse_of": null,
-      "relationship": "HasOne",
-      "widget": null,
-      "validations": []
     }],
     "segments": [],
     "actions": []
@@ -488,24 +472,6 @@
       "widget": null,
       "validations": []
     }, {
-<<<<<<< HEAD
-      "field": "availability_id",
-      "type": "Number",
-      "default_value": null,
-      "enums": null,
-      "integration": null,
-      "is_filterable": true,
-      "is_read_only": false,
-      "is_required": false,
-      "is_sortable": true,
-      "is_virtual": false,
-      "reference": null,
-      "inverse_of": null,
-      "widget": null,
-      "validations": []
-    }, {
-=======
->>>>>>> b902658a96276a2675529a487f18556f9eb679b8
       "field": "created_at",
       "type": "Date",
       "default_value": null,
