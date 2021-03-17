@@ -1,12 +1,20 @@
 class BookingsController < ApplicationController
   def index
-    @bookings = current_artist.bookings
+    @booking = current_artist.bookings
   end
 
   def new
+    @artist = Artist.find_by(id:params[:artist_id])
   end
 
   def create
+    @booking = Booking.new(start_date: params[:start_date],duration: params[:duration], end_date: params[:end_date],
+      availability_id: params[:availability_id])
+
+    if @booking.save
+      redirect_to 
+    else
+    end
   end
 
   def update
