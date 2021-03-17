@@ -9,13 +9,19 @@
           <button class= "btn btn-secondary float-right" onclick="goBack()">Return to list</button>
           <h3 class="card-title"><%= @artist.artist_name %></h3>
           <div class="pb-3">
-            
+            <>
           </div>
           <h5 class="card-text">Price: </h5>
           <p class="card-text"><%= @artist.description %></p>
           <div class="card-text">
-            <%= form_tag url_for(artist_bookings_path(@artist.id)), method: "post", class: "form-inline" do %>              
-              <%= submit_tag "Confirmez la demande de réservation", class: "btn btn-danger mx-3" %>
+            <%= form_tag url_for(artist_bookings_path(@artist.id)), method: "post", class: "form-inline" do %>
+              <%# Form to choose a date %>
+              <div class="field">
+                <%= label_tag 'start_date' %><br />
+                <%= datetime_field_tag 'start_date', nil, autofocus: true, autocomplete: "YYYY-MM-DD HH:MM:SS", placeholder:"YYYY-MM-DD HH:MM:SS"%>
+                </div>
+              <%# Submit button to create bookingtp %>
+              <%= submit_tag "Confirmez la réservation",class: "btn btn-danger mx-3" %>
             <% end %>
           </div>
         </div>
