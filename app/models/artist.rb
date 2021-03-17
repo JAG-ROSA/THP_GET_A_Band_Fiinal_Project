@@ -8,5 +8,5 @@ class Artist < ApplicationRecord
   belongs_to :location, optional: true
 
   has_many :availabilities
-  has_many :bookings, through: :availabilities
+  has_many :bookings
 end
