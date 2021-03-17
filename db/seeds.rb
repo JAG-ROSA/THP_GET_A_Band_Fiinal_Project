@@ -43,7 +43,7 @@ end
   puts "Create location"
 end
 
-#Artits
+#Artists
 10.times do
   artist = Artist.create!(
     artist_name: Faker::Kpop.iii_groups,
@@ -52,7 +52,7 @@ end
     email: Faker::Name.first_name + "@yopmail.com",
     password: "azerty",
     location: Location.all.sample,
-    status: ["pending", "approved", "suspended"].sample,
+    status: "approved",
 
   )
   puts "Create Artist"
