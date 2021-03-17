@@ -395,7 +395,7 @@
       "is_sortable": true,
       "is_virtual": false,
       "reference": "Booking.id",
-      "inverse_of": "availability",
+      "inverse_of": null,
       "relationship": "HasOne",
       "widget": null,
       "validations": []
@@ -503,7 +503,7 @@
       "widget": null,
       "validations": []
     }, {
-      "field": "availability",
+      "field": "availability_id",
       "type": "Number",
       "default_value": null,
       "enums": null,
@@ -513,9 +513,8 @@
       "is_required": false,
       "is_sortable": true,
       "is_virtual": false,
-      "reference": "Availability.id",
-      "inverse_of": "booking",
-      "relationship": "BelongsTo",
+      "reference": null,
+      "inverse_of": null,
       "widget": null,
       "validations": []
     }, {
@@ -564,21 +563,6 @@
       "widget": null,
       "validations": []
     }, {
-      "field": "stripe_customer_id",
-      "type": "String",
-      "default_value": null,
-      "enums": null,
-      "integration": null,
-      "is_filterable": true,
-      "is_read_only": false,
-      "is_required": false,
-      "is_sortable": true,
-      "is_virtual": false,
-      "reference": null,
-      "inverse_of": null,
-      "widget": null,
-      "validations": []
-    }, {
       "field": "artist",
       "type": "Number",
       "default_value": null,
@@ -591,7 +575,7 @@
       "is_virtual": false,
       "reference": "Artist.id",
       "inverse_of": "bookings",
-      "relationship": "HasOne",
+      "relationship": "BelongsTo",
       "widget": null,
       "validations": []
     }],
