@@ -5,10 +5,9 @@ class ArtistsController < ApplicationController
       @end_at = params[:end_date]
     else #par défaut
       #@artists = Artist.where(status: "approved")
-      @start_at = DateTime.now.strftime("%d-%m-%YT%H:%M")
-      @end_at = (DateTime.now + 6.month).strftime("%d-%m-%YT%H:%M")
+      @start_at = DateTime.now.strftime("%Y-%m-%dT%H:%M")
+      @end_at = (DateTime.now + 1.day).strftime("%Y-%m-%dT%H:%M")
     end
-
     @artists = Availability.available_artists(@start_at, @end_at)
   end
 
