@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_15_144035) do
+ActiveRecord::Schema.define(version: 2021_03_17_150328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,11 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
   end
 
   create_table "availabilities", force: :cascade do |t|
-    t.datetime "date"
-    t.boolean "status"
+    t.datetime "start_date"
     t.bigint "artist_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "end_date"
     t.index ["artist_id"], name: "index_availabilities_on_artist_id"
   end
 
@@ -48,10 +48,11 @@ ActiveRecord::Schema.define(version: 2021_03_15_144035) do
     t.text "description"
     t.string "status", default: "payment_pending"
     t.bigint "user_id"
-    t.bigint "availability_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["availability_id"], name: "index_bookings_on_availability_id"
+    t.datetime "end_date"
+    t.bigint "artist_id"
+    t.index ["artist_id"], name: "index_bookings_on_artist_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
