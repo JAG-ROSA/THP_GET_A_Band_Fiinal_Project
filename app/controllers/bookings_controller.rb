@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
   end
 
   def create
-    @booking = Booking.new(start_date: params[:start_date], duration: 24, user_id: current_user.id, availability_id: )
+    @booking = Booking.new(start_date: params[:start_date], duration: 24, user_id: current_user.id)
 
     if @booking.save!
       # redirect_to checkout_create_path
