@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 # require 'Faker'
+Booking.destroy_all
 Artist.destroy_all
 Availability.destroy_all
-Booking.destroy_all
 Location.destroy_all
 User.destroy_all
 
@@ -25,7 +25,7 @@ User.destroy_all
 end
 
 # User
-5.times do
+10.times do
   user = User.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -36,15 +36,15 @@ end
 end
 
 #Location
-5.times do
+["Oise", "Val-d'oise", "Finistère", "Bouches-du-Rhône", "Paris"].each do |departement|
   location = Location.create!(
-    department: ["Oise", "Val-d'oise", "Finistère", "Bouches-du-Rhône", "Paris"].sample,
+    department: departement,
   )
   puts "Create location"
 end
 
 #Artits
-5.times do
+10.times do
   artist = Artist.create!(
     artist_name: Faker::Kpop.iii_groups,
     description: Faker::Lorem.sentence(word_count: 8),
@@ -59,26 +59,29 @@ end
 end
 
 #Availability
-5.times do
+index = Artist.first.id
+10.times do
   start_date = Faker::Time.between(from: DateTime.now, to: DateTime.now + 100)
   availability = Availability.create!(
     start_date: start_date,
     end_date: start_date + rand(1..20).days,
-    status: [true, false].sample,
-    artist: Artist.all.sample,
+    artist: Artist.find(index),
   )
   puts "Create Availability"
+  index += 1
 end
 
 #Booking
-5.times do
-  booking = Booking.create!(
-    start_date: Faker::Time.between(from: DateTime.now, to: DateTime.now + 100, format: :default),
+index = User.first.id
+Artist.all.each do |artist|
+  Booking.create!(
+    start_date: Faker::Time.between(from: artist.availabilities.first.start_date, to: artist.availabilities.first.end_date-1.day, format: :default),
     duration: 24,
     description: Faker::Lorem.sentence(word_count: 8),
-    user: User.all.sample,
-    availability: Availability.all.sample,
-    status: ["payment_pending", "paid", "payment_rejected"].sample,
+    user: User.find(index),
+    artist: artist,
+    status: ["payment_pending", "pending", "approved"].sample,
   )
   puts "Create booking"
+  index += 1
 end
