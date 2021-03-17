@@ -1,18 +1,13 @@
-
-<div class="d-flex flex-wrap justify-content-center pt-5 mt-5">
+<div class="container pt-5 mt-5" id="anchor">
   <div>
     <%= form_tag artists_path, method: "get" do %>
       <%= label_tag "Jour de l'évènement" %>
-      <%= date_field_tag 'start_date', @start_at, class: "form-control" %>
-
-
-
-      <%= submit_tag "Rechercher les artistes disponibles", class: "form-control btn btn-info" %>
+      <%= date_field_tag 'start_date', @start_at, class: "form-control", style: "display: inline" %>
+      <%= submit_tag "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1", style: "display: inline" %>
     <% end %>
   </div>
 
-  <div class="container" id="anchor">
-
+  <div class="d-flex flex-wrap justify-content-center">
     <div class="row justify-content-center">
       <% @artists.each_with_index do |artist, index| %>
           <%= render "card", artist: artist %>
