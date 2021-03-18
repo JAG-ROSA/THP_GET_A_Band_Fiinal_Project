@@ -26,7 +26,9 @@
         <td><%= number_to_currency(@booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
       </tr>
     </table>
-    <%= button_to "Valider et payer", checkout_index_path(booking_id: params[:id]), method: :post, class: "btn btn-primary btn-block", remote: true %>
-    <%= link_to "Annuler ma demande", artist_booking_path(artist_id: params[:artist_id], id: @booking.id), method: :delete, class: "btn btn-danger my-3 btn-block" %>
+    <% if @booking.status == "payment_pending" %>
+      <%= button_to "Valider et payer", checkout_index_path(booking_id: params[:id]), method: :post, class: "btn btn-primary btn-block", remote: true %>
+      <%= link_to "Annuler ma demande", artist_booking_path(artist_id: params[:artist_id], id: @booking.id), method: :delete, class: "btn btn-danger my-3 btn-block" %>
+    <% end %>
   </div>
 </div>

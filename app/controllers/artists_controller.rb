@@ -1,4 +1,5 @@
 class ArtistsController < ApplicationController
+  before_action :authenticate_artist!, except: [:index, :show]
   def index
     if params[:start_date].present?
       @start_at = params[:start_date]
