@@ -1,0 +1,34 @@
+<div class="container pt-5 mt-5">
+  <h2 class="text-center text-primary pb-4">Votre demande de réservation numéro <%= @booking.id %></h2>
+  <div class="col-md-10 mx-auto">
+    <p class="text-center">Vous trouverez ci-dessous le récapitulatif de votre demande.<br/>
+    Pour valider votre demande de réservation, un pré-paiement vous est demandé.<br/>
+    Une fois cet acompte validé, votre demande sera envoyée à l'artiste, qui validera votre réservation et reviendra vers vous dans les plus brefs délais.</p>
+    <table class="table table-hover">
+      <tr>
+        <td><strong>Artiste</strong></td>
+        <td><%= @booking.artist.artist_name %></td>
+      </tr>
+      <tr>
+        <td><strong>Date de début de l'événement</strong></td>
+        <td><%= @booking.start_date.strftime("%d/%m/%Y à %H:%M:%S") %></td>
+      </tr>
+      <tr>
+        <td><strong>Date de fin de l'événement</strong></td>
+        <td><%= @booking.calculate_end_date.strftime("%d/%m/%Y à %H:%M:%S") %></td>      
+      </tr>
+      <tr>
+        <td><strong>Détails supplémentaires</strong></td>
+        <td><%= @booking.description %></td>
+      </tr>
+      <tr>
+        <td><strong>Montant à régler</strong></td>
+        <td><%= number_to_currency(@booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+      </tr>
+    </table>
+    <% if @booking.status == "payment_pending" %>
+      <%= button_to "Valider et payer", checkout_index_path(booking_id: params[:id]), method: :post, class: "btn btn-primary btn-block", remote: true %>
+      <%= link_to "Annuler ma demande", artist_booking_path(artist_id: params[:artist_id], id: @booking.id), method: :delete, class: "btn btn-danger my-3 btn-block" %>
+    <% end %>
+  </div>
+</div>

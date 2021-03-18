@@ -5,40 +5,47 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto align-items-center">
           <li class="nav-item active">
             <%= link_to "Accueil", root_path, class: "nav-link" %>
           </li>
         </ul>
         <ul class="navbar-nav ml-auto align-items-center">
         <li class="nav-item">
-          <%= link_to artists_path, class: "nav-link text-white btn btn-primary m-1" do %>
+          <%= link_to artists_path, class: "nav-link text-white btn btn-primary m-1 px-3" do %>
             Trouver un artiste <i class="fas fa-guitar"></i>
           <% end %>
         </li>
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "Mon profil", current_user, class: "nav-link" %>
+            <%= link_to "Mon profil", current_user, class: "nav-link text-white btn btn-dark m-1 px-3" %>
           </li>
           <li class="nav-item">
             <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "nav-link" %>
           </li>
         <% elsif artist_signed_in? %>
-          <li class="nav-item">
-            <%= link_to "Gérer mon activité", "#", class: "nav-link" %>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle btn btn-dark m-1 px-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Gérer mon activité
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Profil & réservations", artist_bookings_path(artist_id: current_artist.id), class: "dropdown-item" %>
+              <span>|</span>
+              <%= link_to "Mon calendrier", artist_availabilities_path(artist_id: current_artist.id), class: "dropdown-item" %>
+            </div>
           </li>
           <li class="nav-item">
             <%= link_to "Se déconnecter", destroy_artist_session_path, method: :delete, class: "nav-link" %>
           </li>
         <% else %>
           <li class="nav-item dropdown">
-            <a class="nav-link text-white dropdown-toggle btn btn-dark m-1" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link text-white dropdown-toggle btn btn-dark m-1 px-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               S'inscrire / Se connecter
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <%= link_to "Artistes", artist_session_path, class: "dropdown-item text-center" %>
               <span>|</span>
-              <%= link_to "Mariés", user_session_path, class: "dropdown-item text-center" %>
+              <%= link_to "Futurs mariés", user_session_path, class: "dropdown-item text-center" %>
             </div>
           </li>
         <% end %>

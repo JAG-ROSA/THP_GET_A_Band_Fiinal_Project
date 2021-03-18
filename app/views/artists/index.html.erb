@@ -1,2 +1,23 @@
-<h1>Artists#index</h1>
-<p>Find me in app/views/artists/index.html.erb</p>
+<div class="container pt-5 mt-5" id="anchor">
+  <div>
+    <%= form_tag artists_path, method: "get" do %>
+      <%= label_tag "Jour de l'évènement" %>
+      <%= date_field_tag 'start_date', @start_at, class: "form-control", style: "display: inline" %>
+      <%= submit_tag "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1", style: "display: inline" %>
+    <% end %>
+  </div>
+
+  <div class="d-flex flex-wrap justify-content-center">
+    <div class="row justify-content-center">
+      <% if @artists.any? %>
+        <% @artists.each_with_index do |artist, index| %>
+            <%= render "card", artist: artist %>
+        <% end %>
+      <% else %>
+      <div class="text-center mt-3">
+        <h3>Malheureusement, aucun de nos artistes n'est disponible pour cette date.</h3>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

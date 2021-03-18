@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users, path: 'users'
-  devise_for :artists, path: 'artists'
-  resources :artists
+  mount ForestLiana::Engine => "/forest"
+  devise_for :users, path: "users", controllers: { sessions: "users/sessions", registrations: "users/registrations" }
+  devise_for :artists, path: "artists", controllers: { sessions: "artists/sessions", registrations: "artists/registrations" }
+  resources :artists do
+    resources :bookings
+    resources :availabilities
+  end
   resources :users
+  
 
   root 'static_pages#index'
 
+  # Routes Stripe Checkout
+  resources :checkout, only: [:create, :index]
 end

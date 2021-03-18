@@ -6,12 +6,10 @@ class DeviseCreateArtists < ActiveRecord::Migration[5.2]
       ## Database authenticatable
       t.string :email, null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
-      t.string :artist_name, null: false
+      t.string :artist_name, null: false, default: ""
       t.text :description
       t.integer :hourly_price
       t.string :status, default: "pending"
-
-      t.belongs_to :location, index: true
 
       t.belongs_to :location, index: true
 
