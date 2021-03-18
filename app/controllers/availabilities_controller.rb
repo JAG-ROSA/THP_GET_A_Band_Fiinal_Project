@@ -14,8 +14,13 @@ class AvailabilitiesController < ApplicationController
 
   def create
     @availability = Availability.new(start_date: "#{params[:start_date]} 00:00:00", artist_id: current_artist.id, end_date: "#{params[:end_date]} 23:59:59")
-    @availability.save
-    redirect_back(fallback_location: root_path)
+    if @availability.save
+      flash[:success] = "Dates de disponibilités ajoutées"
+      redirect_back(fallback_location: root_path)
+    else
+      flash[:danger] = "Des dates se chevauchent"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def destroy
@@ -24,7 +29,7 @@ class AvailabilitiesController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
-  def end_of_day
-    in_time_zone.end_of_day
-  end
+  
+  
+
 end
