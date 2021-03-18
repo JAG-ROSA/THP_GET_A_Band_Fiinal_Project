@@ -9,5 +9,8 @@ Rails.application.routes.draw do
   resources :users
   
 
-  root "static_pages#index"
+  root 'static_pages#index'
+
+  # Routes Stripe Checkout
+  resources :checkout, only: [:create, :index]
 end

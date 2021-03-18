@@ -1,5 +1,4 @@
-<h1>Bookings#new</h1>
-<p>Find me in app/views/bookings/new.html.erb</p>
-<div class="container">
-  <%= render "booking_recap", artist: @artist%>
+<div class="container pt-5 mt-5">
+  <h1 class="text-center py-4">Réservez cet artiste : <%= @artist.artist_name %></h1>
+  <%= render "booking_form", artist: @artist %>
 </div>
