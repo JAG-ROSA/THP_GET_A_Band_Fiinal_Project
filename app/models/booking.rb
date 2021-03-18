@@ -6,7 +6,7 @@ class Booking < ApplicationRecord
 
   after_update :booking_tracking
   # after_destroy :customer_cancellation
-  validate :check_if_artist_is_available
+  validate :check_if_artist_is_available, on: [:create]
 
   def booking_tracking
     if self.status == "approved"

@@ -1,6 +1,6 @@
-<%= form_tag url_for(checkout_index_path(artist_id: params[:artist_id])), method: "post", remote: true do %>
+<%= form_tag url_for(artist_bookings_path(artist_id: params[:artist_id])), method: "post" do %>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item"><strong>Début (Obligatoire): </strong><%= date_field_tag "start_date", @start_date %> </li>
+    <li class="list-group-item"><strong>Début (Obligatoire): </strong><%= date_field_tag "chosen_start_date", @start_date %> </li>
     <li class="list-group-item"><strong>Durée de la prestation  : </strong>24h</li>
     <li class="list-group-item"><strong>Prix  : </strong><%= artist.hourly_price * 24 %> €</li>
     <li class="list-group-item"><strong>Lieu  : </strong><%= artist.location.department %></li>
