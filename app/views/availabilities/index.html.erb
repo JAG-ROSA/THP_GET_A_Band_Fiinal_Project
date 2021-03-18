@@ -1,93 +1,104 @@
 <div class="container pt-5 mt-5">
-<h2 class="text-center">Mon calendrier</h2>
-<%= form_tag url_for(action: 'create'), method: "post" do %>
-  <%= label_tag "Date de début" %><br>
-  <%= date_field_tag :start_date, nil, class: "form-control w-25 " %>
-  <%= label_tag "Date de fin" %><br>
-  <%= date_field_tag :end_date, nil, class: "form-control w-25" %>
-
-  <%= submit_tag "Valider", class: "btn text-uppercase my-4 w-25 mx-auto font-weight-bold text-white", style: "background-color:#D1410C"  %>
-<% end %>
-
-  <%= month_calendar events: @bookings do |date, bookings| %> 
-    <% available = [] %>
-    <% non_available = [] %>
-    <% @availabilities.each do |availability| %>
-      <% if availability.start_date > date || availability.end_date < date%>
-        <% non_available << date %>
+  <h2 class="text-center">Mon calendrier</h2>
+    <%= month_calendar events: @bookings do |date, bookings| %> 
+      <% available = [] %>
+      <% non_available = [] %>
+      <% @availabilities.each do |availability| %>
+        <% if availability.start_date > date || availability.end_date < date%>
+          <% non_available << date %>
+        <% else %>
+          <% available << date %>
+        <% end %>
+      <% end%>
+      <% if available.empty? %>
+        <%= content_tag :div, class: "calendar-day text-danger", data: {date: date} do %>
+          <%= non_available[0].strftime('%d/%m/%y') %>
+          <p>Indisponible</p>
+        <% end %>
       <% else %>
-        <% available << date %>
+        <%= content_tag :div, class: "calendar-day text-success", data: {date: date} do %>
+          <%= non_available[0].strftime('%d/%m/%y') %>
+        <% end %>
       <% end %>
-    <% end%>
-    <% if available.empty? %>
-      <%= content_tag :div, class: "calendar-day text-danger", data: {date: date} do %>
-        <%= non_available[0].strftime('%d/%m/%y') %>
-        <p>Indisponible</p>
-      <% end %>
-    <% else %>
-      <%= content_tag :div, class: "calendar-day text-success", data: {date: date} do %>
-        <%= non_available[0].strftime('%d/%m/%y') %>
-      <% end %>
+      <% bookings.each do |booking| %>  
+          <div class="btn btn-warning">
+            <%= booking.start_date.strftime('%H:%M') %>
+            <%= booking.user.first_name %>
+            <%= booking.user.last_name %> 
+          </div>  
+        <% end %>
     <% end %>
-    <% bookings.each do |booking| %>  
-        <div>
-          <%= booking.start_date.strftime('%H:%M') %>
-          <%= booking.user.first_name %>
-          <%= booking.user.last_name %> 
-        </div>  
-      <% end %>
+
+  <h2 class="text-center">Mes disponibilités</h2>
+  <%= form_tag url_for(action: 'create'), method: "post" do %>
+    <table class="table text-center my-5">
+      <thead>
+        <tr>
+          <th scope="col">Date de début</th>
+          <th scope="col">Date de fin</th>
+          <th scope="col">Valider</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= date_field_tag :start_date, nil, class: "form-control w-75 mx-auto" %></td>
+          <td><%= date_field_tag :end_date, nil, class: "form-control w-75 mx-auto" %></td>
+          <td><%= submit_tag "Valider", class: "btn btn-secondary text-uppercase w-75 mx-auto font-weight-bold"  %></td>
+        </tr>
+      </tbody>
+    </table>
   <% end %>
 
-<h2 class="text-center">Mes disponibilités</h2>
-<% @availabilities.each do |availability| %>
-  <p>Date de début: <%= availability.start_date.strftime('%d/%m/%y')%></p>
-  <p>Date de fin: <%= availability.end_date.strftime('%d/%m/%y')%></p>
-  <%= link_to "Supprimer", artist_availability_path(id: availability.id), method: :delete, class: "btn btn-danger mb-5" %>
-<% end %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date de début</th>
+        <th scope="col">Date de fin</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @availabilities.each do |availability| %>
+        <tr>
+          <th scope="row"><%= availability.id %></th>
+            <td><%= availability.start_date.strftime('%d/%m/%y') %></td>
+            <td><%= availability.end_date.strftime('%d/%m/%y') %></td>
+            <td><%= link_to "Supprimer", artist_availability_path(id: availability.id), method: :delete, class: "btn btn-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<h2 class="text-center">Mes événements</h2>
-<% if @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").empty? %>
+  <h2 class="text-center">Mes événements</h2>
+  <% if @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").empty? %>
     <p class="text-center text-secondary py-4">Vous n'avez pas de réservation à venir.</p>
   <% else %>
     <table class="table table-hover">
       <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Email Client</th>
-        <th scope="col">Date de l'événement</th>
-        <th scope="col">Description de l'événement</th>
-        <th scope="col">Montant</th>
-        <th scope="col">Statut</th>
-        <th scope="col">Annuler</th>
-      </tr>
-    </thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Email Client</th>
+          <th scope="col">Date de l'événement</th>
+          <th scope="col">Description de l'événement</th>
+          <th scope="col">Montant</th>
+          <th scope="col">Statut</th>
+          <th scope="col">Annuler</th>
+        </tr>
+      </thead>
       <tbody>
         <% @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").each do |booking| %>
           <tr>
             <th scope="row"><%= booking.id %></th>
-              <td><%= booking.user.email %></td>
-              <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
-              <td><%= booking.description %></td>
-              <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
-              <td><%= booking.status %></td>
-              <td><%= link_to "Annuler", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, class: "btn btn-danger btn-sm" %></td>
+            <td><%= booking.user.email %></td>
+            <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+            <td><%= booking.description %></td>
+            <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+            <td><%= booking.status %></td>
+            <td><%= link_to "Annuler", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, class: "btn btn-danger btn-sm" %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   <% end %>
 </div>
-
-<script>
-
-document.addEventListener("DOMContentLoaded", function() {
-  let table = document.getElementsByClassName("day");
-  console.log(table);
-  for(let i = 0; i < table.length; i++){
-  table[i].style.cursor = "pointer";
-  table[i].onclick = function() {
-    console.log(`cell ${i} clicked`);
-  };
-  }
-}, false);
-</script>
