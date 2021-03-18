@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, except: [:destroy, :index, :update]
+  before_action :authenticate_artist!, only: [:index, :update]
 
   def index
     @bookings = current_artist.bookings
@@ -7,7 +8,11 @@ class BookingsController < ApplicationController
 
   def new
     @artist = Artist.find_by(id: params[:artist_id])
-    @start_date = params[:start_date]
+    if params[:start_date] != nil
+      @start_date = params[:start_date]
+    else
+      @start_date = DateTime.current.to_date
+    end
   end
 
   def create
@@ -39,6 +44,23 @@ class BookingsController < ApplicationController
   end
 
   def show
-    @booking = Booking.find(params[:id])
+    if is_involved
+      @booking = Booking.find(params[:id])
+    else
+      flash[:danger] = "Vous n'avez pas accès à cette réservation."
+      redirect_to root_path
+    end
   end
+
+  private
+
+  def is_involved
+    @booking = Booking.find(params[:id])
+    if current_user == @booking.user
+      return true
+    else
+      return false
+    end
+  end
+
 end

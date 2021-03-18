@@ -1,4 +1,5 @@
 class AvailabilitiesController < ApplicationController
+  before_action :authenticate_artist!
   def index
     start_date = params.fetch(:start_date, Date.today).to_date
     @bookings = current_artist.bookings
