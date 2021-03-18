@@ -1,0 +1,78 @@
+<div class="container pt-5 mt-5">
+  <h2 class="text-center">Mon calendrier</h2>
+    <%= month_calendar events: @bookings do |date, bookings| %> 
+      <% available = [] %>
+      <% non_available = [] %>
+      <% @availabilities.each do |availability| %>
+        <% if availability.start_date > date || availability.end_date < date%>
+          <% non_available << date %>
+        <% else %>
+          <% available << date %>
+        <% end %>
+      <% end%>
+      <% if available.empty? %>
+        <%= content_tag :div, class: "calendar-day text-danger", data: {date: date} do %>
+          <%= non_available[0].strftime('%d/%m/%y') %>
+          <p>Indisponible</p>
+        <% end %>
+      <% else %>
+        <%= content_tag :div, class: "calendar-day text-success", data: {date: date} do %>
+          <%= non_available[0].strftime('%d/%m/%y') %>
+        <% end %>
+      <% end %>
+      <% bookings.each do |booking| %>
+        <% if booking.status == "approved" %>
+          <div class="bg-success rounded text-center mt-2 text-light">
+        <% elsif booking.status == "pending" %>
+          <div class="bg-warning rounded text-center mt-2">
+        <% else %>
+          <div class="bg-danger rounded text-center mt-2 text-light">
+        <% end %>
+            <%= booking.start_date.strftime('%H:%M') %>
+            <%= booking.user.first_name %>
+            <%= booking.user.last_name %> 
+          </div> 
+      <% end %>
+    <% end %>
+
+  <h2 class="text-center mt-5">Mes disponibilités</h2>
+  <%= form_tag url_for(action: 'create'), method: "post" do %>
+    <table class="table text-center my-5">
+      <thead>
+        <tr>
+          <th scope="col">Date de début</th>
+          <th scope="col">Date de fin</th>
+          <th scope="col">Valider</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= date_field_tag :start_date, nil, class: "form-control w-75 mx-auto" %></td>
+          <td><%= date_field_tag :end_date, nil, class: "form-control w-75 mx-auto" %></td>
+          <td><%= submit_tag "Valider", class: "btn btn-secondary text-uppercase w-75 mx-auto font-weight-bold"  %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Date de début</th>
+        <th scope="col">Date de fin</th>
+        <th scope="col">Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @availabilities.each do |availability| %>
+        <tr>
+          <th scope="row"><%= availability.id %></th>
+            <td><%= availability.start_date.strftime('%d/%m/%y') %></td>
+            <td><%= availability.end_date.strftime('%d/%m/%y') %></td>
+            <td><%= link_to "Supprimer", artist_availability_path(id: availability.id), method: :delete, class: "btn btn-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
