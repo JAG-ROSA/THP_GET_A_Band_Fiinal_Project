@@ -1,18 +1,16 @@
 class ArtistsController < ApplicationController
-  
   def index
     if params[:start_date].present?
       @start_at = params[:start_date]
-      @end_at = @start_at.to_date
+      @end_at = @start_at.to_date + 1.day
+      @artists = Availability.available_artists(@start_at, @end_at)
     else
-      @start_at = Date.current
-      @end_at = @start_at.end_of_day
+      @artists = Artist.approved
     end
-    @artists = Availability.available_artists(@start_at, @end_at)
   end
 
   def show
-    @artist = Artist.find_by(id:params[:id])
+    @artist = Artist.find_by(id: params[:id])
   end
 
   def create

@@ -52,6 +52,6 @@ class Availability < ApplicationRecord
   # -1 is when you have a nil id, so you will get all persisted user absences
   # I think -1 could be omitted, but did not work for me, as far as I remember
   def siblings
-    Availability.where('id != ?', id || -1)
+    Availability.where('artist_id = ?', artist_id || -1)
   end
 end
