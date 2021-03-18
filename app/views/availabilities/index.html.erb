@@ -17,7 +17,7 @@
         <% end %>
       <% else %>
         <%= content_tag :div, class: "calendar-day text-success", data: {date: date} do %>
-          <%= non_available[0].strftime('%d/%m/%y') %>
+          <%= available[0].strftime('%d/%m/%y') %>
         <% end %>
       <% end %>
       <% bookings.each do |booking| %>
