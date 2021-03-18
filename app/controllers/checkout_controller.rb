@@ -23,7 +23,8 @@ class CheckoutController < ApplicationController
   def index
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+    payment_id = @payment_intent.id
     @booking = Booking.find(params[:booking_id])
-    @booking.update(status:"pending")
+    @booking.update(stripe_customer_id: payment_id, status:"pending")
   end
 end
