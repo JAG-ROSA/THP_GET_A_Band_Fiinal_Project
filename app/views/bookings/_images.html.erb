@@ -1,0 +1,18 @@
+<%= form_tag artist_stage_images_path(artist), multipart: true do %>
+  <%= label_tag "Photos" %>
+  <%= file_field_tag :stage_images, multiple: true,  class: "form-control" %>
+  <%= submit_tag "Ajouter des images", class: "form-control btn btn-primary" %>  
+<%end%>
+<br/>
+
+<div>
+  <%if artist.stage_images.attached?%>
+    <% artist.stage_images.each do |picture|%>
+      
+        <%= image_tag picture.variant(resize: "100x100"), alt: "image"%>
+       
+    <%end%>
+  <%else%>
+    <p>=== Il n'y a pas encore d'images ===</p>
+  <%end%>
+</div>

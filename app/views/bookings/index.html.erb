@@ -1,5 +1,5 @@
 <div class="col-lg-10 mx-auto mt-5 pt-5">
-  <h1 class="text-center text-primary mb-3">Bienvenue sur votre espace de gestion</h1>
+  <h1 class="text-center text-primary mb-3">Bienvenue <%= current_artist.artist_name%> sur votre espace de gestion</h1>
   <h3>Vos identifiants de connexion</h3>
   <table class="table table-hover">
     <tbody>
@@ -58,6 +58,9 @@
           <% end %>
         </td>
       </tr>    
+    </tbody>
+    <tbody>
+      <%= render "avatar", artist: current_artist%>
     </tbody>
   </table>
   <div class="text-center mb-5">
@@ -152,6 +155,9 @@
           </tr>
         <% end %>
       </tbody>
+      <tbody>
+      </tbody>
     </table>
   <% end %>
+        <%= render "images", artist: @artist%>
 </div>
