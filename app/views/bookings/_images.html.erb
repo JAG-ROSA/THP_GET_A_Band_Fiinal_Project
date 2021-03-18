@@ -7,10 +7,10 @@
 
 <div>
   <%if artist.stage_images.attached?%>
-    <% artist.stage_images.each do |picture|%>
-      
-        <%= image_tag picture.variant(resize: "100x100"), alt: "image"%>
-       
+    <% artist.stage_images.each do |picture|%>      
+      <%if picture.variable?%>
+          <%= image_tag picture.variant(resize: "400x400"), alt: "image"%>       
+      <%end%>
     <%end%>
   <%else%>
     <p>=== Il n'y a pas encore d'images ===</p>
