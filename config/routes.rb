@@ -6,9 +6,13 @@ Rails.application.routes.draw do
     resources :bookings
     resources :avatars, only: [:create]
     resources :stage_images, only: [:create]
+    resources :availabilities
   end
   resources :users
-  resources :availabilities
+  
 
-  root "static_pages#index"
+  root 'static_pages#index'
+
+  # Routes Stripe Checkout
+  resources :checkout, only: [:create, :index]
 end

@@ -71,6 +71,7 @@ gem "better_errors"
 gem "binding_of_caller"
 gem 'forest_liana'
 gem "aws-sdk-s3", require: false
+gem "simple_calendar", "~> 2.0"
 gem 'mailjet'
 # gem 'administrate'
 # gem 'administrate-field-active_storage', "0.1.8"
