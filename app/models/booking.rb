@@ -6,6 +6,7 @@ class Booking < ApplicationRecord
 
   after_update :booking_tracking
   # after_destroy :customer_cancellation
+  validate :check_if_artist_is_available
 
   def booking_tracking
     if self.status == "approved"
@@ -22,7 +23,7 @@ class Booking < ApplicationRecord
   end
 
   def calculate_end_date
-    end_date = start_date + duration.hours
+    self.end_date = start_date + duration.hours
   end
 
   def total_price
@@ -31,5 +32,11 @@ class Booking < ApplicationRecord
 
   def start_time
     self.start_date ##Where 'start' is a attribute of type 'Date' accessible through MyModel's relationship
+  end
+
+  def check_if_artist_is_available
+    if Availability.available_artists(self.start_date, self.end_date).exclude?(self.artist)
+      errors.add(:start_date, "Cet artiste n'est pas disponible pour la date sélectionnée.")
+    end
   end
 end

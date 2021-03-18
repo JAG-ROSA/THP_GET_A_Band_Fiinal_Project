@@ -1,11 +1,12 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
+
   def index
     @bookings = current_artist.bookings
   end
 
-  def new  
-    @artist = Artist.find_by(id:params[:artist_id])
+  def new
+    @artist = Artist.find_by(id: params[:artist_id])
     @start_date = params[:start_date]
   end
 
@@ -14,7 +15,7 @@ class BookingsController < ApplicationController
 
   def update
     @booking = Booking.find(params[:id])
-    @booking.update(status:"approved")
+    @booking.update(status: "approved")
     redirect_to artist_bookings_path(artist_id: current_artist.id)
   end
 
