@@ -1,0 +1,6 @@
+<%= form_tag artist_avatars_path(@artist.id), multipart: true do %>
+  <%= label_tag "Photo de profil" %>
+  <%= file_field_tag :avatar,  class: "form-control" %>
+  <%= submit_tag "Modifier ma photo de profil", class: "form-control btn btn-primary" %>  
+<%end%>
+<br/>
