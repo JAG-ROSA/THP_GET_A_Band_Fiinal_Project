@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_03_17_150328) do
     t.datetime "updated_at", null: false
     t.datetime "end_date"
     t.bigint "artist_id"
+    t.string "stripe_customer_id"
     t.index ["artist_id"], name: "index_bookings_on_artist_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end

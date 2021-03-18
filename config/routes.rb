@@ -4,9 +4,13 @@ Rails.application.routes.draw do
   devise_for :artists, path: "artists", controllers: { sessions: "artists/sessions", registrations: "artists/registrations" }
   resources :artists do
     resources :bookings
+    resources :availabilities
   end
   resources :users
-  resources :availabilities
+  
 
-  root "static_pages#index"
+  root 'static_pages#index'
+
+  # Routes Stripe Checkout
+  resources :checkout, only: [:create, :index]
 end
