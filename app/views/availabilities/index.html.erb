@@ -12,7 +12,11 @@
       <% end%>
       <% if available.empty? %>
         <%= content_tag :div, class: "calendar-day text-danger", data: {date: date} do %>
-          <%= non_available[0].strftime('%d/%m/%y') %>
+          <% if non_available.empty?%>
+            <%= date.strftime('%d/%m/%y') %>
+          <% else %>
+            <%= non_available[0].strftime('%d/%m/%y') %>
+          <% end %>
           <p>Indisponible</p>
         <% end %>
       <% else %>
