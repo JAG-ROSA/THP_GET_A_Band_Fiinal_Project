@@ -8,18 +8,6 @@ class Booking < ApplicationRecord
   # after_destroy :customer_cancellation
   validate :check_if_artist_is_available
 
-  after_create :customer_request, :artist_request
-  after_update :customer_confirmation
-  # after_destroy :customer_cancellation
-
-  def customer_request
-    BookingMailer.customer_request(self).deliver_now
-  end
-
-  def artist_request
-    BookingMailer.artist_request(self).deliver_now
-  end
-
   def booking_tracking
     if self.status == "approved"
       BookingMailer.customer_confirmation(self).deliver_now
