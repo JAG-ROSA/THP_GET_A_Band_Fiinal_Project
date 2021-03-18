@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <h1>Bonjour <%= @user.first_name %>,</h1>
+  <p><%= @booking.artist.artist_name %> a accepté votre demande de réservation ! La réservation est maintenant confirmée.</p>
+  <p>Voici les détails de la demande :</p>
+  <ul>
+    <li>E-mail client : <%= @booking.user.email %></li>
+    <li>Date de début de l'événement : <%= @booking.start_date.strftime("%d/%m/%Y à %H:%M:%S") %></li>
+    <li>Date de fin de l'événement : <%= @booking.calculate_end_date.strftime("%d/%m/%Y à %H:%M:%S") %></li>
+    <li>Montant de la réservation : <%= number_to_currency(@booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></li>
+    <li>Détails supplémentaires fournis par le client :
+      <blockquote>
+        <%= @booking.description %>
+      </blockquote>
+    </li>
+  </ul>
+  <p>Nous restons à votre disposition pour toutes questions et vous souhaitons une magnifique fête de mariage !</p>
+  <p>A bientôt sur Get a Band !</p>
+</body>
+</html>
