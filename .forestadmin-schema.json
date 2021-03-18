@@ -383,22 +383,6 @@
         "message": null,
         "type": "is present"
       }]
-    }, {
-      "field": "booking",
-      "type": "Number",
-      "default_value": null,
-      "enums": null,
-      "integration": null,
-      "is_filterable": true,
-      "is_read_only": false,
-      "is_required": false,
-      "is_sortable": true,
-      "is_virtual": false,
-      "reference": "Booking.id",
-      "inverse_of": "availability",
-      "relationship": "HasOne",
-      "widget": null,
-      "validations": []
     }],
     "segments": [],
     "actions": []
@@ -503,7 +487,7 @@
       "widget": null,
       "validations": []
     }, {
-      "field": "availability",
+      "field": "availability_id",
       "type": "Number",
       "default_value": null,
       "enums": null,
@@ -513,9 +497,8 @@
       "is_required": false,
       "is_sortable": true,
       "is_virtual": false,
-      "reference": "Availability.id",
-      "inverse_of": "booking",
-      "relationship": "BelongsTo",
+      "reference": null,
+      "inverse_of": null,
       "widget": null,
       "validations": []
     }, {
@@ -576,7 +559,7 @@
       "is_virtual": false,
       "reference": "Artist.id",
       "inverse_of": "bookings",
-      "relationship": "HasOne",
+      "relationship": "BelongsTo",
       "widget": null,
       "validations": []
     }],
