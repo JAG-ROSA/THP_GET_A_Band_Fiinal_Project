@@ -47,7 +47,7 @@ class Booking < ApplicationRecord
   end
 
   def check_if_artist_is_available
-    if self.artist.availabilities.available_artists(self.start_date, self.end_date).exclude?(self.artist)
+    if Availability.available_artists(self.start_date, self.end_date).exclude?(self.artist)
       errors.add(:start_date, "Cet artiste n'est pas disponible pour la date sélectionnée.")
     end
   end
