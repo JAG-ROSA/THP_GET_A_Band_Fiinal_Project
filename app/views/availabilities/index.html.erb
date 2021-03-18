@@ -29,8 +29,6 @@
           <div class="bg-success rounded text-center mt-2 text-light">
         <% elsif booking.status == "pending" %>
           <div class="bg-warning rounded text-center mt-2">
-        <% else %>
-          <div class="bg-danger rounded text-center mt-2 text-light">
         <% end %>
             <%= booking.start_date.strftime('%H:%M') %>
             <%= booking.user.first_name %>
