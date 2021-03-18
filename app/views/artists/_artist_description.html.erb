@@ -1,0 +1,16 @@
+<div class="card mb-3 border-0">
+  <div class="row no-gutters">
+    <div class="col-md-6">
+      <%= image_tag "homepage_2.jpg", class: "img-fluid", style: "height:600px; object-fit:cover", alt: "artist image" %>
+    </div>
+    <div class="col-md-6 ">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Nom de l'artiste : </strong> <%= @artist.artist_name %></li>
+        <li class="list-group-item"><strong>Description : </strong> <%= @artist.description %></li>
+        <li class="list-group-item"><strong>Tarif à la journée : </strong> <%= number_to_currency(24 * @artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></li>
+      </ul>
+    </div>
+  </div>
+</div>
+     
+    

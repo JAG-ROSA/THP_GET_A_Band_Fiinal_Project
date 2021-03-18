@@ -1,4 +1,5 @@
 class ArtistsController < ApplicationController
+  
   def index
     if params[:start_date].present?
       @start_at = params[:start_date]
@@ -11,6 +12,7 @@ class ArtistsController < ApplicationController
   end
 
   def show
+    @artist = Artist.find_by(id:params[:id])
   end
 
   def create

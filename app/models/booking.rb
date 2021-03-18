@@ -4,21 +4,16 @@ class Booking < ApplicationRecord
 
   before_validation :calculate_end_date
 
-  after_create :customer_request, :artist_request
-  after_update :customer_confirmation
+  after_update :booking_tracking
   # after_destroy :customer_cancellation
-  
-  def customer_request
-    BookingMailer.customer_request(self).deliver_now
-  end
 
-  def artist_request
-    BookingMailer.artist_request(self).deliver_now
-  end
-
-  def customer_confirmation
+  def booking_tracking
     if self.status == "approved"
       BookingMailer.customer_confirmation(self).deliver_now
+    end
+    if self.status == "pending"
+      BookingMailer.artist_request(self).deliver_now
+      BookingMailer.customer_request(self).deliver_now
     end
   end
 
