@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :artists, path: "artists", controllers: { sessions: "artists/sessions", registrations: "artists/registrations" }
   resources :artists do
     resources :bookings
+    resources :avatars, only: [:create]
+    resources :stage_images, only: [:create]
   end
   resources :users
   resources :availabilities
