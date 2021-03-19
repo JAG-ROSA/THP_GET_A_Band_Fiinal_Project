@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
   def index
   end
 
@@ -13,6 +14,10 @@ class UsersController < ApplicationController
 
   def edit
     @user = helpers.current_user
+  end
+
+  def update_params
+    params.require(:user).permit(:first_name, :last_name)
   end
 
   def update
@@ -31,11 +36,4 @@ class UsersController < ApplicationController
 
   def destroy
   end
-
-  private
-
-  def update_params
-    params.permit(:first_name, :last_name)
-  end
-
 end
