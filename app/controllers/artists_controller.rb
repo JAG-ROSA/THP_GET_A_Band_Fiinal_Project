@@ -18,12 +18,12 @@ class ArtistsController < ApplicationController
 
   def update
     @artist = current_artist
-    @artist.artist_name = params[:artist_name]
-    @artist.description = params[:description]
-    @artist.hourly_price = params[:hourly_price]
-    @artist.location = Location.find(params[:location])
+    # @artist.artist_name = params[:artist_name]
+    # @artist.description = params[:description]
+    # @artist.hourly_price = params[:hourly_price]
+    # @artist.location ? params[location: current_artist.location] : Location.find(params[:location]) 
 
-    if @artist.save
+    if @artist.update(artist_params)
       redirect_to artist_bookings_path(artist_id: @artist.id)
       flash[:success] = "Your information has been udpated."
     else
@@ -38,5 +38,10 @@ class ArtistsController < ApplicationController
   def edit
     @artist = current_artist
     @all_locations = Location.all
+  end
+
+  private
+  def artist_params
+    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location, stage_images:[])
   end
 end
