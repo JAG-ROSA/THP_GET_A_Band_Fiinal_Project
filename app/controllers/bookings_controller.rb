@@ -64,7 +64,7 @@ class BookingsController < ApplicationController
   end
 
   def create_params
-    params.require(:artist).permit(:start_date, :description)
+    params.permit(:start_date, :description)
   end
 
   def update_params
