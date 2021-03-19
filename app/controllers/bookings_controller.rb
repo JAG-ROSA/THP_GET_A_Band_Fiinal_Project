@@ -7,16 +7,12 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @artist = Artist.find_by(id: params[:artist_id])
-    if params[:start_date] != nil
-      @start_date = params[:start_date]
+    @artist = Artist.find(new_params[:artist_id])
+    if new_params[:start_date] != nil
+      @start_date = new_params[:start_date]
     else
       @start_date = DateTime.current.to_date
     end
-  end
-
-  def create_params
-    params.require(:artist).permit(:start_date, :description)
   end
 
   def create
@@ -30,13 +26,13 @@ class BookingsController < ApplicationController
   end
 
   def update
-    @booking = Booking.find(params[:id])
+    @booking = Booking.find(update_params[:id])
     @booking.update(status: "approved")
     redirect_to artist_bookings_path(artist_id: current_artist.id)
   end
 
   def destroy
-    @booking = Booking.find(params[:id])
+    @booking = Booking.find(destroy_params[:id])
     @booking.destroy
     if current_artist
       flash[:danger] = "Réservation annulée"
@@ -65,5 +61,21 @@ class BookingsController < ApplicationController
     else
       return false
     end
+  end
+
+  def new_params
+    params.permit(:artist_id, :start_date)
+  end
+
+  def create_params
+    params.require(:artist).permit(:start_date, :description)
+  end
+
+  def update_params
+    params.permit(:id)
+  end
+
+  def destroy_params
+    params.permit(:id)
   end
 end
