@@ -39,4 +39,10 @@ class Booking < ApplicationRecord
       errors.add(:start_date, "Cet artiste n'est pas disponible pour la date sélectionnée.")
     end
   end
+
+  # def is_booking_approved?
+  #   if self.status == "pending"
+  #     Booking.
+  #   end
+  # end
 end
