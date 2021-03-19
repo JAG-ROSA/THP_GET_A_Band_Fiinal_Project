@@ -10,11 +10,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
+  #def create
   #  super
-    flash[:danger] = "Un problème est survenu"
-    redirect_back(fallback_location: root_path)
-  end
+  
+  #end
 
   # GET /resource/edit
   # def edit
