@@ -1,9 +1,9 @@
 <div class="container pt-5 mt-5" id="anchor">
   <div>
-    <%= form_tag artists_path, method: "get" do %>
-      <%= label_tag "Jour de l'évènement" %>
-      <%= date_field_tag 'start_date', @start_at, class: "form-control", style: "display: inline" %>
-      <%= submit_tag "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1", style: "display: inline" %>
+    <%= form_with url: artists_path, method: "get", local: true do |form| %>
+      <%= form.label "Jour de l'évènement" %>
+      <%= form.date_field :start_date, value: @start_at, class: "form-control", style: "display: inline" %>
+      <%= form.submit "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1", style: "display: inline" %>
     <% end %>
   </div>
 

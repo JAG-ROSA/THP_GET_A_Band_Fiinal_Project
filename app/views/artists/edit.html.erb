@@ -1,27 +1,27 @@
 <div class="form-group container pt-5 mt-5">
   <h1>Mettez à jour vos informations</h1>
-  <%= form_tag artist_path(@artist.id), method: "patch" do %>
-  <%= label_tag "Nom de l'artiste ou du groupe" %>
-  <%= text_field_tag "artist_name", @artist.artist_name, class: "form-control" %>
+  <%= form_with model: @artist, url: artist_path(@artist.id), method: "patch", local: true do |form| %>
+  <%= form.label :artist_name, "Nom de l'artiste ou du groupe" %>
+  <%= form.text_field :artist_name, class: "form-control" %>
   <br/>
 
-  <%= label_tag "Description" %>
-  <%= text_area_tag "description", @artist.description, class: "form-control", placeholder: "Dites-en plus sur la musique que vous faites, votre expérience des mariages, vos besoins en matériel..." %>
+  <%= form.label :description, "Description" %>
+  <%= form.text_area :description, class: "form-control", placeholder: "Dites-en plus sur la musique que vous faites, votre expérience des mariages, vos besoins en matériel..." %>
   <br/>
 
   <div class="d-flex align-items-center">
-    <%= label_tag "Tarif horaire" %>
-    <%= number_field_tag "hourly_price", @artist.hourly_price, min: 1, class: "mx-4" %>
-  </div>
-  <br/>
-  
-  <div class="d-flex align-items-center">
-    <%= label_tag "Département d'activité" %>
-    <%= select_tag "location", options_from_collection_for_select(@all_locations, "id", "department"), class: "mx-4" %>
+    <%= form.label :hourly_price, "Tarif horaire" %>
+    <%= form.number_field :hourly_price, min: 1, class: "mx-4" %>
   </div>
   <br/>
 
-  <%= submit_tag "Modifier mes informations de profil", class: "form-control btn btn-primary" %>
+  <div class="d-flex align-items-center">
+    <%= form.label :location, "Département d'activité" %>
+    <%= form.select :location, options_from_collection_for_select(@all_locations, "id", "department"), class: "mx-4" %>
+  </div>
+  <br/>
+
+  <%= form.submit "Modifier mes informations de profil", class: "form-control btn btn-primary" %>
   <% end %>
-
+  <%= link_to "Retour au profil", artist_bookings_path(artist_id: @artist.id), class: "form-control btn btn-secondary mt-2"%>
 </div>
