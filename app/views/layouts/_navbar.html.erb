@@ -29,8 +29,8 @@
               Gérer mon activité
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "Profil & réservations", artist_bookings_path(artist_id: current_artist.id), class: "dropdown-item" %>
-              <span>|</span>
+              <%= link_to "Mon profil", artist_bookings_path(artist_id: current_artist.id), class: "dropdown-item" %>
+              <%= link_to "Mes réservations", artist_bookings_path(artist_id: current_artist.id, anchor: "booking-list"), class: "dropdown-item" %>
               <%= link_to "Mon calendrier", artist_availabilities_path(artist_id: current_artist.id), class: "dropdown-item" %>
             </div>
           </li>
@@ -43,9 +43,9 @@
               S'inscrire / Se connecter
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link_to "Artistes", artist_session_path, class: "dropdown-item text-center" %>
-              <span>|</span>
               <%= link_to "Futurs mariés", user_session_path, class: "dropdown-item text-center" %>
+              <div class="dropdown-divider"></div> 
+              <%= link_to "Artistes", artist_session_path, class: "dropdown-item text-center" %>
             </div>
           </li>
         <% end %>

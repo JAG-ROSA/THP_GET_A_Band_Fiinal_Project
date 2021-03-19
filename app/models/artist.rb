@@ -14,4 +14,10 @@ class Artist < ApplicationRecord
   validates :hourly_price, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300}
 
   scope :approved, -> { where(status: "approved") }
+
+  after_create :welcome_email_artist
+
+  def welcome_email_artist
+    UserMailer.new_artist(self).deliver_now
+  end
 end
