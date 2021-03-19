@@ -1,8 +1,10 @@
 <div class="form-group container pt-5 mt-5">
+
   <h1>Update your personal information</h1>
   <%= form_with model: @user, method: "patch", local: true do |form| %>
   <%= form.label :first_name, 'Prénom' %>
   <%= form.text_field :first_name, class: "form-control" %>
+
   <br/>
   <br/>
 
