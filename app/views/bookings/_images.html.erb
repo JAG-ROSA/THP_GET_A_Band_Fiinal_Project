@@ -1,9 +1,7 @@
-<%= form_tag artist_stage_images_path(artist), multipart: true do %>
-  <%= label_tag "Photos" %>
-  <%= file_field_tag :stage_images, multiple: true,  class: "form-control" %>
-  <%= submit_tag "Ajouter des images", class: "form-control btn btn-primary" %>  
+<%= form_with(model: @artist, local: true,remote: true, multipart: true) do |form|  %>
+  <%= form.file_field :stage_images, multiple: true %>
+  <%= form.submit "Ajouter des images", class: "form-control btn btn-primary" %>
 <%end%>
-<br/>
 
 <div>
   <%if artist.stage_images.attached?%>
