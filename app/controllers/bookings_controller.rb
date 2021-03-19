@@ -15,10 +15,14 @@ class BookingsController < ApplicationController
     end
   end
 
+  def create_params
+    params.require(:artist).permit(:start_date, :description)
+  end
+
   def create
-    @booking = Booking.new(start_date: params[:chosen_start_date], duration: 24, description: params[:description], user_id: current_user.id, artist_id: params[:artist_id], status: "payment_pending")
+    @booking = Booking.new(start_date: create_params[:start_date], duration: 24, description: create_params[:description], user_id: current_user.id, artist_id: params[:artist_id], status: "payment_pending")
     if @booking.save
-      redirect_to artist_booking_path(artist_id:@booking.artist.id, id: @booking.id)
+      redirect_to artist_booking_path(artist_id: @booking.artist.id, id: @booking.id)
     else
       flash[:danger] = "L'artiste n'est pas disponible à cette date."
       redirect_back fallback_location: artist_path(@booking.artist.id)
@@ -36,7 +40,7 @@ class BookingsController < ApplicationController
     @booking.destroy
     if current_artist
       flash[:danger] = "Réservation annulée"
-      redirect_to artist_bookings_path(artist_id: current_artist.id)      
+      redirect_to artist_bookings_path(artist_id: current_artist.id)
     else
       flash[:danger] = "Demande de réservation annulée"
       redirect_to artists_path
@@ -62,5 +66,4 @@ class BookingsController < ApplicationController
       return false
     end
   end
-
 end

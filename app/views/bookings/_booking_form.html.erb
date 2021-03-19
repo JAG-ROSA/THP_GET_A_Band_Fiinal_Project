@@ -1,11 +1,22 @@
-<%= form_tag url_for(artist_bookings_path(artist_id: params[:artist_id])), method: "post" do %>
+<%= form_with url: artist_bookings_path(artist_id: params[:artist_id]), method: "post", local: true do |form| %>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item"><strong>Début (Obligatoire): </strong><%= date_field_tag "chosen_start_date", @start_date %> </li>
-    <li class="list-group-item"><strong>Durée de la prestation  : </strong>24h</li>
-    <li class="list-group-item"><strong>Prix  : </strong><%= artist.hourly_price * 24 %> €</li>
-    <li class="list-group-item"><strong>Lieu  : </strong><%= artist.location.department %></li>
-    <li class="list-group-item"><strong>Description de l'artiste: </strong><%= artist.description %></li>
-    <li class="list-group-item"><strong>Ajouter des informations complémentaires à la réservation: </strong><br/><%= text_area_tag "description", nil, size: "250x3", placeholder: "Rédiger votre demande à l'attention de l'artiste", class: "form-control" %></li>
+    <li class="list-group-item"><strong>Début (Obligatoire): </strong>
+      <%= form.date_field :start_date, value: @start_date %>
+    </li>
+    <li class="list-group-item"><strong>Durée de la prestation  : </strong>
+      24h
+    </li>
+    <li class="list-group-item"><strong>Prix  : </strong>
+      <%= artist.hourly_price * 24 %> €
+    </li>
+    <li class="list-group-item"><strong>Lieu  : </strong>
+      <%= artist.location.department %>
+    </li>
+    <li class="list-group-item"><strong>Description de l'artiste: </strong>
+      <%= artist.description %>
+    </li>
+    <li class="list-group-item"><strong>Ajouter des informations complémentaires à la réservation: </strong>
+      <br/><%= form.text_area :description, size: "250x3", placeholder: "Rédiger votre demande à l'attention de l'artiste", class: "form-control" %></li>
   </ul>
-  <%= submit_tag "Confirmez la réservation", class: "btn btn-primary btn-block mt-3" %>
+  <%= form.submit "Confirmez la réservation", class: "btn btn-primary btn-block mt-3" %>
 <% end %>
