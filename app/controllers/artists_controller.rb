@@ -2,8 +2,8 @@ class ArtistsController < ApplicationController
   before_action :authenticate_artist!, except: [:index, :show]
 
   def index
-    if params[:start_date].present?
-      @start_at = params[:start_date]
+    if index_params[:start_date].present?
+      @start_at = index_params[:start_date]
       @end_at = @start_at.to_date + 1.day
       @artists = Availability.available_artists(@start_at, @end_at)
     else
@@ -12,14 +12,10 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    @artist = Artist.find_by(id: params[:id])
+    @artist = Artist.find(show_params[:id])
   end
 
   def create
-  end
-
-  def update_params
-    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location)
   end
 
   def update
@@ -44,5 +40,19 @@ class ArtistsController < ApplicationController
   def edit
     @artist = current_artist
     @all_locations = Location.all
+  end
+
+  private
+
+  def index_params
+    params.permit(:start_date)
+  end
+
+  def show_params
+    params.permit(:id)
+  end
+
+  def update_params
+    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location)
   end
 end
