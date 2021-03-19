@@ -1,29 +1,7 @@
 <div class="container pt-5 mt-5">
   <h2 class="text-center">Mon calendrier</h2>
     <%= month_calendar events: @bookings do |date, bookings| %> 
-      <% available = [] %>
-      <% non_available = [] %>
-      <% @availabilities.each do |availability| %>
-        <% if availability.start_date > date || availability.end_date < date%>
-          <% non_available << date %>
-        <% else %>
-          <% available << date %>
-        <% end %>
-      <% end%>
-      <% if available.empty? %>
-        <%= content_tag :div, class: "calendar-day text-danger", data: {date: date} do %>
-          <% if non_available.empty?%>
-            <%= date.strftime('%d/%m/%y') %>
-          <% else %>
-            <%= non_available[0].strftime('%d/%m/%y') %>
-          <% end %>
-          <p>Indisponible</p>
-        <% end %>
-      <% else %>
-        <%= content_tag :div, class: "calendar-day text-success", data: {date: date} do %>
-          <%= available[0].strftime('%d/%m/%y') %>
-        <% end %>
-      <% end %>
+      <%= is_available?(date) %>
       <% bookings.each do |booking| %>
         <% if booking.status == "approved" %>
           <div class="bg-success rounded text-center mt-2 text-light">

@@ -31,9 +31,9 @@ class ArtistsController < ApplicationController
 
     if @artist.save
       redirect_to artist_bookings_path(artist_id: @artist.id)
-      flash[:success] = "Your information has been udpated."
+      flash[:success] = "Vos informations ont bien été changées."
     else
-      flash[:danger] = "Erreur : " + @artist.errors.full_messages.join(" ")
+      flash[:danger] = "Erreur: " + @artist.errors.full_messages.join(" ")
       render :edit
     end
   end
