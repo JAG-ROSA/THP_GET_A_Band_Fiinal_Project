@@ -16,10 +16,6 @@ class UsersController < ApplicationController
     @user = helpers.current_user
   end
 
-  def update_params
-    params.require(:user).permit(:first_name, :last_name)
-  end
-
   def update
     @user = helpers.current_user
     @user.first_name = update_params[:first_name]
@@ -35,5 +31,11 @@ class UsersController < ApplicationController
   end
 
   def destroy
+  end
+
+  private
+
+  def update_params
+    params.require(:user).permit(:first_name, :last_name)
   end
 end
