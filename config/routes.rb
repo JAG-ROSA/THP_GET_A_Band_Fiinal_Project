@@ -6,11 +6,12 @@ Rails.application.routes.draw do
     resources :bookings
     resources :availabilities
   end
-  resources :users
+  resources :users, only: [:create, :edit, :show, :update, :destroy]
   
 
   root 'static_pages#index'
 
   # Routes Stripe Checkout
   resources :checkout, only: [:create, :index]
+
 end
