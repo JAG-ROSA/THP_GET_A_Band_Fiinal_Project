@@ -1,13 +1,19 @@
 document.addEventListener("DOMContentLoaded", function() {
-  const signUpButton = document.getElementById('signUp');
-  const signInButton = document.getElementById('signIn');
-  const container = document.getElementById('registration');
+  if(
+    document.getElementById('signUp') != undefined &&
+    document.getElementById('signIn') != undefined &&
+    document.getElementById('registration') != undefined){
 
-  signUpButton.addEventListener('click', () => {
-    container.classList.add("right-panel-active");
-  });
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('registration');
 
-  signInButton.addEventListener('click', () => {
-    container.classList.remove("right-panel-active");
-  });
+    signUpButton.addEventListener('click', () => {
+      container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener('click', () => {
+      container.classList.remove("right-panel-active");
+    });
+  }
 }, false);

@@ -5,8 +5,9 @@ class Booking < ApplicationRecord
   before_validation :calculate_end_date
 
   after_update :booking_tracking
-  # after_destroy :customer_cancellation
   validate :check_if_artist_is_available, on: [:create]
+  validates :description, length: {in: 0..600 }
+  validates :duration, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 24}
 
   def booking_tracking
     if self.status == "approved"
@@ -16,10 +17,12 @@ class Booking < ApplicationRecord
       BookingMailer.artist_request(self).deliver_now
       BookingMailer.customer_request(self).deliver_now
     end
-  end
-
-  def customer_cancellation
-    BookingMailer.customer_cancellation(self).deliver_now
+    if self.status == "cancelled_by_artist"
+      BookingMailer.artist_cancellation(self).deliver_now
+    end
+    if self.status == "cancelled_by_user"
+      BookingMailer.customer_cancellation(self).deliver_now
+    end
   end
 
   def calculate_end_date
@@ -39,4 +42,9 @@ class Booking < ApplicationRecord
       errors.add(:start_date, "Cet artiste n'est pas disponible pour la date sélectionnée.")
     end
   end
+
+  def no_late_cancel?
+    self.start_date >= DateTime.now + 1.week
+  end
+
 end

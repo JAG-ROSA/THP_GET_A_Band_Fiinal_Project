@@ -1,5 +1,15 @@
 <div class="col-lg-10 mx-auto mt-5 pt-5">
   <h1 class="text-center text-primary mb-3">Bienvenue sur votre espace de gestion</h1>
+
+  <% if current_artist.status == "pending" %>
+    <p class="alert alert-danger">Votre profil est en attente. Complétez-le pour pouvoir commencer à utiliser Get a Band.<br/>
+    Si vous avez complété votre profil depuis plus de 24h, contactez-nous par mail à l'adresse getabandadmin@yopmail.com.</p>
+  <% elsif current_artist.status == "approved" %>
+    <p class="alert alert-success">Votre profil est confirmé ! Vous pouvez utiliser Get a Band.</p>
+  <% else %>
+    <p class="alert alert-warning">Votre profil a été suspendu. Contactez-nous par mail à l'adresse getabandadmin@yopmail.com.</p>
+  <% end %>
+
   <h3>Vos identifiants de connexion</h3>
   <table class="table table-hover">
     <tbody>
@@ -12,10 +22,8 @@
   <div class="text-center mb-5">
     <%= link_to "Modifier vos identifiants de connexion", edit_artist_registration_path, class: "btn btn-primary w-50" %>
   </div>
+
   <h3>Votre profil</h3>
-  <% if current_artist.artist_name.nil? || current_artist.description.nil? || current_artist.hourly_price.nil? || current_artist.location.nil? %>
-    <p class="alert alert-danger">Votre profil est incomplet. Complétez-le pour pouvoir commencer à utiliser Get a Band.</p>
-  <% end %>
   <table class="table table-hover">
     <tbody>
       <tr>
@@ -31,7 +39,7 @@
       <tr>
         <th scope="row">Description</th>
         <td>
-          <% if current_artist.description.nil? %>
+          <% if current_artist.description.nil? || current_artist.description == "" %>
             Indéfini
           <% else %>
             <%= current_artist.description %>
@@ -63,12 +71,14 @@
   <div class="text-center mb-5">
     <%= link_to "Modifier votre profil", edit_artist_path(id: current_artist.id), class: "btn btn-primary w-50" %>
   </div>
-  <h3>Vos réservations</h3>
+
+  <h3 id="booking-list">Vos réservations</h3>
+
   <h5>Réservations en attente</h5>
   <% if @bookings.where(status: "pending").empty? %>
     <p class="text-center text-secondary py-4">Vous n'avez pas de réservation en attente.</p>
   <% else %>
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive-lg">
       <thead>
       <tr>
         <th scope="col">#</th>
@@ -88,19 +98,20 @@
             <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.description %></td>
             <td><%= number_to_currency(booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
-            <td><%= booking.status %></td>
+            <td>En attente</td>
             <td class="text-center"><%= link_to "Accepter", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :patch, class: "btn btn-success btn-sm" %></td>
-            <td class="text-center"><%= link_to "Refuser", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, class: "btn btn-danger btn-sm" %></td>
+            <td class="text-center"><%= link_to "Refuser", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, data: { confirm: "Êtes-vous sûr.e ?" }, class: "btn btn-danger btn-sm" %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   <% end %>
+
   <h5>Réservations confirmées à venir</h5>
   <% if @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").empty? %>
     <p class="text-center text-secondary py-4">Vous n'avez pas de réservation à venir.</p>
   <% else %>
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive-lg">
       <thead>
       <tr>
         <th scope="col">#</th>
@@ -115,23 +126,24 @@
       <tbody>
         <% @bookings.where(start_date: DateTime.now..DateTime::Infinity.new, status: "approved").each do |booking| %>
           <tr>
-            <th scope="row"><%= booking.id %></th>
+              <th scope="row"><%= booking.id %></th>
               <td><%= booking.user.email %></td>
               <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
               <td><%= booking.description %></td>
               <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
-              <td><%= booking.status %></td>
-              <td><%= link_to "Annuler", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, class: "btn btn-danger btn-sm" %></td>
+              <td>Confirmée</td>
+              <td><%= link_to "Annuler", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, data: { confirm: "Êtes-vous sûr.e ?" }, class: "btn btn-danger btn-sm" %></td>
           </tr>
         <% end %>
       </tbody>
     </table>
   <% end %>
+
   <h5>Réservations passées</h5>
-  <% if @bookings.where("start_date < ?", DateTime.now).empty? %>
+  <% if @bookings.where(start_date: DateTime.now - 5.years..DateTime.now, status: "approved").empty? %>
     <p class="text-center text-secondary py-4">Vous n'avez pas de réservations passées.</p>
   <% else %>
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive-lg">
       <thead>
       <tr>
         <th scope="col">#</th>
@@ -142,7 +154,7 @@
       </tr>
     </thead>
       <tbody>
-        <% @bookings.where("start_date < ?", DateTime.now).each do |booking| %>
+        <% @bookings.where(start_date: DateTime.now - 5.years..DateTime.now, status: "approved").each do |booking| %>
           <tr>
             <th scope="row"><%= booking.id %></th>
               <td><%= booking.user.email %></td>

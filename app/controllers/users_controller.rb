@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
   def index
   end
 
@@ -22,9 +23,9 @@ class UsersController < ApplicationController
 
     if @user.save
       redirect_to user_path(@user.id)
-      flash[:success] = "Your information has been udpated."
+      flash[:success] = "Vos informations ont bien été changées."
     else
-      flash[:danger] = "Failure: " + @user.errors.full_messages.join(" ")
+      flash[:danger] = "Erreur: " + @user.errors.full_messages.join(" ")
       render :edit
     end
   end
@@ -35,7 +36,6 @@ class UsersController < ApplicationController
   private
 
   def update_params
-    params.permit(:first_name, :last_name)
+    params.require(:user).permit(:first_name, :last_name)
   end
-
 end
