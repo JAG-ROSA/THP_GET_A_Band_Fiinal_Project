@@ -17,16 +17,16 @@ class AvailabilitiesController < ApplicationController
     @availability = Availability.new(start_date: "#{params[:start_date]} 00:00:00", artist_id: current_artist.id, end_date: "#{params[:end_date]} 23:59:59")
     if @availability.save
       flash[:success] = "Dates de disponibilités ajoutées"
-      redirect_back(fallback_location: root_path)
     else
-      flash[:danger] = "Des dates se chevauchent"
-      redirect_back(fallback_location: root_path)
+      flash[:danger] = "Impossible de créer une disponibilité si la date est déjà disponible"
     end
+    redirect_back(fallback_location: root_path)
   end
 
   def destroy
     @availability = Availability.find(params[:id])
     @availability.destroy
+    flash[:danger] = "Disponibilité détruite"
     redirect_back(fallback_location: root_path)
   end
 
