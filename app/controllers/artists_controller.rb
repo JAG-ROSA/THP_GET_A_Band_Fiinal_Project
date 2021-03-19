@@ -1,5 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :authenticate_artist!, except: [:index, :show]
+
   def index
     if params[:start_date].present?
       @start_at = params[:start_date]
@@ -17,12 +18,16 @@ class ArtistsController < ApplicationController
   def create
   end
 
+  def update_params
+    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location)
+  end
+
   def update
     @artist = current_artist
-    @artist.artist_name = params[:artist_name]
-    @artist.description = params[:description]
-    @artist.hourly_price = params[:hourly_price]
-    @artist.location = Location.find(params[:location])
+    @artist.artist_name = update_params[:artist_name]
+    @artist.description = update_params[:description]
+    @artist.hourly_price = update_params[:hourly_price]
+    @artist.location_id = update_params[:location]
 
     if @artist.save
       redirect_to artist_bookings_path(artist_id: @artist.id)
