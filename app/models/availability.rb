@@ -29,6 +29,7 @@ class Availability < ApplicationRecord
     Artist.where(id: available_artists).approved
   end
 
+  #Methods to see if two dates overlap
   scope :overlaps, ->(start_date, end_date) do
     where "((start_date <= ?) and (end_date >= ?))", end_date, start_date
   end
@@ -37,20 +38,18 @@ class Availability < ApplicationRecord
     overlaps.exists?
   end
 
-  # Others are models to be compared with your current model
-  # you can get these with a where for example
+  # Compare the dates with the siblings
   def overlaps
     siblings.overlaps start_date, end_date
   end
 
   validate :not_overlap
-
+  # If there is an overlaps send and error
   def not_overlap
     errors.add(:key, 'message') if overlaps?
   end
 
-  # -1 is when you have a nil id, so you will get all persisted user absences
-  # I think -1 could be omitted, but did not work for me, as far as I remember
+  # Method to keep only the availabilities for the same artist
   def siblings
     Availability.where('artist_id = ?', artist_id || -1)
   end

@@ -7,18 +7,18 @@ class BookingsController < ApplicationController
   end
 
   def new
-    @artist = Artist.find_by(id: params[:artist_id])
-    if params[:start_date] != nil
-      @start_date = params[:start_date]
+    @artist = Artist.find(new_params[:artist_id])
+    if new_params[:start_date] != nil
+      @start_date = new_params[:start_date]
     else
       @start_date = DateTime.current.to_date
     end
   end
 
   def create
-    @booking = Booking.new(start_date: params[:chosen_start_date], duration: 24, description: params[:description], user_id: current_user.id, artist_id: params[:artist_id], status: "payment_pending")
+    @booking = Booking.new(start_date: create_params[:start_date], duration: 24, description: create_params[:description], user_id: current_user.id, artist_id: params[:artist_id], status: "payment_pending")
     if @booking.save
-      redirect_to artist_booking_path(artist_id:@booking.artist.id, id: @booking.id)
+      redirect_to artist_booking_path(artist_id: @booking.artist.id, id: @booking.id)
     else
       flash[:danger] = "L'artiste n'est pas disponible à cette date."
       redirect_back fallback_location: artist_path(@booking.artist.id)
@@ -26,13 +26,13 @@ class BookingsController < ApplicationController
   end
 
   def update
-    @booking = Booking.find(params[:id])
+    @booking = Booking.find(update_params[:id])
     @booking.update(status: "approved")
     redirect_to artist_bookings_path(artist_id: current_artist.id)
   end
 
   def destroy
-    @booking = Booking.find(params[:id])
+    @booking = Booking.find(destroy_params[:id])
 
     if current_artist
       if @booking.no_late_cancel?
@@ -84,5 +84,21 @@ class BookingsController < ApplicationController
 
   def involved_user(booking)
     current_user == booking.user
+  end
+
+  def new_params
+    params.permit(:artist_id, :start_date)
+  end
+
+  def create_params
+    params.permit(:start_date, :description)
+  end
+
+  def update_params
+    params.permit(:id)
+  end
+
+  def destroy_params
+    params.permit(:id)
   end
 end
