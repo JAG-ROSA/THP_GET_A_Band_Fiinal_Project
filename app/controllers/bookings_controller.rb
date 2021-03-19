@@ -33,20 +33,47 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(destroy_params[:id])
+
     if current_artist
-      @booking.update(status: "cancelled_by_artist")
-      flash[:danger] = "Réservation annulée"
-      redirect_to artist_bookings_path(artist_id: current_artist.id)
+      if @booking.no_late_cancel?
+        @booking.update(status: "cancelled_by_artist")
+        if !@booking.stripe_customer_id.nil?
+          Stripe::Refund.create({
+            payment_intent: @booking.stripe_customer_id,
+          })
+        end
+        flash[:success] = "Réservation annulée"
+        redirect_to artist_bookings_path(artist_id: current_artist.id)
+      else
+        flash[:danger] = "Il est trop tard pour annuler cette réservation."
+        redirect_to artist_bookings_path(artist_id: current_artist.id)
+      end      
     else
-      @booking.destroy
-      flash[:danger] = "Demande de réservation annulée"
-      redirect_to artists_path
+      if @booking.status == "payment_pending"
+        @booking.destroy
+        flash[:success] = "Demande de réservation annulée"
+        redirect_to artists_path
+      else
+        if @booking.no_late_cancel?
+          @booking.update(status: "cancelled_by_user")
+          if !@booking.stripe_customer_id.nil?
+            Stripe::Refund.create({
+              payment_intent: @booking.stripe_customer_id,
+            })
+          end
+          flash[:success] = "Réservation annulée"
+          redirect_to current_user
+        else
+          flash[:danger] = "Il est trop tard pour annuler cette réservation."
+          redirect_to current_user
+        end 
+      end
     end
   end
 
   def show
-    if is_involved
-      @booking = Booking.find(params[:id])
+    @booking = Booking.find(params[:id])
+    if involved_user(@booking)
     else
       flash[:danger] = "Vous n'avez pas accès à cette réservation."
       redirect_to root_path
@@ -55,9 +82,8 @@ class BookingsController < ApplicationController
 
   private
 
-  def is_involved
-    @booking = Booking.find(params[:id])
-    current_user == @booking.user
+  def involved_user(booking)
+    current_user == booking.user
   end
 
   def new_params
@@ -65,7 +91,7 @@ class BookingsController < ApplicationController
   end
 
   def create_params
-    params.require(:artist).permit(:start_date, :description)
+    params.permit(:start_date, :description)
   end
 
   def update_params
