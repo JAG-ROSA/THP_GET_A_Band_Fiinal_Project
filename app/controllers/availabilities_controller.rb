@@ -1,5 +1,6 @@
 class AvailabilitiesController < ApplicationController
   before_action :authenticate_artist!
+
   def index
     start_date = params.fetch(:start_date, Date.today).to_date
     @bookings = current_artist.bookings
@@ -10,11 +11,14 @@ class AvailabilitiesController < ApplicationController
   end
 
   def new
-    
+  end
+
+  def create_params
+    params.permit(:start_date, :end_date)
   end
 
   def create
-    @availability = Availability.new(start_date: "#{params[:start_date]} 00:00:00", artist_id: current_artist.id, end_date: "#{params[:end_date]} 23:59:59")
+    @availability = Availability.new(start_date: "#{create_params[:start_date]} 00:00:00", artist_id: current_artist.id, end_date: "#{create_params[:end_date]} 23:59:59")
     if @availability.save
       flash[:success] = "Dates de disponibilités ajoutées"
     else
@@ -29,8 +33,4 @@ class AvailabilitiesController < ApplicationController
     flash[:danger] = "Disponibilité détruite"
     redirect_back(fallback_location: root_path)
   end
-
-  
-  
-
 end
