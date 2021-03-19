@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+
   def index
   end
 
@@ -35,7 +36,6 @@ class UsersController < ApplicationController
   private
 
   def update_params
-    params.permit(:first_name, :last_name)
+    params.require(:user).permit(:first_name, :last_name)
   end
-
 end
