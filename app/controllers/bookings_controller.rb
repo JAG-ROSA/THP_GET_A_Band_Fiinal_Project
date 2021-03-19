@@ -56,11 +56,7 @@ class BookingsController < ApplicationController
 
   def is_involved
     @booking = Booking.find(params[:id])
-    if current_user == @booking.user
-      return true
-    else
-      return false
-    end
+    current_user == @booking.user
   end
 
   def new_params
