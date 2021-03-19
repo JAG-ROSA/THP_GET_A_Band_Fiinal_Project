@@ -8,6 +8,7 @@ class ArtistsController < ApplicationController
       @artists = Availability.available_artists(@start_at, @end_at)
     else
       @artists = Artist.approved
+      @start_at = Date.current
     end
   end
 
