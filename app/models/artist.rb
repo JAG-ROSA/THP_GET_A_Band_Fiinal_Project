@@ -6,8 +6,12 @@ class Artist < ApplicationRecord
 
   belongs_to :location, optional: true
 
-  has_many :availabilities
-  has_many :bookings
+  has_many :availabilities, dependent: :destroy
+  has_many :bookings, dependent: :destroy
+
+  validates :artist_name, uniqueness: true, length: {maximum: 30}
+  validates :description, length: {in: 0..1000}
+  validates :hourly_price, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300}
 
   scope :approved, -> { where(status: "approved") }
 end
