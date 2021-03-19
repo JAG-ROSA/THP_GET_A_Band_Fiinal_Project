@@ -46,4 +46,5 @@ class Booking < ApplicationRecord
   def no_late_cancel?
     self.start_date >= DateTime.now + 1.week
   end
+
 end

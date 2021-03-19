@@ -1,7 +1,9 @@
 <%= form_with url: artist_bookings_path(artist_id: params[:artist_id]), method: "post", local: true do |form| %>
   <ul class="list-group list-group-flush">
-    <li class="list-group-item"><strong>Début (Obligatoire): </strong>
-      <%= form.date_field :start_date, value: @start_date, required: true %>
+
+    <li class="list-group-item"><strong>Date de la réservation (Obligatoire): </strong>
+      <%= form.date_field :start_date, value: @start_date, required: true  %>
+
     </li>
     <li class="list-group-item"><strong>Durée de la prestation  : </strong>
       24h
