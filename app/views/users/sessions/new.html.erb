@@ -5,15 +5,15 @@
 <div class="container vertical-center col-md-8" id="registration">
 
 	<div class="form-container sign-up-container">
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "form") do |f| %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "form", html: { id: "new_user_signin" }) do |f| %>
 
       <h1 class="mb-3">S'inscrire</h1>
       <div class="field">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", id: "user_email_signin" %>
       </div>
 
       <div class="field">
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Mot de passe (6 * min)" %>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Mot de passe (6 * min)", id: "user_password_signin" %>
       </div>
 
       <div class="field">
