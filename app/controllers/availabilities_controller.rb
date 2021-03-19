@@ -2,7 +2,7 @@ class AvailabilitiesController < ApplicationController
   before_action :authenticate_artist!
 
   def index
-    start_date = params.fetch(:start_date, Date.today).to_date
+    start_date = index_params.fetch(:start_date, Date.today).to_date
     @bookings = current_artist.bookings
     @availabilities = current_artist.availabilities
   end
@@ -11,10 +11,6 @@ class AvailabilitiesController < ApplicationController
   end
 
   def new
-  end
-
-  def create_params
-    params.permit(:start_date, :end_date)
   end
 
   def create
@@ -28,9 +24,23 @@ class AvailabilitiesController < ApplicationController
   end
 
   def destroy
-    @availability = Availability.find(params[:id])
+    @availability = Availability.find(destroy_params[:id])
     @availability.destroy
     flash[:danger] = "Disponibilité détruite"
     redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+  def index_params
+    params.permit(:start_date)
+  end
+
+  def create_params
+    params.permit(:start_date, :end_date)
+  end
+
+  def destroy_params
+    params.permit(:id)
   end
 end
