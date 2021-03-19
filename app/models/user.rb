@@ -4,4 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :bookings
+  after_create :welcome_email_user
+  def welcome_email_user
+    UserMailer.new_user(self).deliver_now
+  end
 end

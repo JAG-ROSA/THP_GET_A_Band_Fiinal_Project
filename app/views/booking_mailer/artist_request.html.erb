@@ -14,7 +14,7 @@
     <li>Date de début de l'événement : <%= @booking.start_date.strftime("%d/%m/%Y à %H:%M:%S") %></li>
     <li>Date de fin de l'événement : <%= @booking.calculate_end_date.strftime("%d/%m/%Y à %H:%M:%S") %></li>
     <li>Montant de la réservation : <%= number_to_currency(@booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></li>
-    <li>Détails supplémentaires fournis par le client :  <%= @booking.description %>  </li>
+    <li>Détails supplémentaires fournis par le client : <%= @booking.description %></li>
   </ul>
   <p>Confirmez cette demande dans votre espace personnel.</p>
   <p>A bientôt sur Get a Band !</p>

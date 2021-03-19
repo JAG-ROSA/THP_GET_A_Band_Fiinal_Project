@@ -5,7 +5,6 @@ class Booking < ApplicationRecord
   before_validation :calculate_end_date
 
   after_update :booking_tracking
-  # after_destroy :customer_cancellation
   validate :check_if_artist_is_available, on: [:create]
 
   def booking_tracking
@@ -16,10 +15,9 @@ class Booking < ApplicationRecord
       BookingMailer.artist_request(self).deliver_now
       BookingMailer.customer_request(self).deliver_now
     end
-  end
-
-  def customer_cancellation
-    BookingMailer.customer_cancellation(self).deliver_now
+    if self.status == "cancelled_by_artist"
+      BookingMailer.customer_cancellation(self).deliver_now
+    end
   end
 
   def calculate_end_date
