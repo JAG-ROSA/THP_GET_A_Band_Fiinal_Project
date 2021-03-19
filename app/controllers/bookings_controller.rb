@@ -33,11 +33,12 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(destroy_params[:id])
-    @booking.destroy
     if current_artist
+      @booking.update(status: "cancelled_by_artist")
       flash[:danger] = "Réservation annulée"
       redirect_to artist_bookings_path(artist_id: current_artist.id)
     else
+      @booking.destroy
       flash[:danger] = "Demande de réservation annulée"
       redirect_to artists_path
     end
