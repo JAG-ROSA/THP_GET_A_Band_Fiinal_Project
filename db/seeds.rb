@@ -36,7 +36,7 @@ end
 end
 
 #Location
-["Oise", "Val-d'oise", "Finistère", "Bouches-du-Rhône", "Paris"].each do |departement|
+["Oise", "Val-d'Oise", "Finistère", "Bouches-du-Rhône", "Paris"].each do |departement|
   location = Location.create!(
     department: departement,
   )
@@ -48,7 +48,7 @@ end
   artist = Artist.create!(
     artist_name: Faker::Kpop.iii_groups,
     description: Faker::Lorem.sentence(word_count: 8),
-    hourly_price: 50,
+    hourly_price: rand(20..300),
     email: Faker::Name.first_name + "@yopmail.com",
     password: "azerty",
     location: Location.all.sample,
@@ -64,7 +64,7 @@ index = Artist.first.id
   start_date = Faker::Time.between(from: DateTime.now, to: DateTime.now + 100)
   availability = Availability.create!(
     start_date: start_date,
-    end_date: start_date + rand(1..20).days,
+    end_date: start_date + rand(2..20).days,
     artist: Artist.find(index),
   )
   puts "Create Availability"
@@ -80,7 +80,7 @@ Artist.all.each do |artist|
     description: Faker::Lorem.sentence(word_count: 8),
     user: User.find(index),
     artist: artist,
-    status: ["payment_pending", "pending", "approved"].sample,
+    status: ["pending", "approved"].sample,
   )
   puts "Create booking"
   index += 1

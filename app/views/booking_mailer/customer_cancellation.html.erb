@@ -6,10 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-  <h1>Bonjour <%= @user.first_name %>,</h1>
-  <p><%= @booking.artist.artist_name %> a refusé votre demande de réservation.</p>
-  <p>Vous allez être remboursé du montant de <%= number_to_currency(@booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %>.</p>
-  <p>Retrouvez vite de nouveaux artistes disponibles pour votre mariage sur Get a Band !</p>
+  <h1>Bonjour <%= @artist.artist_name %>,</h1>
+  <p><%= @booking.user.first_name %> a annulé votre réservation prévue pour le <%= @booking.start_date.strftime("%d/%m/%Y") %>.</p>
+  <p>Retrouvez vite de nouveaux clients à la recherche d'artistes pour leur mariage sur Get a Band !</p>
   <p>A bientôt sur Get a Band !</p>
 </body>
 </html>
