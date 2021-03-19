@@ -18,6 +18,9 @@ class Booking < ApplicationRecord
       BookingMailer.customer_request(self).deliver_now
     end
     if self.status == "cancelled_by_artist"
+      BookingMailer.artist_cancellation(self).deliver_now
+    end
+    if self.status == "cancelled_by_user"
       BookingMailer.customer_cancellation(self).deliver_now
     end
   end
@@ -40,9 +43,8 @@ class Booking < ApplicationRecord
     end
   end
 
-  # def is_booking_approved?
-  #   if self.status == "pending"
-  #     Booking.
-  #   end
-  # end
+  def no_late_cancel?
+    self.start_date >= DateTime.now + 1.week
+  end
+
 end

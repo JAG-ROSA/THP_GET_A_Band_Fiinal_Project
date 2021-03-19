@@ -56,6 +56,7 @@
             <th scope="col">Description de l'événement</th>
             <th scope="col">Montant</th>
             <th scope="col">Statut</th>
+            <th scope="col">Annuler</th>
           </tr>
         </thead>
           <tbody>
@@ -66,6 +67,7 @@
                 <td><%= booking.description %></td>
                 <td><%= number_to_currency(booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
                 <td>En attente</td>
+                <td><%= link_to "Annuler", artist_booking_path(artist_id: booking.artist.id, id: booking.id), method: :delete, data: { confirm: "Êtes-vous sûr.e ?" }, class: "btn btn-danger btn-sm" %></td>
               </tr>
             <% end %>
           </tbody>
@@ -84,6 +86,7 @@
             <th scope="col">Description de l'événement</th>
             <th scope="col">Montant</th>
             <th scope="col">Statut</th>
+            <th scope="col">Annuler</th>
           </tr>
         </thead>
           <tbody>
@@ -94,6 +97,7 @@
                 <td><%= booking.description %></td>
                 <td><%= number_to_currency(booking.duration * booking.artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
                 <td>Confirmée</td>
+                <td><%= link_to "Annuler", artist_booking_path(artist_id: booking.artist.id, id: booking.id), method: :delete, data: { confirm: "Êtes-vous sûr.e ?" }, class: "btn btn-danger btn-sm" %></td>
               </tr>
             <% end %>
           </tbody>
