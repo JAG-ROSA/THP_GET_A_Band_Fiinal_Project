@@ -1,5 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :authenticate_artist!, except: [:index, :show]
+  before_action :set_artist , only: [:show, :edit, :update]
 
   def index
     if index_params[:start_date].present?
@@ -13,24 +14,14 @@ class ArtistsController < ApplicationController
   end
 
   def show
-    @artist = Artist.find(show_params[:id])
   end
 
   def create
   end
 
   def update
-    @artist = current_artist
-    # @artist.artist_name = params[:artist_name]
-    # @artist.description = params[:description]
-    # @artist.hourly_price = params[:hourly_price]
-    # @artist.location ? params[location: current_artist.location] : Location.find(params[:location]) 
-    @artist.artist_name = update_params[:artist_name]
-    @artist.description = update_params[:description]
-    @artist.hourly_price = update_params[:hourly_price]
-    @artist.location_id = update_params[:location]
-
-    if @artist.update(artist_params)
+    
+    if @artist.update!(update_params)
       redirect_to artist_bookings_path(artist_id: @artist.id)
       flash[:success] = "Vos informations ont bien été changées."
     else
@@ -43,23 +34,20 @@ class ArtistsController < ApplicationController
   end
 
   def edit
-    @artist = current_artist
     @all_locations = Location.all
   end
 
   private
-  def artist_params
-    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location, stage_images:[])
-
+  def set_artist
+    # params.permit(:id)
+    @artist = current_artist
+  end
+  
   def index_params
     params.permit(:start_date)
   end
 
-  def show_params
-    params.permit(:id)
-  end
-
   def update_params
-    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location)
+    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location_id, stage_images: [])
   end
 end
