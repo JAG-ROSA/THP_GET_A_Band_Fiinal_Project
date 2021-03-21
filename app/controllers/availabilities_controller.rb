@@ -18,7 +18,7 @@ class AvailabilitiesController < ApplicationController
     if @availability.save
       flash[:success] = "Dates de disponibilités ajoutées"
     else
-      flash[:danger] = "Impossible de créer une disponibilité si la date est déjà disponible"
+      flash[:danger] = @availability.errors.full_messages.join(" ")
     end
     redirect_back(fallback_location: root_path)
   end

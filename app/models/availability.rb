@@ -5,6 +5,7 @@ class Availability < ApplicationRecord
   validates :end_date, presence: true
 
   validate :start_prior_to_end_date
+  validate :does_not_overlap
 
   def start_prior_to_end_date
     errors.add(:start_date, "must be before end date") unless
@@ -13,12 +14,12 @@ class Availability < ApplicationRecord
 
   def self.has_availabilities(start_requested_date, end_requested_date)
     # List all the artists who filled out an availibility on the requested period.
-    Availability.where("start_date <= (?) AND end_date >= (?)", start_requested_date, end_requested_date).pluck(:artist_id)
+    Availability.where("start_date <= (?) AND end_date >= (?)", end_requested_date, start_requested_date).pluck(:artist_id)
   end
 
   def self.has_bookings(start_requested_date, end_requested_date)
     # List all the artists who have a booking on the requested period.
-    Booking.where("start_date <= (?) AND end_date >= (?)", start_requested_date, end_requested_date).pluck(:artist_id)
+    Booking.where("start_date <= (?) AND end_date >= (?)", end_requested_date, start_requested_date).pluck(:artist_id)
   end
 
   def self.available_artists(start_requested_date, end_requested_date)
@@ -29,28 +30,7 @@ class Availability < ApplicationRecord
     Artist.where(id: available_artists).approved
   end
 
-  #Methods to see if two dates overlap
-  scope :overlaps, ->(start_date, end_date) do
-    where "((start_date <= ?) and (end_date >= ?))", end_date, start_date
-  end
-
-  def overlaps?
-    overlaps.exists?
-  end
-
-  # Compare the dates with the siblings
-  def overlaps
-    siblings.overlaps start_date, end_date
-  end
-
-  validate :not_overlap
-  # If there is an overlaps send and error
-  def not_overlap
-    errors.add(:key, 'message') if overlaps?
-  end
-
-  # Method to keep only the availabilities for the same artist
-  def siblings
-    Availability.where('artist_id = ?', artist_id || -1)
+  def does_not_overlap
+    errors.add(:base, "Une disponibilité existe déjà pour cette période.") if Availability.has_availabilities(start_date, end_date).include?(artist_id)
   end
 end
