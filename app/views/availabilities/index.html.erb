@@ -1,29 +1,7 @@
 <div class="container pt-5 mt-5">
   <h2 class="text-center">Mon calendrier</h2>
-    <%= month_calendar events: @bookings do |date, bookings| %> 
-      <% available = [] %>
-      <% non_available = [] %>
-      <% @availabilities.each do |availability| %>
-        <% if availability.start_date > date || availability.end_date < date%>
-          <% non_available << date %>
-        <% else %>
-          <% available << date %>
-        <% end %>
-      <% end%>
-      <% if available.empty? %>
-        <%= content_tag :div, class: "calendar-day text-danger", data: {date: date} do %>
-          <% if non_available.empty?%>
-            <%= date.strftime('%d/%m/%y') %>
-          <% else %>
-            <%= non_available[0].strftime('%d/%m/%y') %>
-          <% end %>
-          <p>Indisponible</p>
-        <% end %>
-      <% else %>
-        <%= content_tag :div, class: "calendar-day text-success", data: {date: date} do %>
-          <%= available[0].strftime('%d/%m/%y') %>
-        <% end %>
-      <% end %>
+    <%= month_calendar events: @bookings do |date, bookings| %>
+      <%= is_available?(date) %>
       <% bookings.each do |booking| %>
         <% if booking.status == "approved" %>
           <div class="bg-success rounded text-center mt-2 text-light">
@@ -32,13 +10,13 @@
         <% end %>
             <%= booking.start_date.strftime('%H:%M') %>
             <%= booking.user.first_name %>
-            <%= booking.user.last_name %> 
-          </div> 
+            <%= booking.user.last_name %>
+          </div>
       <% end %>
     <% end %>
 
   <h2 class="text-center mt-5">Mes disponibilités</h2>
-  <%= form_tag url_for(action: 'create'), method: "post" do %>
+  <%= form_with url: artist_availabilities_path(artist_id: current_artist.id), method: "post", local: true do |form| %>
     <table class="table text-center my-5">
       <thead>
         <tr>
@@ -49,9 +27,9 @@
       </thead>
       <tbody>
         <tr>
-          <td><%= date_field_tag :start_date, nil, class: "form-control w-75 mx-auto" %></td>
-          <td><%= date_field_tag :end_date, nil, class: "form-control w-75 mx-auto" %></td>
-          <td><%= submit_tag "Valider", class: "btn btn-secondary text-uppercase w-75 mx-auto font-weight-bold"  %></td>
+          <td><%= form.date_field :start_date, class: "form-control w-75 mx-auto" %></td>
+          <td><%= form.date_field :end_date, class: "form-control w-75 mx-auto" %></td>
+          <td><%= form.submit "Valider", class: "btn btn-secondary text-uppercase w-75 mx-auto font-weight-bold"  %></td>
         </tr>
       </tbody>
     </table>

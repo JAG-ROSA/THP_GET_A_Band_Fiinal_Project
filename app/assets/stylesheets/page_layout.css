@@ -35,13 +35,6 @@ html {
   border-radius: 100% !important;
 }
 
-.dropdown-menu.show {
-  border-radius: 0% !important;
-  display:flex !important;
-  flex-direction: row !important;
-  align-items: center;
-}
-
 .team-list img {
   width: 50%;
 }

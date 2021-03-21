@@ -935,7 +935,11 @@
       "reference": null,
       "inverse_of": null,
       "widget": null,
-      "validations": []
+      "validations": [{
+        "message": null,
+        "type": "is shorter than",
+        "value": 20
+      }]
     }, {
       "field": "created_at",
       "type": "Date",
