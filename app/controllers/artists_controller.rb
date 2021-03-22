@@ -21,6 +21,7 @@ class ArtistsController < ApplicationController
 
   def update
     if update_params[:categories].present?
+      ArtistCategory.where(artist: @artist).destroy_all
       update_params[:categories].each do |category|
         ArtistCategory.create!(category_id: category.to_i, artist: @artist)
       end
