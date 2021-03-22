@@ -16,6 +16,9 @@ class Artist < ApplicationRecord
   validates :description, length: { maximum: 1000 }
   validates :hourly_price, numericality: { allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300 }
 
+  has_one_attached :avatar
+  has_many_attached :pictures
+
   scope :approved, -> { where(status: "approved") }
 
   after_create :welcome_email_artist, if: -> { Rails.env.production? }

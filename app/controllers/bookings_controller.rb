@@ -4,6 +4,7 @@ class BookingsController < ApplicationController
 
   def index
     @bookings = current_artist.bookings
+    @artist = current_artist
   end
 
   def new

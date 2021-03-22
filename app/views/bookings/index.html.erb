@@ -67,6 +67,9 @@
         </td>
       </tr>    
     </tbody>
+    <tbody>
+      <%= render "avatar_form", artist: current_artist%>
+    </tbody>
   </table>
   <div class="text-center mb-5">
     <%= link_to "Modifier votre profil", edit_artist_path(id: current_artist.id), class: "btn btn-primary w-50" %>
@@ -164,6 +167,11 @@
           </tr>
         <% end %>
       </tbody>
+      <tbody>
+      </tbody>
     </table>
   <% end %>
+  
+  <%= render "pictures_form", artist: @artist, deleted_picture: @deleted_picture%>
+  
 </div>
