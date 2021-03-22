@@ -1,6 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :authenticate_artist!, except: [:index, :show]
-  before_action :set_artist , only: [:show, :edit, :update]
+  before_action :set_artist, only: [:show, :edit, :update]
 
   def index
     if index_params[:start_date].present?
@@ -20,8 +20,14 @@ class ArtistsController < ApplicationController
   end
 
   def update
-    
-    if @artist.update!(update_params)
+    if update_params[:categories].present?
+      ArtistCategory.where(artist: @artist).destroy_all
+      update_params[:categories].each do |category|
+        ArtistCategory.create!(category_id: category.to_i, artist: @artist)
+      end
+    end
+
+    if @artist.update!(update_params.except(:categories))
       redirect_to artist_bookings_path(artist_id: @artist.id)
       flash[:success] = "Vos informations ont bien été changées."
     else
@@ -35,19 +41,21 @@ class ArtistsController < ApplicationController
 
   def edit
     @all_locations = Location.all
+    @all_categories = Category.all
   end
 
   private
+
   def set_artist
     # params.permit(:id)
     @artist = current_artist
   end
-  
+
   def index_params
     params.permit(:start_date)
   end
 
   def update_params
-    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location_id, :avatar, pictures: [])
+    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location_id, :avatar, pictures: [], categories: [])
   end
 end

@@ -21,6 +21,12 @@
   </div>
   <br/>
 
+  <div class="d-flex align-items-center">
+      <%= form.collection_check_boxes :categories, @all_categories, :id, :label, include_hidden: false, class: "mx-4" %>
+  </div>
+  <br/>
+
+
   <%= form.submit "Modifier mes informations de profil", class: "form-control btn btn-primary" %>
   <% end %>
   <%= link_to "Retour au profil", artist_bookings_path(artist_id: @artist.id), class: "form-control btn btn-secondary mt-2"%>

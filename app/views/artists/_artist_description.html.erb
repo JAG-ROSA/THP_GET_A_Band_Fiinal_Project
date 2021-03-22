@@ -6,11 +6,14 @@
     <div class="col-md-6 ">
       <ul class="list-group list-group-flush">
         <li class="list-group-item"><strong>Nom de l'artiste : </strong> <%= @artist.artist_name %></li>
+        <% if @artist.categories.any? %>
+          <% @artist.categories.each do |category| %>
+            <li class="list-group-item"><strong>Style de musique : </strong> <%= category.label %></li>
+          <% end %>
+        <% end %>
         <li class="list-group-item"><strong>Description : </strong> <%= @artist.description %></li>
         <li class="list-group-item"><strong>Tarif à la journée : </strong> <%= number_to_currency(24 * @artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></li>
       </ul>
     </div>
   </div>
 </div>
-     
-    
