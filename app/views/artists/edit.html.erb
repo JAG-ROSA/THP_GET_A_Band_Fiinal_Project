@@ -22,18 +22,10 @@
   <br/>
 
   <div class="d-flex align-items-center">
-    <%= form.label :categories, "Style(s) de musique" %>
-    <%= form.select :categories, options_from_collection_for_select(@all_categories, "id", "label"), class: "mx-4" %>
+      <%= form.collection_check_boxes :categories, @all_categories, :id, :label, include_hidden: false, class: "mx-4" %>
   </div>
   <br/>
 
-  <div class="d-flex align-items-center">
-    <% @all_categories.each do |category| %>
-      <%= form.check_box :category, class: "mx-4" %>
-      <%= form.label :category, "#{category.label}" %>
-    <% end %>
-  </div>
-  <br/>
 
   <%= form.submit "Modifier mes informations de profil", class: "form-control btn btn-primary" %>
   <% end %>

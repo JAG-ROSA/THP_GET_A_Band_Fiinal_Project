@@ -55,6 +55,6 @@ class ArtistsController < ApplicationController
   end
 
   def update_params
-    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location)
+    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location, :categories)
   end
 end
