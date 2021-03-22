@@ -20,7 +20,13 @@ class ArtistsController < ApplicationController
   end
 
   def update
-    if @artist.update!(update_params)
+    if update_params[:categories].present?
+      update_params[:categories].each do |category|
+        ArtistCategory.create!(category_id: category.to_i, artist: @artist)
+      end
+    end
+
+    if @artist.update!(update_params.except(:categories))
       redirect_to artist_bookings_path(artist_id: @artist.id)
       flash[:success] = "Vos informations ont bien été changées."
     else
@@ -49,6 +55,6 @@ class ArtistsController < ApplicationController
   end
 
   def update_params
-    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location_id, :categories, :avatar, pictures: [])
+    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location_id, :avatar, pictures: [], categories: [])
   end
 end
