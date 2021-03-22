@@ -18,7 +18,7 @@ class Artist < ApplicationRecord
 
   scope :approved, -> { where(status: "approved") }
 
-  after_create :welcome_email_artist
+  after_create :welcome_email_artist, if: -> { Rails.env.production? }
 
   def welcome_email_artist
     UserMailer.new_artist(self).deliver_now

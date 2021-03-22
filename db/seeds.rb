@@ -11,6 +11,8 @@ Artist.destroy_all
 Availability.destroy_all
 Location.destroy_all
 User.destroy_all
+Category.destroy_all
+ArtistCategory.destroy_all
 
 # Admin
 1.times do
@@ -75,7 +77,7 @@ end
 index = User.first.id
 Artist.all.each do |artist|
   Booking.create!(
-    start_date: Faker::Time.between(from: artist.availabilities.first.start_date, to: artist.availabilities.first.end_date-1.day, format: :default),
+    start_date: Faker::Time.between(from: artist.availabilities.first.start_date, to: artist.availabilities.first.end_date - 1.day, format: :default),
     duration: 24,
     description: Faker::Lorem.sentence(word_count: 8),
     user: User.find(index),
@@ -84,4 +86,19 @@ Artist.all.each do |artist|
   )
   puts "Create booking"
   index += 1
+end
+
+#Categories
+5.times do
+  Category.create!(label: Faker::Music.unique.genre)
+  puts "Create category"
+end
+
+#ArtistCategories
+Artist.all.each do |artist|
+  ArtistCategory.create!(
+    artist: artist,
+    category: Category.all.sample,
+  )
+  puts "Create a category for an artist"
 end
