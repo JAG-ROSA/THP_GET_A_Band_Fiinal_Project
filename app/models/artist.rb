@@ -9,9 +9,12 @@ class Artist < ApplicationRecord
   has_many :availabilities, dependent: :destroy
   has_many :bookings, dependent: :destroy
 
-  validates :artist_name, length: {maximum: 30}
-  validates :description, length: {maximum: 1000}
-  validates :hourly_price, numericality: {allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300}
+  has_many :category_artists
+  has_many :categories, through: :category_artists
+
+  validates :artist_name, length: { maximum: 30 }
+  validates :description, length: { maximum: 1000 }
+  validates :hourly_price, numericality: { allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300 }
 
   scope :approved, -> { where(status: "approved") }
 
