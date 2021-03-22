@@ -171,5 +171,7 @@
       </tbody>
     </table>
   <% end %>
-        <%= render "pictures", artist: @artist%>
+  
+  <%= render "pictures_form", artist: @artist, deleted_picture: @deleted_picture%>
+  
 </div>
