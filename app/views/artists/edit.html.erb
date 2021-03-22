@@ -1,7 +1,5 @@
 <div class="form-group container pt-5 mt-5">
   <h1>Mettez à jour vos informations</h1>
-  <%= render "avatar_form" %>
-  <br/>
   <%= form_with model: @artist, url: artist_path(@artist.id), method: "patch", local: true do |form| %>
   <%= form.label :artist_name, "Nom de l'artiste ou du groupe" %>
   <%= form.text_field :artist_name, class: "form-control" %>
