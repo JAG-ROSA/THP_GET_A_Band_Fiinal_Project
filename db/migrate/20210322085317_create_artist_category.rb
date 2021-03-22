@@ -1,4 +1,4 @@
-class CreateArtistCategories < ActiveRecord::Migration[5.2]
+class CreateArtistCategory < ActiveRecord::Migration[5.2]
   def change
     create_table :artists_categories do |t|
       t.belongs_to :artist, index: true
