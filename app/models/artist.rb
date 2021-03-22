@@ -9,8 +9,8 @@ class Artist < ApplicationRecord
   has_many :availabilities, dependent: :destroy
   has_many :bookings, dependent: :destroy
 
-  has_many :category_artists
-  has_many :categories, through: :category_artists
+  has_many :artist_categories
+  has_many :categories, through: :artist_categories
 
   validates :artist_name, length: { maximum: 30 }
   validates :description, length: { maximum: 1000 }
