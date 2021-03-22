@@ -11,6 +11,8 @@ Artist.destroy_all
 Availability.destroy_all
 Location.destroy_all
 User.destroy_all
+Conversation.destroy_all
+Message.destroy_all
 
 # Admin
 1.times do

@@ -2,7 +2,8 @@ class ConversationsController < ApplicationController
   def index
     session[:conversations] ||= []
 
-    @users = User.all.where.not(id: current_user)
+    @users = Booking.all.where(user_id: current_user)
+    @artists = Booking.all.where(artist_id: current_artist)
     @conversations = Conversation.includes(:recipient, :messages)
                                  .find(session[:conversations])
   end
@@ -12,7 +13,11 @@ class ConversationsController < ApplicationController
   end
 
   def create
-    @conversation = Conversation.get(current_user.id, params[:user_id])
+    if user_signed_in?
+      @conversation = Conversation.get(current_user.id, params[:user_id])
+    elsif artist_signed_in?
+      @conversation = Conversation.get(current_artist.id, params[:artist_id])
+    end
     
     add_to_conversations if conversated?
 

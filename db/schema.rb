@@ -95,9 +95,11 @@ ActiveRecord::Schema.define(version: 2021_03_22_111537) do
   create_table "messages", force: :cascade do |t|
     t.text "body"
     t.bigint "user_id"
+    t.bigint "artist_id"
     t.bigint "conversation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_messages_on_artist_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
@@ -119,5 +121,4 @@ ActiveRecord::Schema.define(version: 2021_03_22_111537) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "messages", "conversations"
-  add_foreign_key "messages", "users"
 end

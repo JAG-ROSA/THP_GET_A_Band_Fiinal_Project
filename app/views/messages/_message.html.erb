@@ -1,6 +1,10 @@
 <li>
   <div class="row">
-    <div class="<%= user.id == message.user_id ? 'message-sent' : 'message-received' %>">
+    <% if user_signed_in? %>
+      <div class="<%= current_user.id == message.user_id ? 'message-sent' : 'message-received' %>">
+    <% elsif artist_signed_in? %>
+      <div class="<%= current_artist.id == message.user_id ? 'message-sent' : 'message-received' %>">
+    <% end %>
       <%= message.body %>
     </div>
   </div>

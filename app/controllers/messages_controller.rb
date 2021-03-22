@@ -11,6 +11,10 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:user_id, :body)
+    if user_signed_in?
+      params.require(:message).permit(:user_id, :artist_id, :body)
+    elsif artist_signed_in?
+      params.require(:message).permit(:user_id, :artist_id, :body)
+    end
   end
 end

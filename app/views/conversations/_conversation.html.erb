@@ -12,7 +12,13 @@
         </ul>
       </div>
       <%= form_for [conversation, conversation.messages.new], remote: true do |f| %>
-        <%= f.hidden_field :user_id, value: user.id %>
+        <% if user_signed_in? %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <%= f.hidden_field :artist_id, value: conversation.recipient_id %>
+        <% elsif artist_signed_in? %>
+          <%= f.hidden_field :user_id, value: conversation.sender_id %>
+          <%= f.hidden_field :artist_id, value: current_artist.id %>
+        <% end %>
         <%= f.text_area :body, class: "form-control" %>
         <%= f.submit "Send", class: "btn btn-success" %>
       <% end %>

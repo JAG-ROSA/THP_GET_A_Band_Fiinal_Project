@@ -16,6 +16,9 @@ class Artist < ApplicationRecord
   has_one_attached :avatar
   has_many_attached :pictures
 
+  has_many :messages
+  has_many :conversations, foreign_key: :sender_id
+
   scope :approved, -> { where(status: "approved") }
 
   after_create :welcome_email_artist

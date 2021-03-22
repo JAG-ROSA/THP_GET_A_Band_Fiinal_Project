@@ -2,7 +2,11 @@ var conversations = $('#conversations-list');
 var conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
 
 if (conversation.length !== 1) {
-  conversations.append("<%= j(render 'conversation', conversation: @conversation, user: current_user) %>");
+  if (<%= user_signed_in? %>){
+    conversations.append("<%= j(render 'conversation', conversation: @conversation, user: current_user) %>");
+  } else if (<%= artist_signed_in? %>){
+    conversations.append("<%= j(render 'conversation', conversation: @conversation, user: params[:user_id], artist: current_artist) %>");
+  }
   conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
 }
 
