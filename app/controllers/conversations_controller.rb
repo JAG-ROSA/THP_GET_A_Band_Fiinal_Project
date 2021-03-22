@@ -17,7 +17,17 @@ class ConversationsController < ApplicationController
     add_to_conversations if conversated?
 
     respond_to do |format|
-      format.js{}
+      format.js
+    end
+  end
+
+  def close
+    @conversation = Conversation.find(params[:id])
+
+    session[:conversations].delete(@conversation.id)
+
+    respond_to do |format|
+      format.js
     end
   end
 

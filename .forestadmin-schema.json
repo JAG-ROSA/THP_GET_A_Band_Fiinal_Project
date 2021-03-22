@@ -997,6 +997,38 @@
       "relationship": "HasMany",
       "widget": null,
       "validations": []
+    }, {
+      "field": "sender",
+      "type": "Number",
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": true,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": "User.id",
+      "inverse_of": "conversations",
+      "relationship": "BelongsTo",
+      "widget": null,
+      "validations": []
+    }, {
+      "field": "recipient",
+      "type": "Number",
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": true,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": "User.id",
+      "inverse_of": "conversations",
+      "relationship": "BelongsTo",
+      "widget": null,
+      "validations": []
     }],
     "segments": [],
     "actions": []
