@@ -9,11 +9,13 @@ Rails.application.routes.draw do
     resources :availabilities
   end
   resources :users, only: [:create, :edit, :show, :update, :destroy]
-  resources :conversations, only: [:index, :create]do
+  resources :conversations, only: [:index, :create] do
     member do
       post :close
     end
+    resources :messages, only: [:create]
   end
+  
 
   root 'static_pages#index'
 
