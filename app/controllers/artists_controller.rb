@@ -41,6 +41,7 @@ class ArtistsController < ApplicationController
   def edit
     @artist = current_artist
     @all_locations = Location.all
+    @all_categories = Category.all
   end
 
   private
