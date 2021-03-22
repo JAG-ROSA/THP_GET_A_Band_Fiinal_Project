@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :bookings, dependent: :destroy
-  after_create :welcome_email_user
+  after_create :welcome_email_user, if: -> { Rails.env.production? }
+
   def welcome_email_user
     UserMailer.new_user(self).deliver_now
   end

@@ -16,10 +16,26 @@
   <br/>
 
   <div class="d-flex align-items-center">
-    <%= form.label :location, "Département d'activité" %>
-    <%= form.select :location, options_from_collection_for_select(@all_locations, "id", "department"), class: "mx-4" %>
+    <%= form.label :location_id, "Département d'activité" %>
+    <%= form.select :location_id, options_from_collection_for_select(@all_locations, "id", "department"), class: "mx-4" %>
   </div>
   <br/>
+
+  <div class="d-flex align-items-center flex-wrap">
+    <p class='d-block'>Style de musique (3 max:)</p>
+    <div class="form-check form-check-inline row">
+      <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
+      <div class="mx-2 col-3">
+        <%= f.label class: "form-check-label pr-2" do %>
+          <%= f.check_box class: "form-check-input"%>
+          <%= f.text %>
+        <% end %>
+      </div>
+      <% end %>
+      </div>
+  </div>
+  <br/>
+
 
   <%= form.submit "Modifier mes informations de profil", class: "form-control btn btn-primary" %>
   <% end %>
