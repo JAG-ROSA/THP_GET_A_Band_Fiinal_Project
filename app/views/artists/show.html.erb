@@ -1,6 +1,7 @@
 <div class="container pt-5 mt-5">
   <h1 class="text-center text-primary pb-4"><%= @artist.artist_name %></h1>
   <%= render "artist_description", artist: @artist %>
+  <%= render "pictures", artist: @artist%>
   <%= link_to "Réservez cet artiste", new_artist_booking_path(@artist.id, start_date: params[:start_date]), class: "btn btn-success btn-block w-50 mx-auto my-2" %>
   <button class= "btn btn-secondary float-right" onclick="window.history.back()">Retour à la liste</button><br/> 
 </div>
