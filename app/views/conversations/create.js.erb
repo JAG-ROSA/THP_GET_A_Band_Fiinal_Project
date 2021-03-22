@@ -1,0 +1,13 @@
+let conversations = $('#conversations-list');
+let conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
+
+if (conversation.length !== 1) {
+  conversations.append("<%= j(render 'conversation', conversation: @conversation, user: current_user) %>");
+  conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
+}
+
+conversation.find('.panel-body').show();
+
+let messages_list = conversation.find('.messages-list');
+let height = messages_list[0].scrollHeight;
+messages_list.scrollTop(height);
