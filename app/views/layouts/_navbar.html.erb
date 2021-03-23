@@ -17,8 +17,14 @@
           <% end %>
         </li>
         <% if user_signed_in? %>
-          <li class="nav-item">
-            <%= link_to "Mon profil", current_user, class: "nav-link text-white btn btn-dark m-1 px-3" %>
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle btn btn-dark m-1 px-3" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Mon profil
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link_to "Mon profil", current_user, class: "dropdown-item" %>
+              <%= link_to "Ma messagerie", conversations_path, class: "dropdown-item" %>
+            </div>
           </li>
           <li class="nav-item">
             <%= link_to "Se déconnecter", destroy_user_session_path, method: :delete, class: "nav-link" %>
@@ -32,6 +38,7 @@
               <%= link_to "Mon profil", artist_bookings_path(artist_id: current_artist.id), class: "dropdown-item" %>
               <%= link_to "Mes réservations", artist_bookings_path(artist_id: current_artist.id, anchor: "booking-list"), class: "dropdown-item" %>
               <%= link_to "Mon calendrier", artist_availabilities_path(artist_id: current_artist.id), class: "dropdown-item" %>
+              <%= link_to "Ma messagerie", conversations_path, class: "dropdown-item" %>
             </div>
           </li>
           <li class="nav-item">

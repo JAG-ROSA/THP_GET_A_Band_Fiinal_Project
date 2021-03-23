@@ -1,0 +1,12 @@
+<li>
+  <div class="row">
+    <% if user_signed_in? %>
+      <div class="<%= current_user.id == message.user_id ? 'message-sent' : 'message-received' %>">
+    <% elsif artist_signed_in? %>
+      <div class="<%= current_artist.id == message.user_id ? 'message-sent' : 'message-received' %> ">
+    <% end %>
+      <%= message.body %><br>
+      <span class="message-date"><%= message.created_at %></span>
+    </div>
+  </div>
+</li>
