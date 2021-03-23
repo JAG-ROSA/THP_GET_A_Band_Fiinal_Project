@@ -29,6 +29,7 @@ class BookingsController < ApplicationController
   end
 
   def update
+    @artist = current_artist
     @bookings = current_artist.bookings
     @booking = Booking.find(update_params[:id])
     @booking.update(status: "approved")
