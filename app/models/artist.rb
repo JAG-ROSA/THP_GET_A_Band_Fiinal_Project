@@ -15,7 +15,9 @@ class Artist < ApplicationRecord
   validates :artist_name, length: { maximum: 30 }
   validates :description, length: { maximum: 1000 }
   validates :hourly_price, numericality: { allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300 }
+
   validates :playlist, length:{maximum: 100}, if: :valid_playlist_link? , on: :update
+
 
   has_one_attached :avatar
   has_many_attached :pictures
@@ -30,6 +32,7 @@ class Artist < ApplicationRecord
   def welcome_email_artist
     UserMailer.new_artist(self).deliver_now
   end
+
 
   def valid_playlist_link?
     if !self.playlist.blank?
