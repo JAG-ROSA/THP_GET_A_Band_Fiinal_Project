@@ -1,6 +1,6 @@
 <h5>Ajouter des images aux profils</h5>
 <%= form_with(model: @artist, local: true, remote: true, multipart: true) do |form|  %>
-  <%= form.file_field :pictures, multiple: true %>
+  <%= form.file_field :pictures, multiple: true , required: true %>
   <%= form.submit "Ajouter des images", class: "form-control btn btn-primary" %>
 <%end%>
 
