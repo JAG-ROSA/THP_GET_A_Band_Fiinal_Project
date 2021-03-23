@@ -14,7 +14,10 @@ class ArtistsController < ApplicationController
     end
 
     if index_params[:categories].present?
-      @artists = @artists.joins(:artist_categories).where("category_id IN (?)", index_params[:categories]).distinct
+      @artists = @artists.joins(:artist_categories)
+        .where("category_id IN (?)", index_params[:categories])
+        .group("artists.id")
+        .having("count(*) >= (?)", index_params[:categories].size)
     end
   end
 
