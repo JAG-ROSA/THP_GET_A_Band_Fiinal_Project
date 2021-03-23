@@ -1,0 +1,14 @@
+<%= month_calendar events: bookings do |date, booking_list| %>
+  <%= is_available?(date) %>
+  <% booking_list.each do |booking| %>
+    <% if booking.status == "approved" %>
+      <div class="bg-success rounded text-center mt-2 text-light">
+    <% elsif booking.status == "pending" %>
+      <div class="bg-warning rounded text-center mt-2">
+    <% end %>
+        <%= booking.start_date.strftime("%H:%M") %>
+        <%= booking.user.first_name %>
+        <%= booking.user.last_name %>
+      </div>
+  <% end %>
+<% end %>

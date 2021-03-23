@@ -986,7 +986,6 @@
       "validations": []
     }, {
       "field": "artist",
-      "type": "Number",
       "default_value": null,
       "enums": null,
       "integration": null,
@@ -1011,8 +1010,9 @@
       "is_required": false,
       "is_sortable": true,
       "is_virtual": false,
-      "reference": null,
-      "inverse_of": null,
+      "reference": "Artist.id",
+      "inverse_of": "bookings",
+      "relationship": "BelongsTo",
       "widget": null,
       "validations": []
     }],

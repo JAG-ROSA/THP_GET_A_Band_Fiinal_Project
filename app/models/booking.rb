@@ -44,7 +44,19 @@ class Booking < ApplicationRecord
   end
 
   def no_late_cancel?
-    self.start_date >= DateTime.now + 1.week
+    if self.start_date >= DateTime.now + 1.week
+      errors.add(:start_date, "On ne peut modifier une réservation moins d'une semaine à l'avance")
+    end
+  end
+
+  def try_refund
+    if stripe_customer_id.present?
+      Stripe::Refund.create(
+        {
+          payment_intent: stripe_customer_id,
+        }
+      )
+    end
   end
 
 end
