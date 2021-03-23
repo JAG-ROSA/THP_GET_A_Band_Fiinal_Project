@@ -54,10 +54,12 @@ class ArtistsController < ApplicationController
       end
     end
 
-    if @artist.update!(update_params.except(:categories))
+    if @artist.update(update_params.except(:categories))
       redirect_to artist_bookings_path(artist_id: @artist.id)
       flash[:success] = "Vos informations ont bien été changées."
     else
+      @all_locations = Location.all
+      @all_categories = Category.all
       flash[:danger] = "Erreur: " + @artist.errors.full_messages.join(" ")
       render :edit
     end
