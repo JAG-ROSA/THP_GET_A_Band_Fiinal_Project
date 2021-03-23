@@ -10,11 +10,11 @@
       <h4 class="card-title text-primary"><%= artist.artist_name %></h4>
       <% if artist.categories.any? %>
         <% artist.categories.each do |category| %>
-          <span class="badge badge-pill badge-secondary"><%= category.label %></span>
+          <span class="badge badge-pill badge-secondary"><%= category.label %></span>        
         <% end %>
       <% end %>
-      <p class="card-text text-secondary"><%= artist.hourly_price * 24 %>€/day</p>
-      <p class="card-text text-secondary"><%= artist.location.department %></p>
-      <%= link_to "En savoir plus et réserver", artist_path(artist.id, start_date: params[:start_date]), class: "btn btn-primary mb-3" %>
-    </div>
+    <p class="card-text text-secondary"><%= artist.hourly_price * 24 %>€/jour</p>
+    <p class="card-text text-secondary"><%= artist.location.department %></p>
+    <%= link_to "En savoir plus et réserver", artist_path(artist.id, start_date: params[:start_date]), class: "btn btn-primary mb-3" %>
   </div>
+</div>
