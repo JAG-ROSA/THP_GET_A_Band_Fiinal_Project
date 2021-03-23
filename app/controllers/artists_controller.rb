@@ -10,6 +10,10 @@ class ArtistsController < ApplicationController
       @artists = Artist.approved
       @start_at = Date.current
     end
+    respond_to do |format|
+      format.html { }
+      format.js { }
+    end
   end
 
   def show
