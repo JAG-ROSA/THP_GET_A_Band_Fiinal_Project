@@ -1,9 +1,11 @@
-  <% if artist.avatar.attached? %>
-    <%= image_tag artist.avatar.variant(resize: "400x400"), alt: "avatar", class: "rounded-circle" %>  
-  <% else %>
-    <p class="text-center text-secondary py-2">Il n'y a pas encore d'avatar lié à cet utilisateur.</p>
-  <% end %>
-  <%= form_with(model: artist, local: true, remote: true, multipart: true) do |form| %>
-    <%= form.file_field :avatar %>
-    <%= form.submit "Ajouter un avatar", class: "form-control btn btn-primary btn-block mx-auto w-50 mb-5" %>
-  <% end %>
+<div class="container">
+  <%if artist.avatar.attached?%>
+    <%= image_tag artist.avatar.variant(resize: "400x400"), alt: "avatar", class: "rounded-circle"%>  
+  <%else%>
+    <p>=== Il n'y a pas encore d'avatar lié à cet utilisateur ===</p>
+  <%end%>
+  <%= form_with(model: artist, local: true, remote: true, multipart: true) do |form|  %>
+    <%= form.file_field :avatar, required: true%>
+    <%= form.submit "Ajouter un avatar", class: "form-control btn btn-primary" %>
+  <%end%>
+</div><br/><br/>

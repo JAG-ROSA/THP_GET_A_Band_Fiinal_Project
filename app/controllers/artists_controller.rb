@@ -27,7 +27,13 @@ class ArtistsController < ApplicationController
 
   def show
     @artist = Artist.find(show_params[:id])
-    @artist.playlist.empty? ? puts("empty") : @spotify_playlist = @artist.playlist.insert(25, "embed/")
+    if !@artist.playlist.blank?
+      # All the whitespaces are deleted from the user playlist link
+      # then the link is updated to match the widget embed pattern link by inserting "embed/" at the link
+      @spotify_playlist = @artist.playlist.strip.insert(25,"embed/")
+    else
+      @spotify_playlist = ""
+    end  
     @availabilities = @artist.availabilities
     @bookings = @artist.bookings
   end
