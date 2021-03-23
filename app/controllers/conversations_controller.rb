@@ -8,10 +8,6 @@ class ConversationsController < ApplicationController
                                  .find(session[:conversations])
   end
 
-  def show
-
-  end
-
   def create
     if user_signed_in?
       @conversation = Conversation.get(current_user.id, params[:artist_id])

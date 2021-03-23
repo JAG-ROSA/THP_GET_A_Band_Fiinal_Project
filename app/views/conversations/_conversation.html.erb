@@ -10,7 +10,7 @@
     </div>
 
     <div class="panel-body" style="display: none;">
-      <div class="messages-list mt-5 shadow-sm p-3 mb-5 bg-light rounded">
+      <div class="container-fluid messages-list mt-5 shadow-sm p-3 mb-5 bg-light rounded">
         <ul>
           <%= render 'conversation_content', messages: conversation.messages, user: user %>
         </ul>
@@ -18,10 +18,10 @@
       <%= form_for [conversation, conversation.messages.new], remote: true do |f| %>
         <% if user_signed_in? %>
           <%= f.hidden_field :user_id, value: current_user.id %>
-          <%= f.hidden_field :artist_id, value: conversation.recipient_id %>
+          <%= f.hidden_field :artist_id, value: 1 %>
         <% elsif artist_signed_in? %>
-          <%= f.hidden_field :user_id, value: conversation.sender_id %>
-          <%= f.hidden_field :artist_id, value: current_artist.id %>
+          <%= f.hidden_field :user_id, value: current_artist.id %>
+          <%= f.hidden_field :artist_id, value: 1 %>
         <% end %>
         <%= f.text_area :body, class: "form-control", id: "text_area_submit" %>
         <%= f.submit "Envoyer", class: "btn btn-primary mt-3 w-100" %>
