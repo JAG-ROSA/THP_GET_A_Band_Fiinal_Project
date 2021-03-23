@@ -57,6 +57,16 @@
         </td>
       </tr>
       <tr>
+        <th scope="row">Lien de la playlist de démonstration</th>
+        <td>
+          <% if current_artist.playlist.nil? %>
+            Indéfini
+          <% else %>
+            <%= current_artist.playlist  %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
         <th scope="row">Département d'activité</th>
         <td colspan="2">
           <% if current_artist.location.nil? %>
