@@ -3,74 +3,102 @@
 
   <% if current_artist.status == "pending" %>
     <p class="alert alert-danger">Votre profil est en attente. Complétez-le pour pouvoir commencer à utiliser Get a Band.<br/>
-    Si vous avez complété votre profil depuis plus de 24h, contactez-nous par mail à l'adresse getabandadmin@yopmail.com.</p>
-  <% elsif current_artist.status == "approved" %>
-    <p class="alert alert-success">Votre profil est confirmé ! Vous pouvez utiliser Get a Band.</p>
-  <% else %>
-    <p class="alert alert-warning">Votre profil a été suspendu. Contactez-nous par mail à l'adresse getabandadmin@yopmail.com.</p>
-  <% end %>
+      Si vous avez complété votre profil depuis plus de 24h, contactez-nous par mail à l'adresse getabandadmin@yopmail.com.</p>
+    <% elsif current_artist.status == "approved" %>
+      <p class="alert alert-success">Votre profil est confirmé ! Vous pouvez utiliser Get a Band.</p>
+    <% else %>
+      <p class="alert alert-warning">Votre profil a été suspendu. Contactez-nous par mail à l'adresse getabandadmin@yopmail.com.</p>
+    <% end %>
+  
+    <h3>Vos identifiants de connexion</h3>
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <th scope="row">Email</th>
+          <td><%= current_artist.email %></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center mb-5">
+      <%= link_to "Modifier vos identifiants de connexion", edit_artist_registration_path, class: "btn btn-primary w-50" %>
+    </div>
 
-  <h3>Vos identifiants de connexion</h3>
-  <table class="table table-hover">
-    <tbody>
-      <tr>
-        <th scope="row">Email</th>
-        <td><%= current_artist.email %></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="text-center mb-5">
-    <%= link_to "Modifier vos identifiants de connexion", edit_artist_registration_path, class: "btn btn-primary w-50" %>
-  </div>
-
-  <h3>Votre profil</h3>
-  <table class="table table-hover">
-    <tbody>
-      <tr>
-        <th scope="row">Nom d'artiste</th>
-        <td>
-          <% if current_artist.artist_name.nil? || current_artist.artist_name == "" %>
-            Indéfini
-          <% else %>
-            <%= current_artist.artist_name %>
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">Description</th>
-        <td>
-          <% if current_artist.description.nil? || current_artist.description == "" %>
-            Indéfini
-          <% else %>
-            <%= current_artist.description %>
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">Tarif horaire</th>
-        <td>
-          <% if current_artist.hourly_price.nil? %>
-            Indéfini
-          <% else %>
-            <%= number_to_currency(current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %>
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <th scope="row">Département d'activité</th>
-        <td colspan="2">
-          <% if current_artist.location.nil? %>
-            Indéfini
-          <% else %>
-            <%= current_artist.location.department %>
-          <% end %>
-        </td>
-      </tr>    
-    </tbody>
-  </table>
-  <div class="text-center mb-5">
-    <%= link_to "Modifier votre profil", edit_artist_path(id: current_artist.id), class: "btn btn-primary w-50" %>
-  </div>
+    <h3>Votre profil</h3>
+    <table class="table table-hover">
+      <tbody>
+        <tr>
+          <th scope="row">Nom d'artiste</th>
+          <td>
+            <% if current_artist.artist_name.nil? || current_artist.artist_name == "" %>
+              Indéfini
+            <% else %>
+              <%= current_artist.artist_name %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Style(s) de musique</th>
+          <td>
+            <% if current_artist.categories.nil? || current_artist.categories == "" %>
+              Indéfini
+            <% else %>
+            <% current_artist.categories.each do |category| %>
+              <%= category.label %>
+            <% end %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <tr>
+            <th scope="row">Description</th>
+            <td>
+              <% if current_artist.description.nil? || current_artist.description == "" %>
+                Indéfini
+              <% else %>
+                <%= current_artist.description %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Tarif horaire</th>
+            <td>
+              <% if current_artist.hourly_price.nil? %>
+                Indéfini
+              <% else %>
+                <%= number_to_currency(current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Lien de la playlist de démonstration</th>
+            <td>
+              <% if current_artist.playlist.nil? %>
+                Indéfini
+              <% else %>
+                <%= current_artist.playlist  %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">Département d'activité</th>
+            <td colspan="2">
+              <% if current_artist.location.nil? %>
+                Indéfini
+              <% else %>
+                <%= current_artist.location.department %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <%= render "avatar_form", artist: current_artist%>
+        </tbody>
+      </table>
+      <div class="text-center mb-5">
+        <%= link_to "Modifier votre profil", edit_artist_path(id: current_artist.id), class: "btn btn-primary w-50" %>
+      </div>
+  
+  <%= render "pictures_form", artist: @artist, deleted_picture: @deleted_picture%>
 
   <h3 id="booking-list">Vos réservations</h3>
 
