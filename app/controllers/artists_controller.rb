@@ -1,7 +1,6 @@
 class ArtistsController < ApplicationController
   before_action :authenticate_artist!, except: [:index, :show]
-  before_action :set_artist , only: [:edit, :update]
-
+  before_action :set_artist, only: [:edit, :update]
 
   def index
     if index_params[:start_date].present?
@@ -12,11 +11,12 @@ class ArtistsController < ApplicationController
       @artists = Artist.approved
       @start_at = Date.current
     end
+    @all_categories = Category.all
   end
 
   def show
     @artist = Artist.find(show_params[:id])
-    @artist.playlist.empty? ? puts("empty") : @spotify_playlist = @artist.playlist.insert(25,"embed/") 
+    @artist.playlist.empty? ? puts("empty") : @spotify_playlist = @artist.playlist.insert(25, "embed/")
   end
 
   def create
