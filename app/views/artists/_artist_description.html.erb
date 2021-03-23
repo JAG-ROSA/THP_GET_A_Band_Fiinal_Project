@@ -1,7 +1,11 @@
 <div class="card mb-3 border-0">
   <div class="row no-gutters">
     <div class="col-md-6">
-      <%= image_tag "homepage_2.jpg", class: "img-fluid", style: "height:600px; object-fit:cover", alt: "artist image" %>
+      <% if artist.avatar.attached?%>
+        <%= image_tag artist.avatar.variant(resize: "400x400"), class: "img-fluid", style:"height:600px;object-fit:cover", alt:"artist-show-avatar" %> 
+      <%else%>
+        <%= image_tag "default_pictures/default_artist.jpg", class: "img-fluid", style:"height:600px;object-fit:cover", alt:"artist-show-avatar"%>
+      <%end%>
     </div>
     <div class="col-md-6 ">
       <ul class="list-group list-group-flush">

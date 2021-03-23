@@ -1,0 +1,11 @@
+//Update dashboard tables
+document.getElementById("pending-reservations").innerHTML = "<%= j render partial: 'pending_reservations', locals: { bookings: @bookings } %>";
+document.getElementById("confirmed-reservations").innerHTML = "<%= j render partial: 'confirmed_reservations', locals: { bookings: @bookings } %>";
+
+// Render flash
+var flash = document.querySelector("#flash");
+if(flash.innerHTML == null) {
+  flash.insertAdjacentHTML("beforeend", "<%= j render 'layouts/flash', flash: @flash %>");
+} else {
+  flash.innerHTML ="<%= j render 'layouts/flash', flash: @flash %>";
+};

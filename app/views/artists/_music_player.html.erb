@@ -1,0 +1,8 @@
+<div id="music-player">
+  <% if playlist.blank?%>
+    <br/>
+  <% else %>
+    <h5>Extraits musicaux</h5>
+    <iframe src="<%= playlist%>" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+  <% end %>
+</div>

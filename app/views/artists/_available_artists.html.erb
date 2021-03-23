@@ -1,0 +1,11 @@
+<div class="row justify-content-center">
+  <% if artists.any? %>
+    <% artists.each_with_index do |artist, index| %>
+        <%= render "card", artist: artist %>
+    <% end %>
+  <% else %>
+  <div class="text-center mt-3">
+    <h3>Malheureusement, aucun de nos artistes n'est disponible pour cette date.</h3>
+  </div>
+  <% end %>
+</div>

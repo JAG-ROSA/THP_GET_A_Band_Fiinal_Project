@@ -5,19 +5,23 @@
   <%= form.text_field :artist_name, class: "form-control" %>
   <br/>
 
+  <%= form.label :playlist, "Ajoutez une playlist Spotify" %>
+  <%= form.text_field :playlist, class: "form-control" %>
+  <br/>
+
   <%= form.label :description, "Description" %>
   <%= form.text_area :description, class: "form-control", placeholder: "Dites-en plus sur la musique que vous faites, votre expérience des mariages, vos besoins en matériel..." %>
   <br/>
 
   <div class="d-flex align-items-center">
-    <%= form.label :hourly_price, "Tarif horaire" %>
-    <%= form.number_field :hourly_price, min: 1, class: "mx-4" %>
+    <%= form.label :hourly_price, "Tarif horaire", class: "mr-4" %>
+    <%= form.number_field :hourly_price, min: 1 %>
   </div>
   <br/>
 
   <div class="d-flex align-items-center">
-    <%= form.label :location_id, "Département d'activité" %>
-    <%= form.select :location_id, options_from_collection_for_select(@all_locations, "id", "department"), class: "mx-4" %>
+    <%= form.label :location_id, "Département d'activité", class: "mr-4" %>
+    <%= form.select :location_id, options_from_collection_for_select(@all_locations.order("department ASC"), "id", "department") %>
   </div>
   <br/>
 
@@ -27,7 +31,7 @@
       <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
       <div class="mx-2 col-3">
         <%= f.label class: "form-check-label pr-2" do %>
-          <%= f.check_box class: "form-check-input"%>
+          <%= f.check_box class: "form-check-input" %>
           <%= f.text %>
         <% end %>
       </div>
@@ -39,5 +43,5 @@
 
   <%= form.submit "Modifier mes informations de profil", class: "form-control btn btn-primary" %>
   <% end %>
-  <%= link_to "Retour au profil", artist_bookings_path(artist_id: @artist.id), class: "form-control btn btn-secondary mt-2"%>
+  <%= link_to "Retour au profil", artist_bookings_path(artist_id: @artist.id), class: "form-control btn btn-secondary mt-2" %>
 </div>

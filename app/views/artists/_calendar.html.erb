@@ -1,0 +1,13 @@
+<div>
+  <h3>Calendrier</h3>
+  <%= month_calendar events: bookings do |date, booking_list| %>
+  <%= is_available?(date) %>
+  <% booking_list.each do |booking| %>
+    <% if booking.status == "approved" || booking.status == "pending"%>
+      <div class="bg-warning rounded text-center mt-2">
+        <p>Déjà réservé</p>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+</div>

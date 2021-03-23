@@ -15,9 +15,13 @@ class Artist < ApplicationRecord
   validates :artist_name, length: { maximum: 30 }
   validates :description, length: { maximum: 1000 }
   validates :hourly_price, numericality: { allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300 }
+  validates :playlist, length:{maximum: 100}#, if: :valid_playlist_link?
 
   has_one_attached :avatar
   has_many_attached :pictures
+
+  has_many :messages
+  has_many :conversations, foreign_key: :recipient_id
 
   scope :approved, -> { where(status: "approved") }
 
@@ -26,4 +30,10 @@ class Artist < ApplicationRecord
   def welcome_email_artist
     UserMailer.new_artist(self).deliver_now
   end
+
+  # def valid_playlist_link?
+  #   if !self.playlist.blank?
+  #     errors.add(:playlist, "le lien de la playlist n'est pas au bon format") unless self.playlist.strip.start_with?("https://open.spotify.com/")
+  #   end
+  # end
 end
