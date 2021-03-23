@@ -22,6 +22,7 @@ class ArtistsController < ApplicationController
     @artist = Artist.find(show_params[:id])
     @artist.playlist.empty? ? puts("empty") : @spotify_playlist = @artist.playlist.insert(25,"embed/") 
     @availabilities = @artist.availabilities
+    @bookings = @artist.bookings
   end
 
   def create
