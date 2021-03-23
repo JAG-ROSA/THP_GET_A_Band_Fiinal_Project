@@ -18,13 +18,6 @@ class Conversation < ApplicationRecord
     create(sender_id: sender_id, recipient_id: recipient_id)
   end
 
-  def self.unget(recipient_id, sender_id)
-    conversation = between(sender_id, recipient_id).first
-    return conversation if conversation.present?
-
-    create(sender_id: sender_id, recipient_id: recipient_id)
-  end
-
   def opposed_user(user)
     user != recipient ? sender : recipient
   end

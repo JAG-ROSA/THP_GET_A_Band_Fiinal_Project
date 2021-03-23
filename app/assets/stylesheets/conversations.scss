@@ -2,11 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .messages-list {
-  max-height: 200px;
+  max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
 }
 
+#conversations-list, #conversations-list ul {
+  list-style-type: none;
+}
+
+.panel-body ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
 
 .message-sent {
   position: relative;

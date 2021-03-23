@@ -1,12 +1,16 @@
 <li>
-  <div class="panel panel-default" data-conversation-id="<%= conversation.id %>">
-    <div class="panel-heading">
-      <%= link_to conversation.opposed_user(user).email, '', class: 'toggle-window' %>
-      <%= link_to "x", close_conversation_path(conversation), class: "btn btn-default btn-xs pull-right", remote: true, method: :post %>
+  <div class="shadow p-3 mb-5 bg-white rounded panel mt-3 panel-default" data-conversation-id="<%= conversation.id %>">
+    <div class="panel-heading font-weight-bold ">
+      <% if user_signed_in? %>
+        <%= "Conversation avec: #{conversation.recipient.artist_name}" %>
+      <% elsif artist_signed_in? %>
+        <%= "Conversation avec: #{conversation.opposed_user(user).first_name} #{conversation.opposed_user(user).last_name}"%>
+      <% end %>
+      <%= link_to "x", close_conversation_path(conversation), class: "btn btn-danger float-right", remote: true, method: :post %>
     </div>
 
     <div class="panel-body" style="display: none;">
-      <div class="messages-list">
+      <div class="messages-list mt-5 shadow-sm p-3 mb-5 bg-light rounded">
         <ul>
           <%= render 'conversation_content', messages: conversation.messages, user: user %>
         </ul>
@@ -19,8 +23,8 @@
           <%= f.hidden_field :user_id, value: conversation.sender_id %>
           <%= f.hidden_field :artist_id, value: current_artist.id %>
         <% end %>
-        <%= f.text_area :body, class: "form-control" %>
-        <%= f.submit "Send", class: "btn btn-success" %>
+        <%= f.text_area :body, class: "form-control", id: "text_area_submit" %>
+        <%= f.submit "Envoyer", class: "btn btn-primary mt-3 w-100" %>
       <% end %>
     </div>
   </div>
