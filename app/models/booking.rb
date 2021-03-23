@@ -9,18 +9,17 @@ class Booking < ApplicationRecord
   validates :description, length: {in: 0..600 }
   validates :duration, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 24}
 
+  scope :approved, -> { where(status: "approved") }
+
   def booking_tracking
     if self.status == "approved"
       BookingMailer.customer_confirmation(self).deliver_now
-    end
-    if self.status == "pending"
+    elsif self.status == "pending"
       BookingMailer.artist_request(self).deliver_now
       BookingMailer.customer_request(self).deliver_now
-    end
-    if self.status == "cancelled_by_artist"
+    elsif self.status == "cancelled_by_artist"
       BookingMailer.artist_cancellation(self).deliver_now
-    end
-    if self.status == "cancelled_by_user"
+    elsif self.status == "cancelled_by_user"
       BookingMailer.customer_cancellation(self).deliver_now
     end
   end

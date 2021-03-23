@@ -19,7 +19,7 @@ class Availability < ApplicationRecord
 
   def self.has_bookings(start_requested_date, end_requested_date)
     # List all the artists who have a booking on the requested period.
-    Booking.where("start_date <= (?) AND end_date >= (?)", end_requested_date, start_requested_date).pluck(:artist_id)
+    Booking.approved.where("start_date <= (?) AND end_date >= (?)", end_requested_date, start_requested_date).pluck(:artist_id)
   end
 
   def self.available_artists(start_requested_date, end_requested_date)
