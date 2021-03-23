@@ -1,0 +1,13 @@
+//Update calendar
+document.getElementById("my-calendar").innerHTML = "<%= j render partial: "calendar", locals: { bookings: @bookings } %>";
+
+//Update availabilities
+document.getElementById("my-availabilities").innerHTML = "<%= j render partial: "availability_list", locals: { availabilities: @availabilities } %>";
+
+// Render flash
+var flash = document.querySelector("#flash");
+if(flash.innerHTML == null) {
+  flash.insertAdjacentHTML("beforeend", "<%= j render "layouts/flash", flash: @flash %>");
+} else {
+  flash.innerHTML ="<%= j render "layouts/flash", flash: @flash %>";
+};

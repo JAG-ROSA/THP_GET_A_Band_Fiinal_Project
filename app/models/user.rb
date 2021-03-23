@@ -8,7 +8,8 @@ class User < ApplicationRecord
   has_many :messages
   has_many :conversations, foreign_key: :sender_id
 
-  after_create :welcome_email_user
+  after_create :welcome_email_user, if: -> { Rails.env.production? }
+
   def welcome_email_user
     UserMailer.new_user(self).deliver_now
   end

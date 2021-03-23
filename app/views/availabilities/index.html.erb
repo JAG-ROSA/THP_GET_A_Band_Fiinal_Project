@@ -1,22 +1,11 @@
 <div class="container pt-5 mt-5">
   <h2 class="text-center">Mon calendrier</h2>
-    <%= month_calendar events: @bookings do |date, bookings| %>
-      <%= is_available?(date) %>
-      <% bookings.each do |booking| %>
-        <% if booking.status == "approved" %>
-          <div class="bg-success rounded text-center mt-2 text-light">
-        <% elsif booking.status == "pending" %>
-          <div class="bg-warning rounded text-center mt-2">
-        <% end %>
-            <%= booking.start_date.strftime('%H:%M') %>
-            <%= booking.user.first_name %>
-            <%= booking.user.last_name %>
-          </div>
-      <% end %>
-    <% end %>
+  <div id="my-calendar">
+    <%= render partial: "calendar", locals: { bookings: @bookings } %>
+  </div>
 
   <h2 class="text-center mt-5">Mes disponibilités</h2>
-  <%= form_with url: artist_availabilities_path(artist_id: current_artist.id), method: "post", local: true do |form| %>
+  <%= form_with url: artist_availabilities_path(artist_id: current_artist.id), method: "post" do |form| %>
     <table class="table text-center my-5">
       <thead>
         <tr>
@@ -29,30 +18,13 @@
         <tr>
           <td><%= form.date_field :start_date, class: "form-control w-75 mx-auto" %></td>
           <td><%= form.date_field :end_date, class: "form-control w-75 mx-auto" %></td>
-          <td><%= form.submit "Valider", class: "btn btn-secondary text-uppercase w-75 mx-auto font-weight-bold"  %></td>
+          <td><%= form.submit "Valider", class: "btn btn-secondary text-uppercase w-75 mx-auto font-weight-bold" %></td>
         </tr>
       </tbody>
     </table>
   <% end %>
 
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Date de début</th>
-        <th scope="col">Date de fin</th>
-        <th scope="col">Supprimer</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @availabilities.each do |availability| %>
-        <tr>
-          <th scope="row"><%= availability.id %></th>
-            <td><%= availability.start_date.strftime('%d/%m/%y') %></td>
-            <td><%= availability.end_date.strftime('%d/%m/%y') %></td>
-            <td><%= link_to "Supprimer", artist_availability_path(id: availability.id), method: :delete, class: "btn btn-danger" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div id="my-availabilities">
+    <%= render partial: "availability_list", locals: { availabilities: @availabilities } %>
+  </div>
 </div>

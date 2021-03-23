@@ -17,57 +17,41 @@ class BookingsController < ApplicationController
   end
 
   def create
+    @artist = Artist.find(params[:artist_id])
+    @start_date = create_params[:start_date]
     @booking = Booking.new(start_date: create_params[:start_date], duration: 24, description: create_params[:description], user_id: current_user.id, artist_id: params[:artist_id], status: "payment_pending")
     if @booking.save
       redirect_to artist_booking_path(artist_id: @booking.artist.id, id: @booking.id)
     else
-      flash[:danger] = "L'artiste n'est pas disponible à cette date."
-      redirect_back fallback_location: artist_path(@booking.artist.id)
+      flash.now[:danger] = "L'artiste n'est pas disponible à cette date."
+      render :new, locals:{description:create_params[:description]}
     end
   end
 
   def update
+    @artist = current_artist
+    @bookings = current_artist.bookings
     @booking = Booking.find(update_params[:id])
     @booking.update(status: "approved")
-    redirect_to artist_bookings_path(artist_id: current_artist.id)
+    @flash = [["success", "Réservation confirmée"]]
+    respond_to do |format|
+      format.html { redirect_to artist_bookings_path(artist_id: current_artist.id) }
+      format.js { }
+    end
   end
 
   def destroy
     @booking = Booking.find(destroy_params[:id])
 
     if current_artist
-      if @booking.no_late_cancel?
-        @booking.update(status: "cancelled_by_artist")
-        if !@booking.stripe_customer_id.nil?
-          Stripe::Refund.create({
-            payment_intent: @booking.stripe_customer_id,
-          })
-        end
-        flash[:success] = "Réservation annulée"
-        redirect_to artist_bookings_path(artist_id: current_artist.id)
-      else
-        flash[:danger] = "Il est trop tard pour annuler cette réservation."
-        redirect_to artist_bookings_path(artist_id: current_artist.id)
-      end      
+      cancel_booking_artist(@booking)
     else
       if @booking.status == "payment_pending"
         @booking.destroy
-        flash[:success] = "Demande de réservation annulée"
+        flash[:success] = 'Demande de réservation annulée'
         redirect_to artists_path
       else
-        if @booking.no_late_cancel?
-          @booking.update(status: "cancelled_by_user")
-          if !@booking.stripe_customer_id.nil?
-            Stripe::Refund.create({
-              payment_intent: @booking.stripe_customer_id,
-            })
-          end
-          flash[:success] = "Réservation annulée"
-          redirect_to current_user
-        else
-          flash[:danger] = "Il est trop tard pour annuler cette réservation."
-          redirect_to current_user
-        end 
+        cancel_booking_user(@booking)
       end
     end
   end
@@ -101,5 +85,27 @@ class BookingsController < ApplicationController
 
   def destroy_params
     params.permit(:id)
+  end
+
+  def cancel_booking_artist(booking)
+    if booking.no_late_cancel?
+      booking.update(status: "cancelled_by_artist")
+      booking.try_refund
+      flash[:success] = "Réservation annulée"
+    else
+      flash[:danger] = "Il est trop tard pour annuler cette réservation."
+    end
+    redirect_to artist_bookings_path(artist_id: current_artist.id)
+  end
+
+  def cancel_booking_user(booking)
+    if booking.no_late_cancel?
+      booking.update(status: "cancelled_by_user")
+      booking.try_refund
+      flash[:success] = "Réservation annulée"
+    else
+      flash[:danger] = "Il est trop tard pour annuler cette réservation."
+    end 
+    redirect_to current_user
   end
 end

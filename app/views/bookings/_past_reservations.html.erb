@@ -1,0 +1,26 @@
+<% if bookings.where(start_date: DateTime.now - 5.years..DateTime.now, status: "approved").empty? %>
+  <p class="text-center text-secondary py-4">Vous n'avez pas de réservations passées.</p>
+<% else %>
+  <table class="table table-hover table-responsive-lg">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Email Client</th>
+      <th scope="col">Date de l'événement</th>
+      <th scope="col">Description de l'événement</th>
+      <th scope="col">Montant</th>
+    </tr>
+  </thead>
+    <tbody>
+      <% bookings.where(start_date: DateTime.now - 5.years..DateTime.now, status: "approved").each do |booking| %>
+        <tr>
+          <th scope="row"><%= booking.id %></th>
+            <td><%= booking.user.email %></td>
+            <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
+            <td><%= booking.description %></td>
+            <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

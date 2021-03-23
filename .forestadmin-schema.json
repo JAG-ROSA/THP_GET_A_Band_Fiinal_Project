@@ -488,6 +488,21 @@
       "widget": null,
       "validations": []
     }, {
+      "field": "playlist",
+      "type": "String",
+      "default_value": "",
+      "enums": null,
+      "integration": null,
+      "is_filterable": true,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": null,
+      "inverse_of": null,
+      "widget": null,
+      "validations": []
+    }, {
       "field": "availabilities",
       "type": ["Number"],
       "default_value": null,
@@ -516,6 +531,38 @@
       "is_virtual": false,
       "reference": "Booking.id",
       "inverse_of": "artist",
+      "relationship": "HasMany",
+      "widget": null,
+      "validations": []
+    }, {
+      "field": "artist_categories",
+      "type": ["Number"],
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": false,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": "ArtistCategory.id",
+      "inverse_of": "artist",
+      "relationship": "HasMany",
+      "widget": null,
+      "validations": []
+    }, {
+      "field": "categories",
+      "type": ["Number"],
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": false,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": "Category.id",
+      "inverse_of": "artists",
       "relationship": "HasMany",
       "widget": null,
       "validations": []
@@ -641,6 +688,95 @@
         "change": []
       }
     }]
+  }, {
+    "name": "ArtistCategory",
+    "name_old": "artist_categories",
+    "icon": null,
+    "is_read_only": false,
+    "is_searchable": true,
+    "is_virtual": false,
+    "only_for_relationships": false,
+    "pagination_type": "page",
+    "fields": [{
+      "field": "id",
+      "type": "Number",
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": true,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": null,
+      "inverse_of": null,
+      "widget": null,
+      "validations": []
+    }, {
+      "field": "artist",
+      "type": "Number",
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": true,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": "Artist.id",
+      "inverse_of": "artist_categories",
+      "relationship": "BelongsTo",
+      "widget": null,
+      "validations": []
+    }, {
+      "field": "category",
+      "type": "Number",
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": true,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": "Category.id",
+      "inverse_of": "artist_categories",
+      "relationship": "BelongsTo",
+      "widget": null,
+      "validations": []
+    }, {
+      "field": "created_at",
+      "type": "Date",
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": true,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": null,
+      "inverse_of": null,
+      "widget": null,
+      "validations": []
+    }, {
+      "field": "updated_at",
+      "type": "Date",
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": true,
+      "is_read_only": false,
+      "is_required": false,
+      "is_sortable": true,
+      "is_virtual": false,
+      "reference": null,
+      "inverse_of": null,
+      "widget": null,
+      "validations": []
+    }],
+    "segments": [],
+    "actions": []
   }, {
     "name": "Availability",
     "name_old": "availabilities",
@@ -932,6 +1068,8 @@
   }, {
     "name": "Conversation",
     "name_old": "conversations",
+    "name": "Category",
+    "name_old": "categories",
     "icon": null,
     "is_read_only": false,
     "is_searchable": true,
@@ -956,6 +1094,8 @@
     }, {
       "field": "recipient_id",
       "type": "Number",
+      "field": "label",
+      "type": "String",
       "default_value": null,
       "enums": null,
       "integration": null,
@@ -983,6 +1123,15 @@
       "inverse_of": null,
       "widget": null,
       "validations": []
+      "validations": [{
+        "message": null,
+        "type": "is longer than",
+        "value": 0
+      }, {
+        "message": null,
+        "type": "is shorter than",
+        "value": 50
+      }]
     }, {
       "field": "created_at",
       "type": "Date",
@@ -1015,6 +1164,7 @@
       "validations": []
     }, {
       "field": "messages",
+      "field": "artist_categories",
       "type": ["Number"],
       "default_value": null,
       "enums": null,
@@ -1026,6 +1176,8 @@
       "is_virtual": false,
       "reference": "Message.id",
       "inverse_of": "conversation",
+      "reference": "ArtistCategory.id",
+      "inverse_of": "category",
       "relationship": "HasMany",
       "widget": null,
       "validations": []
@@ -1052,6 +1204,12 @@
       "enums": null,
       "integration": null,
       "is_filterable": true,
+      "field": "artists",
+      "type": ["Number"],
+      "default_value": null,
+      "enums": null,
+      "integration": null,
+      "is_filterable": false,
       "is_read_only": false,
       "is_required": false,
       "is_sortable": true,
@@ -1059,6 +1217,8 @@
       "reference": "Artist.id",
       "inverse_of": "conversations",
       "relationship": "BelongsTo",
+      "inverse_of": "categories",
+      "relationship": "HasMany",
       "widget": null,
       "validations": []
     }],

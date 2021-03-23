@@ -10,7 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_22_111537) do
+
+ActiveRecord::Schema.define(version: 2021_03_22_132623) do
+
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +38,15 @@ ActiveRecord::Schema.define(version: 2021_03_22_111537) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "artist_categories", force: :cascade do |t|
+    t.bigint "artist_id"
+    t.bigint "category_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["artist_id"], name: "index_artist_categories_on_artist_id"
+    t.index ["category_id"], name: "index_artist_categories_on_category_id"
+  end
+
   create_table "artists", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,6 +60,7 @@ ActiveRecord::Schema.define(version: 2021_03_22_111537) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "playlist", default: "", null: false
     t.index ["email"], name: "index_artists_on_email", unique: true
     t.index ["location_id"], name: "index_artists_on_location_id"
     t.index ["reset_password_token"], name: "index_artists_on_reset_password_token", unique: true
@@ -78,12 +90,20 @@ ActiveRecord::Schema.define(version: 2021_03_22_111537) do
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
+
   create_table "conversations", force: :cascade do |t|
     t.integer "recipient_id"
     t.integer "sender_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["recipient_id", "sender_id"], name: "index_conversations_on_recipient_id_and_sender_id", unique: true
+  end
+  
+  create_table "categories", force: :cascade do |t|
+    t.string "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+
   end
 
   create_table "locations", force: :cascade do |t|
