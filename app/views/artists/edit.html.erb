@@ -25,6 +25,22 @@
   </div>
   <br/>
 
+  <div class="d-flex align-items-center flex-wrap">
+    <p class='d-block'>Style de musique (3 max:)</p>
+    <div class="form-check form-check-inline row">
+      <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
+      <div class="mx-2 col-3">
+        <%= f.label class: "form-check-label pr-2" do %>
+          <%= f.check_box class: "form-check-input"%>
+          <%= f.text %>
+        <% end %>
+      </div>
+      <% end %>
+      </div>
+  </div>
+  <br/>
+
+
   <%= form.submit "Modifier mes informations de profil", class: "form-control btn btn-primary" %>
   <% end %>
   <%= link_to "Retour au profil", artist_bookings_path(artist_id: @artist.id), class: "form-control btn btn-secondary mt-2"%>
