@@ -73,5 +73,6 @@ gem 'forest_liana'
 gem "aws-sdk-s3", require: false
 gem "simple_calendar", "~> 2.0"
 gem 'mailjet'
+# gem 'rspotify'
 # gem 'administrate'
 # gem 'administrate-field-active_storage', "0.1.8"

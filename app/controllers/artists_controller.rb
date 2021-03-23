@@ -1,6 +1,7 @@
 class ArtistsController < ApplicationController
   before_action :authenticate_artist!, except: [:index, :show]
-  before_action :set_artist, only: [:show, :edit, :update]
+  before_action :set_artist , only: [:edit, :update]
+
 
   def index
     if index_params[:start_date].present?
@@ -14,6 +15,8 @@ class ArtistsController < ApplicationController
   end
 
   def show
+    @artist = Artist.find(show_params[:id])
+    @artist.playlist.empty? ? puts("empty") : @spotify_playlist = @artist.playlist.insert(25,"embed/") 
   end
 
   def create
@@ -52,7 +55,6 @@ class ArtistsController < ApplicationController
   private
 
   def set_artist
-    # params.permit(:id)
     @artist = current_artist
   end
 
@@ -60,7 +62,11 @@ class ArtistsController < ApplicationController
     params.permit(:start_date)
   end
 
+  def show_params
+    params.permit(:id)
+  end
+
   def update_params
-    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location_id, :avatar, pictures: [], categories: [])
+    params.require(:artist).permit(:artist_name, :description, :hourly_price, :location_id, :playlist, :avatar, pictures: [], categories: [])
   end
 end
