@@ -1,0 +1,69 @@
+<table class="table table-hover">
+  <tbody>
+    <tr>
+      <th scope="row">Nom d'artiste</th>
+      <td>
+        <% if artist.artist_name.nil? || artist.artist_name == "" %>
+          Indéfini
+        <% else %>
+          <%= artist.artist_name %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Style(s) de musique</th>
+      <td>
+        <% if artist.categories.nil? || artist.categories == "" %>
+          Indéfini
+        <% else %>
+        <% artist.categories.each do |category| %>
+          <%= category.label %>
+        <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Description</th>
+      <td>
+        <% if artist.description.nil? || artist.description == "" %>
+          Indéfini
+        <% else %>
+          <%= artist.description %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Tarif horaire</th>
+      <td>
+        <% if artist.hourly_price.nil? %>
+          Indéfini
+        <% else %>
+          <%= number_to_currency(artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Lien de la playlist de démonstration</th>
+      <td>
+        <% if artist.playlist.nil? %>
+          Indéfini
+        <% else %>
+          <%= artist.playlist %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <th scope="row">Département d'activité</th>
+      <td colspan="2">
+        <% if artist.location.nil? %>
+          Indéfini
+        <% else %>
+          <%= artist.location.department %>
+        <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="text-center mb-5">
+  <%= link_to "Modifier votre profil", edit_artist_path(id: artist.id), class: "btn btn-primary w-50" %>
+</div>

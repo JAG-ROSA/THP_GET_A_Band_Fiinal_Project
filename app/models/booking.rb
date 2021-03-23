@@ -9,18 +9,17 @@ class Booking < ApplicationRecord
   validates :description, length: {in: 0..600 }
   validates :duration, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 24}
 
+  scope :approved, -> { where(status: "approved") }
+
   def booking_tracking
     if self.status == "approved"
       BookingMailer.customer_confirmation(self).deliver_now
-    end
-    if self.status == "pending"
+    elsif self.status == "pending"
       BookingMailer.artist_request(self).deliver_now
       BookingMailer.customer_request(self).deliver_now
-    end
-    if self.status == "cancelled_by_artist"
+    elsif self.status == "cancelled_by_artist"
       BookingMailer.artist_cancellation(self).deliver_now
-    end
-    if self.status == "cancelled_by_user"
+    elsif self.status == "cancelled_by_user"
       BookingMailer.customer_cancellation(self).deliver_now
     end
   end
@@ -44,7 +43,19 @@ class Booking < ApplicationRecord
   end
 
   def no_late_cancel?
-    self.start_date >= DateTime.now + 1.week
+    if self.start_date >= DateTime.now + 1.week
+      errors.add(:start_date, "On ne peut modifier une réservation moins d'une semaine à l'avance")
+    end
+  end
+
+  def try_refund
+    if stripe_customer_id.present?
+      Stripe::Refund.create(
+        {
+          payment_intent: stripe_customer_id,
+        }
+      )
+    end
   end
 
 end
