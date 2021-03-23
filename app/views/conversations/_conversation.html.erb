@@ -18,10 +18,10 @@
       <%= form_for [conversation, conversation.messages.new], remote: true do |f| %>
         <% if user_signed_in? %>
           <%= f.hidden_field :user_id, value: current_user.id %>
-          <%= f.hidden_field :artist_id, value: 1 %>
+          <%= f.hidden_field :artist_id, value: Artist.first.id %>
         <% elsif artist_signed_in? %>
           <%= f.hidden_field :user_id, value: current_artist.id %>
-          <%= f.hidden_field :artist_id, value: 1 %>
+          <%= f.hidden_field :artist_id, value: Artist.first.id %>
         <% end %>
         <%= f.text_area :body, class: "form-control", id: "text_area_submit" %>
         <%= f.submit "Envoyer", class: "btn btn-primary mt-3 w-100" %>
