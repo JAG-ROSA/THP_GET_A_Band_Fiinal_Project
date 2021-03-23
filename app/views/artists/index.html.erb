@@ -1,22 +1,24 @@
 <div class="container pt-5 mt-5" id="anchor">
   <div>
-    <%= form_with url: artists_path, method: "get", local: true, class: "form-inline justify-content-center" do |form| %>
+    <%= form_with url: artists_path, method: "get", local: true do |form| %>
 
       <%= form.label "Jour de votre évènement", class: "mr-3" %>
       <%= form.date_field :start_date, value: @start_at, class: "form-control", class: "mr-3" %>
-      <%= form.submit "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1" %>
-      <div class="d-flex align-items-center flex-wrap">  
+
+      <div class="d-flex align-items-center flex-wrap">
         <div class="form-check form-check-inline row">
           <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
-          <div class="mx-2 col-3">
-            <%= f.label class: "form-check-label pr-2" do %>
-              <%= f.check_box class: "form-check-input"%>
-              <%= f.text %>
-            <% end %>
-          </div>
+            <div class="mx-2 col-3">
+              <%= f.label class: "form-check-label pr-2" do %>
+                <%= f.check_box class: "form-check-input"%>
+                <%= f.text %>
+              <% end %>
+            </div>
           <% end %>
           </div>
         </div>
+
+        <%= form.submit "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1" %>
     <% end %>
   </div>
 

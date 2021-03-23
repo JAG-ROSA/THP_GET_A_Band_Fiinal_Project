@@ -3,15 +3,19 @@ class ArtistsController < ApplicationController
   before_action :set_artist, only: [:edit, :update]
 
   def index
+    @artists = Artist.approved
+    #@start_at = Date.current
+    @all_categories = Category.all
+
     if index_params[:start_date].present?
       @start_at = index_params[:start_date]
       @end_at = @start_at.to_date + 1.day
       @artists = Availability.available_artists(@start_at, @end_at)
-    else
-      @artists = Artist.approved
-      @start_at = Date.current
     end
-    @all_categories = Category.all
+
+    if index_params[:categories].present?
+      @artists = @artists.joins(:artist_categories).where("category_id IN (?)", index_params[:categories]).distinct
+    end
   end
 
   def show
@@ -59,7 +63,7 @@ class ArtistsController < ApplicationController
   end
 
   def index_params
-    params.permit(:start_date)
+    params.permit(:start_date, categories: [])
   end
 
   def show_params
