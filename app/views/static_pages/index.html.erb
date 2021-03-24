@@ -26,13 +26,14 @@
   <div class="row">
     <%= link_to "Réserver un artiste pour votre mariage", artists_path, class: "btn btn-primary btn-block w-75 mx-auto mt-5" %>
   </div>
-  <h1 class="text-primary text-center mt-5 mb-3">Découvrez nos artistes</h1>
-  <div class="row justify-content-center">
-    <% @sample_artists.each do |artist| %>
-      <%= render "artists/card", artist: artist %>
-    <% end %>
-  </div>
-
+</div>
+<h1 class="text-primary text-center mt-5 mb-3">Découvrez nos artistes</h1>
+<div class="row justify-content-center">
+  <% @sample_artists.each do |artist| %>
+    <%= render "artists/card", artist: artist %>
+  <% end %>
+</div>
+<div class="container marketing">
   <h1 class="text-primary text-center pt-5">Le mariage de vos rêves en un instant</h1>
   <div class="row featurette border-top border-bottom p-3">
     <div class="col-md-5">
