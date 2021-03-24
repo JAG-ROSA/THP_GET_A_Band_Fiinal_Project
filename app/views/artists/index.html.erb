@@ -29,7 +29,7 @@
 
         <div class="custom-control custom-switch">
           <%= form.check_box :filter_level, { class: "custom-control-input" } %>
-          <%= form.label :filter_level, "Toggle this switch element", class: "custom-control-label" %>
+          <%= form.label :filter_level, "Voir des propositions d'artistes qui pourraient vous convenir également", class: "custom-control-label" %>
         </div>
 
         <%= form.select :location_id, options_from_collection_for_select(@all_locations.order("department ASC"), "id", "department"), { include_blank: 'Département de votre évènement' }, {class: "custom-select"} %>

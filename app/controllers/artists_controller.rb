@@ -17,10 +17,21 @@ class ArtistsController < ApplicationController
     end
 
     if index_params[:categories].present?
-      @artists = @artists.joins(:artist_categories)
-        .where("category_id IN (?)", index_params[:categories])
-        .group("artists.id")
-        .having("count(*) >= (?)", index_params[:categories].size)
+      if index_params[:filter_level] == "1"
+        @artists = @artists.joins(:artist_categories)
+          .where("category_id IN (?)", index_params[:categories])
+          .distinct
+          .reverse
+      else
+        @artists = @artists.joins(:artist_categories)
+          .where("category_id IN (?)", index_params[:categories])
+          .group("artists.id")
+          .having("count(*) >= (?)", index_params[:categories].size)
+      end
+    end
+
+    if index_params[:location_id].present?
+      @artists = @artists.where(location_id: index_params[:location_id])
     end
     respond_to do |format|
       format.html { }
@@ -82,7 +93,7 @@ class ArtistsController < ApplicationController
   end
 
   def index_params
-    params.permit(:start_date, categories: [])
+    params.permit(:start_date, :filter_level, :location_id, categories: [])
   end
 
   def show_params
