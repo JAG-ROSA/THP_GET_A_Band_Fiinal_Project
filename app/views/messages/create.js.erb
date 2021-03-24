@@ -1,7 +1,7 @@
 var conversation = $('#conversations-list').find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
 if (<%= user_signed_in? %>){
-  conversation.find('.messages-list').find('ul').append("<%= j(render 'message', message: @message, user: current_user) %>");
+  conversation.find('.messages-list').find('ul').append("<%= j(render 'message', message: @message) %>");
 }else if (<%= artist_signed_in? %>){
-  conversation.find('.messages-list').find('ul').append("<%= j(render 'message', message: @message, user: current_artist) %>");
+  conversation.find('.messages-list').find('ul').append("<%= j(render 'message', message: @message) %>");
 }
 conversation.find('textarea').val('');
