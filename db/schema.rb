@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 2021_03_24_104739) do
   create_table "messages", force: :cascade do |t|
     t.text "body"
     t.bigint "user_id"
+    t.bigint "artist_id"
     t.bigint "conversation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
