@@ -16,10 +16,8 @@ Rails.application.routes.draw do
     resources :messages, only: [:create]
   end
   
-
   root 'static_pages#index'
 
   # Routes Stripe Checkout
   resources :checkout, only: [:create, :index]
-
 end

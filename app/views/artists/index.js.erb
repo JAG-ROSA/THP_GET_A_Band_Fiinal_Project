@@ -1,2 +1,3 @@
 //Update artists
-document.getElementById("available-artists").innerHTML = "<%= j render partial: 'available_artists', locals: { artists: @artists } %>";
+document.getElementById("available-artists").innerHTML = "<%= j render partial: "available_artists", locals: { artists: @artists } %>";
+document.getElementById("pagination-navbar").innerHTML = "<%= j render partial: "pagy_nav", locals: { pagy: @pagy } %>";
