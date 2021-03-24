@@ -20,10 +20,10 @@ class ArtistsController < ApplicationController
     if index_params[:categories].present?
 
       if index_params[:filter_level] == "1"
-       @pagy, @artists = pagy_array(@artists.joins(:artist_categories)
+        @artists = @artists.joins(:artist_categories)
           .where("category_id IN (?)", index_params[:categories])
           .distinct
-          .reverse)
+          .reverse_order!
       else
        @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
         .where("category_id IN (?)", index_params[:categories])
