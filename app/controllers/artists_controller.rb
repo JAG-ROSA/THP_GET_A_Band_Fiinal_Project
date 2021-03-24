@@ -18,17 +18,16 @@ class ArtistsController < ApplicationController
     end
 
     if index_params[:categories].present?
-
       if index_params[:filter_level] == "1"
         @artists = @artists.joins(:artist_categories)
           .where("category_id IN (?)", index_params[:categories])
           .distinct
           .reverse_order!
       else
-       @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
-        .where("category_id IN (?)", index_params[:categories])
-        .group("artists.id")
-        .having("count(*) >= (?)", index_params[:categories].size))
+        @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
+          .where("category_id IN (?)", index_params[:categories])
+          .group("artists.id")
+          .having("count(*) >= (?)", index_params[:categories].size))
       end
     end
 
