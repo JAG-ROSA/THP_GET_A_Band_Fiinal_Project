@@ -5,6 +5,7 @@ class ArtistsController < ApplicationController
   def index
     @artists = Artist.approved
     @all_categories = Category.all
+    @all_locations = Location.all
 
     if index_params[:start_date].present?
       @start_at = index_params[:start_date]
@@ -31,10 +32,10 @@ class ArtistsController < ApplicationController
     @artist = Artist.find(show_params[:id])
     @start_date = show_params[:start_date]
     if !@artist.playlist.blank?
-      @spotify_playlist = @artist.playlist.strip.insert(25,"embed/")
+      @spotify_playlist = @artist.playlist.strip.insert(25, "embed/")
     else
       @spotify_playlist = ""
-    end  
+    end
     @availabilities = @artist.availabilities
     @bookings = @artist.bookings
   end
