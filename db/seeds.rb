@@ -105,3 +105,15 @@ Artist.all.each do |artist|
   )
   puts "Create a category for an artist"
 end
+
+#Reviews
+Booking.all.each do |booking|
+  Review.create!(
+    rating: rand(0..5),
+    comment: Faker::Lorem.paragraph_by_chars(number: 256, supplemental: false),
+    booking: booking,
+    artist: booking.artist,
+    user: booking.user,
+  )
+  puts "Create review"
+end
