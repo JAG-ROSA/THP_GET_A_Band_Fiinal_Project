@@ -24,6 +24,7 @@ class Artist < ApplicationRecord
 
   has_many :messages
   has_many :conversations, foreign_key: :recipient_id
+  has_many :reviews
 
   scope :approved, -> { where(status: "approved") }
 
