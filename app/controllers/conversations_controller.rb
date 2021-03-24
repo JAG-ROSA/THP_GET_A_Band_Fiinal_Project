@@ -1,4 +1,7 @@
 class ConversationsController < ApplicationController
+
+  before_action :assert_artist_or_user_signed_in
+  
   def index
     session[:conversations] ||= []
 
@@ -41,5 +44,9 @@ class ConversationsController < ApplicationController
 
   def conversated?
     session[:conversations].include?(@conversation.id)
+  end
+
+  def assert_artist_or_user_signed_in 
+    redirect_to user_session_path unless current_user || current_artist 
   end
 end
