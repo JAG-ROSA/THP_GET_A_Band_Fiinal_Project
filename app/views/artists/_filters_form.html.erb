@@ -1,9 +1,8 @@
 <div class="border p-4">
-  <h3 class="text-primary text-center mt-2">Trouvez votre artiste idéal !</h3>
+  <h3 class="text-primary text-center">Trouvez votre artiste idéal !</h3>
   <div>
     <div class="d-flex justify-content-center">
-
-    <%= form_with url: artists_path, method: "get" do |form| %>
+      <%= form_with url: artists_path, method: "get" do |form| %>
       <div class="d-flex justify-content-around">
         <div>
           <%= form.label "Date de votre évènement :" %>
@@ -13,39 +12,38 @@
             <%= form.select :location_id, options_from_collection_for_select(@all_locations.order("department ASC"), "id", "department"), { include_blank: "Département de votre évènement" }, { class: "custom-select" } %>
         </div>
       </div>
+    </div>
   </div>
 
-    <div class="accordion mt-2" id="accordionExample">
-        <div id="headingOne">
-          <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left" style="font-family: 'Jost', sans-serif;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Voir plus de filtres
-            </button>
-          </h2>
-        </div>
+  <div class="accordion mt-2" id="accordionExample">
+    <div id="headingOne">
+      <h2 class="mb-0">
+        <button class="btn btn-link btn-block text-left" style="font-family: 'Jost', sans-serif;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Voir plus de filtres
+        </button>
+      </h2>
+    </div>
 
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="mt-2">
-            <h5 class="text-center">Quel genre de musique souhaitez-vous ?</h5>
-            <div class="form-check form-check-inline mx-0 my-2 row d-flex justify-content-center">
-              <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
-              <div class="mx-2 col-2">
-                <%= f.label class: "form-check-label pr-2" do %>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+      <div class="mt-2">
+        <h5 class="text-center">Quel genre de musique souhaitez-vous ?</h5>
+        <div class="form-check form-check-inline mx-0 my-2 row d-flex justify-content-center">
+          <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
+            <div class="mx-2 col-2">
+              <%= f.label class: "form-check-label pr-2" do %>
                 <%= f.check_box class: "form-check-input" %>
                 <%= f.text %>
               <% end %>
             </div>
-            <% end %>
-          </div>
-
-          <div class="custom-control custom-switch">
-            <%= form.check_box :filter_level, { class: "custom-control-input" } %>
-            <%= form.label :filter_level, "Voir des propositions d'artistes qui pourraient vous convenir également", class: "custom-control-label" %>
-          </div>
+          <% end %>
         </div>
+        <div class="custom-control custom-switch">
+          <%= form.check_box :filter_level, { class: "custom-control-input" } %>
+          <%= form.label :filter_level, "Voir des propositions d'artistes qui pourraient vous convenir également", class: "custom-control-label" %>
+        </div>
+      </div>
     </div>
-
-  <%= form.submit "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1" %>
-<% end %>
-</div>
+    <%= form.submit "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1" %>
+    <% end %>
+  </div>
 </div>
