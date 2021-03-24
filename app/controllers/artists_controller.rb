@@ -1,23 +1,26 @@
 class ArtistsController < ApplicationController
+  include Pagy::Backend
   before_action :authenticate_artist!, except: [:index, :show]
   before_action :set_artist, only: [:edit, :update]
 
   def index
-    @artists = Artist.approved
-    #@start_at = Date.current
+    @pagy, @artists = pagy(Artist.approved)
     @all_categories = Category.all
 
     if index_params[:start_date].present?
       @start_at = index_params[:start_date]
       @end_at = @start_at.to_date + 1.day
-      @artists = Availability.available_artists(@start_at, @end_at)
+      @pagy, @artists = pagy(Availability.available_artists(@start_at, @end_at))
+      @start_date = @start_at
+    else
+      @start_date = Date.current
     end
 
     if index_params[:categories].present?
-      @artists = @artists.joins(:artist_categories)
+      @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
         .where("category_id IN (?)", index_params[:categories])
         .group("artists.id")
-        .having("count(*) >= (?)", index_params[:categories].size)
+        .having("count(*) >= (?)", index_params[:categories].size))
     end
     respond_to do |format|
       format.html { }
@@ -27,9 +30,8 @@ class ArtistsController < ApplicationController
 
   def show
     @artist = Artist.find(show_params[:id])
+    @start_date = show_params[:start_date]
     if !@artist.playlist.blank?
-      # All the whitespaces are deleted from the user playlist link
-      # then the link is updated to match the widget embed pattern link by inserting "embed/" at the link
       @spotify_playlist = @artist.playlist.strip.insert(25,"embed/")
     else
       @spotify_playlist = ""
@@ -84,7 +86,7 @@ class ArtistsController < ApplicationController
   end
 
   def show_params
-    params.permit(:id)
+    params.permit(:id, :start_date)
   end
 
   def update_params
