@@ -74,6 +74,7 @@ gem "aws-sdk-s3", require: false
 gem "simple_calendar", "~> 2.0"
 gem 'mailjet'
 gem 'rails-i18n'
+gem 'pagy', "< 4.0"
 # gem 'rspotify'
 # gem 'administrate'
 # gem 'administrate-field-active_storage', "0.1.8"
