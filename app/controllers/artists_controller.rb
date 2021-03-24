@@ -6,6 +6,7 @@ class ArtistsController < ApplicationController
   def index
     @pagy, @artists = pagy(Artist.approved)
     @all_categories = Category.all
+    @all_locations = Location.all
 
     if index_params[:start_date].present?
       @start_at = index_params[:start_date]
@@ -17,10 +18,22 @@ class ArtistsController < ApplicationController
     end
 
     if index_params[:categories].present?
-      @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
+
+      if index_params[:filter_level] == "1"
+       @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
+          .where("category_id IN (?)", index_params[:categories])
+          .distinct
+          .reverse)
+      else
+       @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
         .where("category_id IN (?)", index_params[:categories])
         .group("artists.id")
         .having("count(*) >= (?)", index_params[:categories].size))
+      end
+    end
+
+    if index_params[:location_id].present?
+      @pagy, @artists = pagy_arel(@artists.where(location_id: index_params[:location_id]))
     end
     respond_to do |format|
       format.html { }
@@ -32,10 +45,10 @@ class ArtistsController < ApplicationController
     @artist = Artist.find(show_params[:id])
     @start_date = show_params[:start_date]
     if !@artist.playlist.blank?
-      @spotify_playlist = @artist.playlist.strip.insert(25,"embed/")
+      @spotify_playlist = @artist.playlist.strip.insert(25, "embed/")
     else
       @spotify_playlist = ""
-    end  
+    end
     @availabilities = @artist.availabilities
     @bookings = @artist.bookings
   end
@@ -82,7 +95,7 @@ class ArtistsController < ApplicationController
   end
 
   def index_params
-    params.permit(:start_date, categories: [])
+    params.permit(:start_date, :filter_level, :location_id, categories: [])
   end
 
   def show_params
