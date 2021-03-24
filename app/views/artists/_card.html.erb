@@ -1,20 +1,19 @@
-<% # a simple card with image, title, description and price %>
-  <div class="card mx-3 my-3 border-primary " style="width:300px" >
-    <% if artist.avatar.attached?%>
-      <%= image_tag artist.avatar.variant(resize: "400x400"), class: "img-fluid", style:"height:400px;object-fit:cover", alt:"artist-avatar" %> 
-    <%else%>
-      <%= image_tag "default_pictures/default_artist.jpg", class: "img-fluid", style:"height:400px;object-fit:cover", alt:"artist-avatar"%>
-    <%end%>
-    
-    <div class="card-body text-center">
-      <h4 class="card-title text-primary"><%= artist.artist_name %></h4>
-      <% if artist.categories.any? %>
-        <% artist.categories.each do |category| %>
-          <span class="badge badge-pill badge-secondary"><%= category.label %></span>        
-        <% end %>
+<div class="card mx-3 my-3 border-primary " style="width:300px" >
+  <% if artist.avatar.attached? %>
+    <%= image_tag artist.avatar.variant(resize: "400x400"), class: "img-fluid", style: "height:400px;object-fit:cover", alt: "artist-avatar" %> 
+  <% else %>
+    <%= image_tag "default_pictures/default_artist.jpg", class: "img-fluid", style: "height:400px;object-fit:cover", alt: "artist-avatar" %>
+  <% end %>
+  
+  <div class="card-body text-center">
+    <h4 class="card-title text-primary"><%= artist.artist_name %></h4>
+    <% if artist.categories.any? %>
+      <% artist.categories.each do |category| %>
+        <span class="badge badge-pill badge-secondary"><%= category.label %></span>        
       <% end %>
+    <% end %>
     <p class="card-text text-secondary"><%= artist.hourly_price * 24 %>€/jour</p>
     <p class="card-text text-secondary"><%= artist.location.department %></p>
-    <%= link_to "En savoir plus et réserver", artist_path(artist.id, start_date: params[:start_date]), class: "btn btn-primary mb-3" %>
+    <%= link_to "En savoir plus et réserver", artist_path(artist.id, start_date: @start_date), class: "btn btn-primary mb-3" %>
   </div>
 </div>
