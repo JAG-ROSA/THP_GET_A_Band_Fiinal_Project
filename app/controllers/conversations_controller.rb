@@ -25,7 +25,7 @@ class ConversationsController < ApplicationController
     end
   end
 
-  def close
+  def destroy
     @conversation = Conversation.find(params[:id])
 
     session[:conversations].delete(@conversation.id)

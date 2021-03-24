@@ -6,7 +6,7 @@
       <% elsif artist_signed_in? %>
         <%= "Conversation avec: #{conversation.opposed_user(user).first_name} #{conversation.opposed_user(user).last_name}"%>
       <% end %>
-      <%= link_to "x", close_conversation_path(conversation), class: "btn btn-danger float-right", remote: true, method: :post %>
+      <%= link_to "x", conversation_path(conversation), class: "btn btn-danger float-right", remote: true, method: :delete %>
     </div>
 
     <div class="panel-body" style="display: none;">
