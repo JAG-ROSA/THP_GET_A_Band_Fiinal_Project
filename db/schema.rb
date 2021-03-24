@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_24_080653) do
+ActiveRecord::Schema.define(version: 2021_03_24_104739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,8 +82,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_080653) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "end_date"
-    t.bigint "artist_id"
     t.string "stripe_customer_id"
+    t.bigint "artist_id"
     t.index ["artist_id"], name: "index_bookings_on_artist_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 2021_03_24_080653) do
     t.bigint "conversation_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "sender_id"
+    t.index ["artist_id"], name: "index_messages_on_artist_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
