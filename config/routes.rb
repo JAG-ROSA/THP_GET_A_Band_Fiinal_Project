@@ -7,8 +7,13 @@ Rails.application.routes.draw do
     resources :avatars, only: [:create, :destroy]
     resources :pictures, only: [:create, :destroy]
     resources :availabilities
+    resources :reviews
   end
-  resources :users, only: [:create, :edit, :show, :update, :destroy]
+
+  resources :users, only: [:create, :edit, :show, :update, :destroy] do 
+    resources :reviews
+  end
+
   resources :conversations, only: [:index, :create] do
     member do
       post :close
