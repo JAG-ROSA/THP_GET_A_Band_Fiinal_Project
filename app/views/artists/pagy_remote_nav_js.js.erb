@@ -1,0 +1,2 @@
+$('#pagination-navbar').html("<%= j(render partial: "pagy_nav", locals: { pagy: @pagy }) %>");
+Pagy.init(document.getElementById('pagination-navbar'));
