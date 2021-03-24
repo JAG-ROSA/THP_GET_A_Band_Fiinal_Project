@@ -4,12 +4,12 @@
     <div class="d-flex justify-content-center">
 
     <%= form_with url: artists_path, method: "get" do |form| %>
-      <div class="row">
-        <div class="col-6">
-          <%= form.label "Jour de votre évènement", class: "mr-3" %>
+      <div class="d-flex justify-content-around">
+        <div>
+          <%= form.label "Date de votre évènement :" %>
           <%= form.date_field :start_date, value: @start_at, class: "form-control", class: "mr-3" %>
         </div>
-        <div class="col-6">
+        <div>
             <%= form.select :location_id, options_from_collection_for_select(@all_locations.order("department ASC"), "id", "department"), { include_blank: 'Département de votre évènement' }, {class: "custom-select"} %>
         </div>
       </div>
