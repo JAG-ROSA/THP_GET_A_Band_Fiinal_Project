@@ -642,7 +642,7 @@
       "is_sortable": true,
       "is_virtual": false,
       "reference": "Message.id",
-      "inverse_of": "artist",
+      "inverse_of": null,
       "relationship": "HasMany",
       "widget": null,
       "validations": []
@@ -1460,22 +1460,6 @@
       "widget": null,
       "validations": []
     }, {
-      "field": "artist",
-      "type": "Number",
-      "default_value": null,
-      "enums": null,
-      "integration": null,
-      "is_filterable": true,
-      "is_read_only": false,
-      "is_required": false,
-      "is_sortable": true,
-      "is_virtual": false,
-      "reference": "Artist.id",
-      "inverse_of": "messages",
-      "relationship": "BelongsTo",
-      "widget": null,
-      "validations": []
-    }, {
       "field": "conversation",
       "type": "Number",
       "default_value": null,
@@ -1597,21 +1581,6 @@
       "field": "last_name",
       "type": "String",
       "default_value": null,
-      "enums": null,
-      "integration": null,
-      "is_filterable": true,
-      "is_read_only": false,
-      "is_required": false,
-      "is_sortable": true,
-      "is_virtual": false,
-      "reference": null,
-      "inverse_of": null,
-      "widget": null,
-      "validations": []
-    }, {
-      "field": "admin",
-      "type": "Boolean",
-      "default_value": "false",
       "enums": null,
       "integration": null,
       "is_filterable": true,

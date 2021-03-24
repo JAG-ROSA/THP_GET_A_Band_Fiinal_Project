@@ -24,7 +24,6 @@ ArtistCategory.destroy_all
     last_name: Faker::Name.last_name,
     email: "getabandadmin@yopmail.com",
     password: "azerty",
-    admin: true,
   )
   puts "Create Admin"
 end
