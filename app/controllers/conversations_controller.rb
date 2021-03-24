@@ -10,9 +10,9 @@ class ConversationsController < ApplicationController
 
   def create
     if user_signed_in?
-      @conversation = Conversation.get(current_user.id, params[:artist_id])
+      @conversation = Conversation.get(current_user.id, params[:user_id])
     elsif artist_signed_in?
-      @conversation = Conversation.get(params[:artist_id], current_artist.id)
+      @conversation = Conversation.get(params[:user_id], current_artist.id)
     end
     
     add_to_conversations if conversated?
