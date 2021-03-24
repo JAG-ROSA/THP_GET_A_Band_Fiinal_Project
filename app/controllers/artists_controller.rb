@@ -20,7 +20,7 @@ class ArtistsController < ApplicationController
     if index_params[:categories].present?
 
       if index_params[:filter_level] == "1"
-       @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
+       @pagy, @artists = pagy_array(@artists.joins(:artist_categories)
           .where("category_id IN (?)", index_params[:categories])
           .distinct
           .reverse)
@@ -33,7 +33,7 @@ class ArtistsController < ApplicationController
     end
 
     if index_params[:location_id].present?
-      @pagy, @artists = pagy_arel(@artists.where(location_id: index_params[:location_id]))
+      @pagy, @artists = pagy(@artists.where(location_id: index_params[:location_id]))
     end
     respond_to do |format|
       format.html { }
