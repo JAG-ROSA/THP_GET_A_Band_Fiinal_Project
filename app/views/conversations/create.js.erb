@@ -3,9 +3,9 @@ var conversation = conversations.find("[data-conversation-id='" + "<%= @conversa
 
 if (conversation.length !== 1) {
   if (<%= user_signed_in? %>){
-    conversations.append("<%= j(render 'conversation', conversation: @conversation, user: current_user) %>");
+    conversations.append("<%= j(render 'conversation', conversation: @conversation, user: current_user, artist: params[:artist_id], sender: current_user) %>");
   } else if (<%= artist_signed_in? %>){
-    conversations.append("<%= j(render 'conversation', conversation: @conversation, user: params[:user_id]) %>");
+    conversations.append("<%= j(render 'conversation', conversation: @conversation, user: params[:user_id], artist: current_artist, sender: current_artist) %>");
   }
   conversation = conversations.find("[data-conversation-id='" + "<%= @conversation.id %>" + "']");
 }
