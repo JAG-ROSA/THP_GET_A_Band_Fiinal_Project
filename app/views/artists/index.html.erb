@@ -11,21 +11,40 @@
       <%= form.date_field :start_date, value: @start_at, class: "form-control", class: "mr-3" %>
     </div>
 
-      <div class="mt-2">
-        <h5 class="text-center">Quel genre de musique souhaitez-vous ?</h5>
-        <div class="form-check form-check-inline mx-0 my-2 row d-flex justify-content-center">
-          <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
-          <div class="mx-2 col-2">
-            <%= f.label class: "form-check-label pr-2" do %>
-            <%= f.check_box class: "form-check-input"%>
-            <%= f.text %>
-          <% end %>
-        </div>
+    <div class="mt-2">
+      <h5 class="text-center">Quel genre de musique souhaitez-vous ?</h5>
+      <div class="form-check form-check-inline mx-0 my-2 row d-flex justify-content-center">
+        <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
+        <div class="mx-2 col-2">
+          <%= f.label class: "form-check-label pr-2" do %>
+          <%= f.check_box class: "form-check-input"%>
+          <%= f.text %>
+        <% end %>
+      </div>
       <% end %>
     </div>
+
+    <details closed="closed" class="col-12">
+        <summary>Voir plus de filtres</summary>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="customSwitch1">
+          <label class="custom-control-label" for="customSwitch1">Toggle this switch element</label>
+        </div>
+
+        <select class="custom-select">
+          <option selected>Open this select menu</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+
+        <%= form.label :location_id, "Département dans lequel se déroulera votre évènement"%>
+        <%= form.select :location_id, options_from_collection_for_select(@all_locations.order("department ASC"), "id", "department") %>
+      </details>
     <%= form.submit "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1" %>
   <% end %>
   </div>
+</div>
 </div>
 
  <div class="d-flex flex-wrap justify-content-center" id="available-artists">
