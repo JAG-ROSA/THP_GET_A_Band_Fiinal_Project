@@ -1,19 +1,23 @@
-<div class="card mx-3 my-3 border-primary " style="width:300px" >
-  <% if artist.avatar.attached? %>
-    <%= image_tag artist.avatar.variant(resize: "400x400"), class: "img-fluid", style: "height:400px;object-fit:cover", alt: "artist-avatar" %> 
-  <% else %>
-    <%= image_tag "default_pictures/default_artist.jpg", class: "img-fluid", style: "height:400px;object-fit:cover", alt: "artist-avatar" %>
+<div class="content m-3" style="width:350px">
+  <%= link_to artist_path(artist.id, start_date: @start_date) do %>
+        <div class="content-overlay"></div>
+        <% if artist.avatar.attached? %>
+          <%= image_tag artist.avatar.variant(resize: "350x350"), class: "img-fluid content-image", style: "height:350px;object-fit:cover", alt: "artist-avatar" %> 
+        <% else %>
+          <%= image_tag "default_pictures/default_artist.jpg", class: "img-fluid content-image", style: "height:350px;object-fit:cover", alt: "artist-avatar" %>
+        <% end %>
+        <div class="content-details fadeIn-bottom">
+            <h3 class="content-title"><%= artist.artist_name %></h3>
+            <div>
+              <% if artist.categories.any? %>
+                <% artist.categories.each do |category| %>
+                  <span class="badge badge-pill badge-secondary"><%= category.label %></span>        
+                <% end %>
+              <% end %>
+              <p class="text-light"><%= artist.hourly_price * 24 %> €/jour
+              <br/><%= artist.location.department %></p>
+              <%= link_to "En savoir plus et réserver", artist_path(artist.id, start_date: @start_date), class: "btn btn-primary" %>
+            </div>
+        </div>
   <% end %>
-  
-  <div class="card-body text-center">
-    <h4 class="card-title text-primary"><%= artist.artist_name %></h4>
-    <% if artist.categories.any? %>
-      <% artist.categories.each do |category| %>
-        <span class="badge badge-pill badge-secondary"><%= category.label %></span>        
-      <% end %>
-    <% end %>
-    <p class="card-text text-secondary"><%= artist.hourly_price * 24 %>€/jour</p>
-    <p class="card-text text-secondary"><%= artist.location.department %></p>
-    <%= link_to "En savoir plus et réserver", artist_path(artist.id, start_date: @start_date), class: "btn btn-primary mb-3" %>
-  </div>
 </div>
