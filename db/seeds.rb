@@ -7,6 +7,7 @@ Conversation.destroy_all
 Message.destroy_all
 Category.destroy_all
 ArtistCategory.destroy_all
+Review.destroy_all
 
 # User
 10.times do
@@ -84,7 +85,7 @@ end
 #Reviews
 Booking.all.each do |booking|
   Review.create!(
-    rating: rand(0..5),
+    rating: rand(3..5),
     comment: Faker::Lorem.paragraph_by_chars(number: 256, supplemental: false),
     booking: booking,
     artist: booking.artist,

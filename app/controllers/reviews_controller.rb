@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
       flash[:danger] = "Vous n'avez pas accès à cette évaluation"
       redirect_to root_path
     end
-    @note = [0,1,2,3,4,5]
+    @note = [1,2,3,4,5]
   end
 
   def create
