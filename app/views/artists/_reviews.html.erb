@@ -1,0 +1,31 @@
+<%if !reviews.blank?%>
+  <div id="average-review-rating"> 
+    <h4> Avis - 
+      <small> <% show_star_rating(average_review).each do |star| %>
+        <i class="<%= star %>"></i> 
+        <% end %> 
+        <%= reviews.size %> avis
+      </small>
+    </h4>      
+  </div>
+  <div id="review-comment-display"> 
+    <table class="table">
+      <tbody>
+        <% reviews.each do |review|%>
+          <tr>
+            <td style="text-align: center;"><i class="far fa-user-circle fa-3x"></i> <br/> <%= review.user.first_name%> </td>
+            <td >
+              <small>
+                <%= review.created_at.strftime('%d/%m/%y') %> - note: <% show_star_rating(review.rating.to_i).each do |star| %>
+                  <i class="<%= star %>"></i> 
+                <% end %>
+              </small>  
+              <br>
+              <%=review.comment%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<%end%> 

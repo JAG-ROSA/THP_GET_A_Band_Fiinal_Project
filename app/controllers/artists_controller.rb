@@ -51,6 +51,9 @@ class ArtistsController < ApplicationController
     end
     @availabilities = @artist.availabilities
     @bookings = @artist.bookings
+
+    @reviews = Review.where(artist_id: @artist.id)
+    @artist.reviews.blank? ? @average_review = 0 : @average_review = @artist.reviews.average(:rating).round(1)
   end
 
   def create
@@ -70,7 +73,6 @@ class ArtistsController < ApplicationController
     end
 
     if @artist.update(update_params.except(:categories))
-      redirect_to artist_bookings_path(artist_id: @artist.id)
       flash[:success] = "Vos informations ont bien été changées."
     else
       @all_locations = Location.all
