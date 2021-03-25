@@ -187,6 +187,10 @@ img {
   opacity: 1;
 }
 
+.content:hover .content-details div {
+  opacity: 1;
+}
+
 .content-details h3 {
   color: #fff;
   font-weight: 500;
@@ -204,10 +208,6 @@ img {
   opacity: 0;  
 }
 
-.content:hover .content-details div {
-  opacity: 1;
-}
-
 .fadeIn-bottom {
-  top: 80%
+  top: 80%;
 }
