@@ -6,6 +6,8 @@
   <% else %>
   <div class="text-center mt-3">
     <h3>Malheureusement, aucun de nos artistes n'est disponible pour cette date.</h3>
+    <% reload_params = params.permit!.to_h.except(:action, :controller).merge(filter_level: '1') %>
+    <%= link_to "Voir d'autres artistes qui pourraient vous convenir", artists_path(reload_params), remote: true %>
   </div>
   <% end %>
 </div>
