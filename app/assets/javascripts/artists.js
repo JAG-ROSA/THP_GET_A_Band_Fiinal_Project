@@ -16,9 +16,25 @@ function showMoreFilters() {
   });
 };
 
+function showMoreArtists() {
+  let switchButton = document.getElementById("filter_level");
+  let y = 0;
+
+  switchButton.addEventListener('click', function() {
+    y += 1;
+    if(y % 2 != 0) {
+      document.querySelector('label[for="filter_level"]').innerHTML = "Voir les artistes qui jouent au moins l'un des genres sélectionnés"
+    } else {
+      document.querySelector('label[for="filter_level"]').innerHTML = "Voir les artistes qui jouent tous les genres sélectionnés"
+    };
+
+  });
+};
+
 function isDocumentReady() {
   if(document.getElementById("headingOne") != undefined) {
-    showMoreFilters()
+    showMoreFilters();
+    showMoreArtists();
   };
 };
 
