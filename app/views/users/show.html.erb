@@ -115,6 +115,7 @@
             <th scope="col">Date de l'événement</th>
             <th scope="col">Description de l'événement</th>
             <th scope="col">Montant</th>
+            <th scope="col">Noter l'évènement</th>
           </tr>
         </thead>
           <tbody>
@@ -124,6 +125,11 @@
                 <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
                 <td><%= booking.description %></td>
                 <td><%= number_to_currency(booking.duration * booking.artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
+                <% if booking.review.blank?%>
+                  <td><%= link_to "Noter l'artiste", new_artist_booking_review_path(artist_id: booking.artist.id, booking_id: booking.id), class: "btn btn-primary btn-sm" %></td>
+                <% else %>
+                  <td>Evaluation faite</td>
+                <%end%>
               </tr>
             <% end %>
           </tbody>
