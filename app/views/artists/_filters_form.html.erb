@@ -43,7 +43,9 @@
         </div>
       </div>
     </div>
-    <%= form.submit "Rechercher les artistes disponibles", class: "form-control btn btn-secondary mt-1" %>
+    <%= form.submit "Rechercher les artistes disponibles", class: "form-control btn btn-primary mt-1" %>
+    <%= form.submit("Enlever les filtres sélectionnés", { :name => 'reset', :id => 'reset', :type => 'reset', :class => 'form-control btn btn-secondary mt-1'}) %>
     <% end %>
+
   </div>
 </div>
