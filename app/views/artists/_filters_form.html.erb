@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-around">
         <div>
           <%= form.label "Date de votre évènement :" %>
-          <%= form.date_field :start_date, value: @start_at, class: "form-control", class: "mr-3" %>
+          <%= form.date_field :start_date, value: @start_at, class: "form-control", class: "mr-3 custom-date" %>
         </div>
         <div>
             <%= form.select :location_id, options_from_collection_for_select(@all_locations.order("department ASC"), "id", "department"), { include_blank: "Département de votre évènement" }, { class: "custom-select" } %>
