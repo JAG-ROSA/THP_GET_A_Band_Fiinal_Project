@@ -42,7 +42,7 @@
         <%= link_to "Compléter mes informations ou modifier mes identifiants", edit_user_path(@user.id), class: "btn btn-primary w-50" %>
       </div>
 
-      <h3>Vos réservations</h3>
+      <h3 class="text-primary">Vos réservations</h3>
 
       <h5>Réservations en attente</h5>
       <% if @bookings.where(status: "pending").empty? %>
@@ -66,7 +66,7 @@
                 <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
                 <td><%= booking.description %></td>
                 <td><%= number_to_currency(booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
-                <td>En attente</td>
+                <td><strong class="text-danger">En attente</strong></td>
                 <td><%= link_to "Annuler", artist_booking_path(artist_id: booking.artist.id, id: booking.id), method: :delete, data: { confirm: "Êtes-vous sûr.e ?" }, class: "btn btn-danger btn-sm" %></td>
               </tr>
             <% end %>
@@ -96,7 +96,7 @@
                 <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
                 <td><%= booking.description %></td>
                 <td><%= number_to_currency(booking.duration * booking.artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
-                <td>Confirmée</td>
+                <td><strong class="text-success">Confirmée</strong></td>
                 <td><%= link_to "Annuler", artist_booking_path(artist_id: booking.artist.id, id: booking.id), method: :delete, data: { confirm: "Êtes-vous sûr.e ?" }, class: "btn btn-danger btn-sm" %></td>
               </tr>
             <% end %>
