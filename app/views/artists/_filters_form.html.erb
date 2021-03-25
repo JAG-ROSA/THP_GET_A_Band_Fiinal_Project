@@ -21,7 +21,7 @@
         </div>
 
         <div id="collapseOne" class="collapse mt-2" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <h5 class="text-center">Quel genre de musique souhaitez-vous ?</h5>
+          <h5 class="text-center py-2">Quel genre de musique souhaitez-vous ?</h5>
           <div class="form-check form-check-inline mx-0 my-2 row d-flex justify-content-center">
             <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
               <div class="mx-2 col-2">
@@ -32,10 +32,11 @@
               </div>
             <% end %>
           </div>
-          <div class="custom-control custom-switch">
+          <div class="custom-control custom-switch d-flex justify-content-center my-3">
             <%= form.check_box :filter_level, { class: "custom-control-input" } %>
-            <%= form.label :filter_level, "Voir des propositions d'artistes qui pourraient vous convenir également", class: "custom-control-label" %>
+            <%= form.label :filter_level, "Voir les artistes qui jouent tous les genres sélectionnés", class: "custom-control-label" %>
           </div>
+          <hr>
         </div>
       </div>
       <div class="d-flex justify-content-center row">
