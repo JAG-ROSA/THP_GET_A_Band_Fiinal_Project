@@ -1,5 +1,5 @@
 <div class="content m-3" style="width:350px">
-  <%= link_to artist_path(artist.id, start_date: @start_date) do %>
+  <%= link_to artist_path(artist.id, start_date: @start_date), style: "text-decoration:none" do %>
         <div class="content-overlay"></div>
         <% if artist.avatar.attached? %>
           <%= image_tag artist.avatar.variant(resize: "350x350"), class: "img-fluid content-image", style: "height:350px;object-fit:cover", alt: "artist-avatar" %> 
