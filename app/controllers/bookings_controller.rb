@@ -5,6 +5,7 @@ class BookingsController < ApplicationController
   def index
     @bookings = current_artist.bookings
     @artist = current_artist
+    @reviews = Review.where(artist_id: @artist.id)
   end
 
   def new

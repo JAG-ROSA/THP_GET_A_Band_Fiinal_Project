@@ -7,6 +7,7 @@ class User < ApplicationRecord
 
   has_many :messages
   has_many :conversations, foreign_key: :sender_id
+  has_many :reviews
 
   after_create :welcome_email_user, if: -> { Rails.env.production? }
 

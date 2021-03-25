@@ -3,12 +3,16 @@ Rails.application.routes.draw do
   devise_for :users, path: "users", controllers: { sessions: "users/sessions", registrations: "users/registrations" }
   devise_for :artists, path: "artists", controllers: { sessions: "artists/sessions", registrations: "artists/registrations" }
   resources :artists do
-    resources :bookings
+    resources :bookings do 
+      resources :reviews
+    end
     resources :avatars, only: [:create, :destroy]
     resources :pictures, only: [:create, :destroy]
     resources :availabilities
   end
+
   resources :users, only: [:create, :edit, :show, :update, :destroy]
+
   resources :conversations, only: [:index, :create, :destroy] do
     resources :messages, only: [:create]
   end
