@@ -9,7 +9,7 @@
     <p class="alert alert-warning">Votre profil a été suspendu. Contactez-nous par mail à l'adresse getabandadmin@yopmail.com.</p>
   <% end %>
 
-  <h3>Vos identifiants de connexion</h3>
+  <h3 class="text-primary">Vos identifiants de connexion</h3>
   <table class="table table-hover">
     <tbody>
       <tr>
@@ -22,7 +22,7 @@
     <%= link_to "Modifier vos identifiants de connexion", edit_artist_registration_path, class: "btn btn-primary w-50" %>
   </div>
 
-  <h3>Votre profil</h3>
+  <h3 class="text-primary">Votre profil</h3>
   
   <h5>Ajouter un avatar</h5>
   <%= render "avatar_form", artist: current_artist %>
@@ -31,7 +31,7 @@
   <h5>Ajouter des photos supplémentaires au profil</h5>
   <%= render "pictures_form", artist: @artist, deleted_picture: @deleted_picture %>
 
-  <h3 id="booking-list">Vos réservations</h3>
+  <h3 class="text-primary" id="booking-list">Vos réservations</h3>
 
   <h5>Réservations en attente</h5>
   <div id="pending-reservations">

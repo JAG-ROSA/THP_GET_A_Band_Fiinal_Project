@@ -1,4 +1,7 @@
 class ConversationsController < ApplicationController
+
+  before_action :assert_artist_or_user_signed_in
+  
   def index
     session[:conversations] ||= []
 
@@ -10,9 +13,9 @@ class ConversationsController < ApplicationController
 
   def create
     if user_signed_in?
-      @conversation = Conversation.get(current_user.id, params[:artist_id])
+      @conversation = Conversation.get(current_user.id, params[:user_id])
     elsif artist_signed_in?
-      @conversation = Conversation.get(params[:artist_id], current_artist.id)
+      @conversation = Conversation.get(params[:user_id], current_artist.id)
     end
     
     add_to_conversations if conversated?
@@ -22,7 +25,7 @@ class ConversationsController < ApplicationController
     end
   end
 
-  def close
+  def destroy
     @conversation = Conversation.find(params[:id])
 
     session[:conversations].delete(@conversation.id)
@@ -41,5 +44,9 @@ class ConversationsController < ApplicationController
 
   def conversated?
     session[:conversations].include?(@conversation.id)
+  end
+
+  def assert_artist_or_user_signed_in 
+    redirect_to user_session_path unless current_user || current_artist 
   end
 end

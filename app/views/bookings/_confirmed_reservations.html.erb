@@ -21,7 +21,7 @@
             <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
             <td><%= booking.description %></td>
             <td><%= number_to_currency(booking.duration * current_artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
-            <td>Confirmée</td>
+            <td><strong class="text-success">Confirmée</strong></td>
             <td><%= link_to "Annuler", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, data: { confirm: "Êtes-vous sûr.e ?" }, class: "btn btn-danger btn-sm" %></td>
         </tr>
       <% end %>

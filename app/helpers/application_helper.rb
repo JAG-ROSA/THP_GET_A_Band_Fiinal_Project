@@ -10,4 +10,5 @@ module ApplicationHelper
     total_stars += Array.new(5 - total_stars.size, empty_star_icon) unless total_stars.size == 5
     
   end
+  include Pagy::Frontend
 end
