@@ -1,4 +1,4 @@
-<%if !reviews.blank?%>
+<%if !reviews.empty?%>
   <div id="average-review-rating"> 
     <h4> Avis - 
       <small> <% show_star_rating(average_review).each do |star| %>
