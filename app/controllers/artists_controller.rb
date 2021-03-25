@@ -43,6 +43,7 @@ class ArtistsController < ApplicationController
   def show
     @artist = Artist.find(show_params[:id])
     @start_date = show_params[:start_date]
+    @sample_artists = Artist.approved.where("location_id = (?) AND id != (?)", @artist.location_id, @artist.id).sample(3)
     if !@artist.playlist.blank?
       @spotify_playlist = @artist.playlist.strip.insert(25, "embed/")
     else

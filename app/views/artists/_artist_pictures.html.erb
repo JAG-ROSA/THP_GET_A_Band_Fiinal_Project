@@ -1,0 +1,30 @@
+<div class="row py-4">
+  <% if artist.pictures.attached? %>
+    <div class="col-md-6">
+      <% if artist.avatar.attached? %>
+        <%= image_tag artist.avatar.variant(resize: "500x500"), class: "img-fluid", style: "height:500px;object-fit:cover", alt: "artist-show-avatar" %> 
+      <% else %>
+        <%= image_tag "default_pictures/default_artist.jpg", class: "img-fluid", style: "height:500px;object-fit:cover", alt: "artist-show-avatar" %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <div id="artist-show-picture" class="row container-horizontal d-flex justify-content-around align-items-center">
+        <% artist.pictures.each do |picture| %>      
+          <div id="picture-<%= picture.id %>" class="img-order m-2" >
+            <% if picture.variable? %>
+              <%= image_tag picture.variant(resize: "250x250"), alt: "picture" %>     
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div class="col text-center">
+      <% if artist.avatar.attached? %>
+        <%= image_tag artist.avatar.variant(resize: "500x500"), class: "img-fluid", style: "height:500px;object-fit:cover", alt: "artist-show-avatar" %> 
+      <% else %>
+        <%= image_tag "default_pictures/default_artist.jpg", class: "img-fluid", style: "height:500px;object-fit:cover", alt: "artist-show-avatar" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
