@@ -7,9 +7,11 @@ function showMoreFilters() {
     if(i % 2 == 0) {
       document.getElementById("filter-icon").classList.add("fa-plus-square");
       document.getElementById("filter-icon").classList.remove("fa-minus-square");
+      document.getElementById("more-filters").innerHTML = "Voir plus d'options de recherche";
     } else {
       document.getElementById("filter-icon").classList.remove("fa-plus-square");
       document.getElementById("filter-icon").classList.add("fa-minus-square");
+      document.getElementById("more-filters").innerHTML = "Voir moins d'options de recherche";
     }
   });
 };
