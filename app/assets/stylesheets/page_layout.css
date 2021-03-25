@@ -211,3 +211,7 @@ img {
 .fadeIn-bottom {
   top: 80%
 }
+
+.logo {
+  box-shadow: none !important;
+}
