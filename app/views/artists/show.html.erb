@@ -14,6 +14,9 @@
     <%= link_to "Réservez cet artiste", new_artist_booking_path(@artist.id, start_date: @start_date), class: "btn btn-success btn-block mx-auto my-2" %>
     </div>
   </div>
+  <div class="row pb-4">
+    <%= render "reviews", reviews: @reviews, average_review: @average_review %>
+  </div>
   <div class="row">
     <h4>Voir d'autres artistes dans la même région</h4>
   </div>
@@ -24,5 +27,4 @@
       <%= render "artists/card", artist: artist %>
     <% end %>
   </div>
-  <%= render "reviews", reviews: @reviews, average_review: @average_review%>
 </div>
