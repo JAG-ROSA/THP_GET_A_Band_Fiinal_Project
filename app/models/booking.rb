@@ -3,6 +3,7 @@ class Booking < ApplicationRecord
   belongs_to :artist
   has_one :review
 
+
   before_validation :calculate_end_date
 
   after_update :booking_tracking

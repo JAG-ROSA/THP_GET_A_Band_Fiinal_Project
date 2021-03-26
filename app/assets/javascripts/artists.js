@@ -43,7 +43,9 @@ function isDocumentReady() {
   if(document.getElementById("headingOne") != undefined) {
     showMoreFilters();
     showMoreArtists();
+
     resetFilters();
+
   };
 };
 
