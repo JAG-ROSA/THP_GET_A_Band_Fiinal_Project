@@ -38,7 +38,16 @@ Welcome to the Get A Band Platform!
 * [JavaScript](https://www.ecma-international.org/publications-and-standards/standards/ecma-262/)
 * [Bootstrap](https://getbootstrap.com)
 
-#### Ruby Gems, APIs, and other tools
+#### PostGreSQL database
+
+
+#### Front-end
+Design of the graphic identity of the brand (colors, typographies...) and adaptation of a CSS overlay (UI Kit Bootstrap) according to it. Development of Javascript scripts for the animation of the site, in particular for the animation of the search filters.
+
+#### Back-end
+Fundamentals : Ruby and Ruby on Rails, Devise identification gem, Stripe API, Forest Admin interface, basic artist filtering system by event date.
+Bonus : embedded Spotify player to integrate music on the artists' profiles, implementation of a review system, implementation of a private message chat feature, pagination of available artists, advanced filtering system by artist categories (with several options) and location choice.
+##### Ruby Gems, APIs, and other tools
 * [Font Awesome](https://fontawesome.com)
 * [Stripe](https://stripe.com/fr) and the [Stripe Gem](https://github.com/stripe/stripe-ruby)
 * [MailJet](https://fr.mailjet.com/) 
