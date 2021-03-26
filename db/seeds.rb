@@ -44,6 +44,7 @@ end
     password: "azerty",
     location: Location.all.sample,
     status: "approved",
+    playlist: "https://open.spotify.com/playlist/37i9dQZF1DXcfXDjovoEpj",
 
   )
   image_index = rand(1..11)
@@ -80,8 +81,6 @@ Artist.all.each do |artist|
   index += 1
 end
 
-
-
 #Reviews
 Booking.all.each do |booking|
   Review.create!(
@@ -93,4 +92,3 @@ Booking.all.each do |booking|
   )
   puts "Create review"
 end
-
