@@ -17,8 +17,9 @@ class Artist < ApplicationRecord
   validates :hourly_price, numericality: { allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300 }
 
   validates :playlist, length:{maximum: 100}, if: :valid_playlist_link? , on: :update
-  validates :avatar, attached: true, limit: {max: 1} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
-  validates :pictures, attached: true, limit: {max: 4} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
+  validates :avatar, limit: {max: 1} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
+  validates :pictures, limit: {max: 4} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
+
 
   has_one_attached :avatar
   has_many_attached :pictures
