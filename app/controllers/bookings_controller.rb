@@ -1,6 +1,7 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!, except: [:destroy, :index, :update]
   before_action :authenticate_artist!, only: [:index, :update]
+  before_action :is_user_profile_complete?, on: [:new, :create]
 
   def index
     @bookings = current_artist.bookings
@@ -25,7 +26,7 @@ class BookingsController < ApplicationController
       redirect_to artist_booking_path(artist_id: @booking.artist.id, id: @booking.id)
     else
       flash.now[:danger] = "L'artiste n'est pas disponible à cette date."
-      render :new, locals:{description:create_params[:description]}
+      render :new, locals: { description: create_params[:description] }
     end
   end
 
@@ -49,7 +50,7 @@ class BookingsController < ApplicationController
     else
       if @booking.status == "payment_pending"
         @booking.destroy
-        flash[:success] = 'Demande de réservation annulée'
+        flash[:success] = "Demande de réservation annulée"
         redirect_to artists_path
       else
         cancel_booking_user(@booking)
@@ -106,7 +107,13 @@ class BookingsController < ApplicationController
       flash[:success] = "Réservation annulée"
     else
       flash[:danger] = "Il est trop tard pour annuler cette réservation."
-    end 
+    end
     redirect_to current_user
+  end
+
+  def is_user_profile_complete?
+    if current_user.first_name.blank? && current_user.last_name.blank?
+      redirect_to user_path(current_user.id)
+    end
   end
 end
