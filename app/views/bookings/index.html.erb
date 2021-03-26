@@ -2,7 +2,7 @@
   <h1 class="text-center text-primary mb-3">Bienvenue sur votre espace de gestion</h1>
 
   <% if current_artist.status == "pending" %>
-    <p class="alert alert-danger">Votre profil est en attente. Complétez-le pour pouvoir commencer à utiliser Get a Band.<br/>
+    <p class="alert alert-danger">Votre profil est en attente. Complétez-le pour pouvoir commencer à utiliser Get a Band : tant que vous n'aurez pas rempli vos informations, votre profil ne sera pas visible des utilisateurs.<br/>
       Si vous avez complété votre profil depuis plus de 24h, contactez-nous par mail à l'adresse getabandadmin@yopmail.com.</p>
   <% elsif current_artist.status == "approved" %>
   <% else %>

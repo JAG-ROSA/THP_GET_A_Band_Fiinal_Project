@@ -11,8 +11,8 @@
   <p>Voici les détails de la demande :</p>
   <ul>
     <li>Artiste : <%= @booking.artist.artist_name %></li>
-    <li>Date de début de l'événement : <%= @booking.start_date.strftime("%d/%m/%Y à %H:%M:%S") %></li>
-    <li>Date de fin de l'événement : <%= @booking.calculate_end_date.strftime("%d/%m/%Y à %H:%M:%S") %></li>
+    <li>Date de début de l'événement : <%= @booking.start_date.strftime("%d/%m/%Y") %></li>
+    <li>Date de fin de l'événement : <%= @booking.calculate_end_date.strftime("%d/%m/%Y") %></li>
     <li>Montant de la réservation : <%= number_to_currency(@booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></li>
     <li>Détails supplémentaires fournis par le client :
       <blockquote>
@@ -21,6 +21,6 @@
     </li>
   </ul>
   <p>Nous restons à votre disposition pour toutes questions et vous souhaitons une magnifique fête de mariage !</p>
-  <p>A bientôt sur Get a Band !</p>
+  <p>A bientôt sur <%= link_to "Get a Band", @url %> !</p>
 </body>
 </html>
