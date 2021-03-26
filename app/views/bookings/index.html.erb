@@ -29,6 +29,7 @@
   <h5>Modifier les informations du profil</h5>
   <%= render partial: "profile_details", locals: { artist: current_artist } %>
   <h5>Ajouter des photos supplémentaires au profil</h5>
+  <small>Format: jpeg, jpg, png. Poids max: 1.5mb/img . Max : 4 images </small>
   <%= render "pictures_form", artist: @artist, deleted_picture: @deleted_picture %>
 
   <h3 class="text-primary" id="booking-list">Vos réservations</h3>
