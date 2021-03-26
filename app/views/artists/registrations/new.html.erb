@@ -1,29 +1,86 @@
-<h2>Sign up</h2>
+<%= render "artists/shared/error_messages", resource: resource %>
+<div class="container vertical-center col-md-8 text-center">
+<h1>Je suis un artiste !</h1>
+</div>
+<div class="container vertical-center col-md-8" id="artist_registration">
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "artists/shared/error_messages", resource: resource %>
+	<div class="form-container sign-up-container">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), class: "form", html: { id: "new_artist_signin" }) do |f| %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+      <h1 class="mb-3">S'inscrire</h1>
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", id: "artist_email_signin" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+      <div class="field">
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Mot de passe (6 * min)", id: "artist_password_signin" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+      <div class="field">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirmer mot de passe" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+      <div class="actions">
+        <%= f.submit "S'inscrire", style: "border-radius: 20px;
+                                      border: 1px solid #FF4B2B;
+                                      background-color: #FF4B2B;
+                                      color: #FFFFFF;
+                                      font-size: 12px;
+                                      font-weight: bold;
+                                      padding: 12px 45px;
+                                      letter-spacing: 1px;
+                                      text-transform: uppercase;
+                                      transition: transform 80ms ease-in;" %>
+      </div>
+    <% end %>
+	</div>
 
-<%= render "artists/shared/links" %>
+	<div class="form-container sign-in-container">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <h1 class="mb-3">Se connecter</h1>
+      <div class="field">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: :email %>
+      </div>
+
+      <div class="field">
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "Mot de passe" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label "Se souvenir de moi" %>
+        </div>
+      <% end %>
+      <%= render "artists/shared/links" %>
+      <div class="actions">
+        <%= f.submit "Se connecter", style: "border-radius: 20px;
+                                      border: 1px solid #FF4B2B;
+                                      background-color: #FF4B2B;
+                                      color: #FFFFFF;
+                                      font-size: 12px;
+                                      font-weight: bold;
+                                      padding: 12px 45px;
+                                      letter-spacing: 1px;
+                                      text-transform: uppercase;
+                                      transition: transform 80ms ease-in;" %>
+      </div>
+      
+    <% end %>
+
+	</div>
+	<div class="overlay-container">
+		<div class="artist_overlay">
+			<div class="overlay-panel overlay-left">
+				<h1>Vous êtes de retour !</h1>
+				<p>Pour rester connecter avec nous, merci de vous connecter</p>
+				<button class="ghost" id="artist_signIn">Se connecter</button>
+			</div>
+			<div class="overlay-panel overlay-right">
+				<h1>Bienvenue !</h1>
+				<p>Entrer vos informations pour démarrer votre voyage avec nous</p>
+				<button class="ghost" id="artist_signUp">S'inscrire</button>
+			</div>
+		</div>
+	</div>
+</div>

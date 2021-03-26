@@ -1,8 +1,8 @@
 <div class="simple-calendar">
   <div class="calendar-heading mb-2">
-    <%= link_to t('simple_calendar.previous', default: 'Précédent'), calendar.url_for_previous_view, class:"btn btn-primary", remote: true %>
-    <span class="calendar-title btn btn-info"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
-    <%= link_to t('simple_calendar.next', default: 'Suivant'), calendar.url_for_next_view, class:"btn btn-primary", remote: true %>
+    <%= link_to t("simple_calendar.previous", default: "Précédent"), calendar.url_for_previous_view, class: "btn btn-primary", remote: true %>
+    <span class="calendar-title text-primary mx-3"><strong><%= t("date.month_names")[start_date.month] %> <%= start_date.year %></strong></span>
+    <%= link_to t("simple_calendar.next", default: "Suivant"), calendar.url_for_next_view, class: "btn btn-primary", remote: true %>
   </div>
 
   <table class="table table-striped">

@@ -1,0 +1,26 @@
+<div class="col-md-7">
+  <h4>En savoir plus sur cet artiste</h4>
+  <ul class="list-group list-group-flush pb-2">
+    <li class="list-group-item"><strong>Nom de l'artiste : </strong> <%= artist.artist_name %></li>  
+    <% if artist.categories.any? %>
+      <li class="list-group-item"><strong>Style de musique : </strong>
+        <%= artist.categories.pluck(:label).join(", ") %>
+      </li>
+    <% end %>
+    <li class="list-group-item"><strong>Description : </strong> <%= artist.description %></li>
+    <li class="list-group-item"><strong>Tarif à la journée : </strong> <%= number_to_currency(24 * artist.hourly_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></li>
+  </ul>
+  <%= link_to "Réservez cet artiste", new_artist_booking_path(@artist.id, start_date: @start_date), class: "btn btn-success btn-block mx-auto my-2" %>
+</div>
+<div class="col-md-1">
+</div>
+<div class="col-md-4">
+  <h4>Ecouter sa musique</h4>
+  <div class="p-2" id="music-player">
+    <% if !playlist.blank? %>
+      <iframe src="<%= playlist %>" class="w-100" height="300" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    <% else %>
+      <p class="text-muted text-center">Cet artiste n'a pas encore ajouté de musique à son profil !</p>
+    <% end %>
+  </div>
+</div>

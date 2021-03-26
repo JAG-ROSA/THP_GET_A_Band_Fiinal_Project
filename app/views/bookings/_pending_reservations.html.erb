@@ -21,7 +21,7 @@
           <td><%= booking.start_date.strftime("%d/%m/%Y") %></td>
           <td><%= booking.description %></td>
           <td><%= number_to_currency(booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %></td>
-          <td>En attente</td>
+          <td><strong class="text-danger">En attente</strong></td>
           <td class="text-center"><%= link_to "Accepter", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :patch, class: "btn btn-success btn-sm", remote: true %></td>
           <td class="text-center"><%= link_to "Refuser", artist_booking_path(artist_id: current_artist.id, id: booking.id), method: :delete, data: { confirm: "Êtes-vous sûr.e ?" }, class: "btn btn-danger btn-sm" %></td>
         </tr>

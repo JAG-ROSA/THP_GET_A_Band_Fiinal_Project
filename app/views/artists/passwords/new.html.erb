@@ -7,7 +7,6 @@
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
       
       <h2>Mot de passe oublié ?</h2>
-
       <div class="field">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: :email %>
       </div>
@@ -25,7 +24,6 @@
                                           transition: transform 80ms ease-in;" %>
       </div>
     <% end %>
-
     <%= render "artists/shared/links" %>
   </div>
 </div>
