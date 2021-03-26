@@ -9,6 +9,6 @@
   <h1>Bonjour <%= @artist.artist_name %>,</h1>
   <p><%= @booking.user.first_name %> a annulé votre réservation prévue pour le <%= @booking.start_date.strftime("%d/%m/%Y") %>.</p>
   <p>Retrouvez vite de nouveaux clients à la recherche d'artistes pour leur mariage sur Get a Band !</p>
-  <p>A bientôt sur Get a Band !</p>
+  <p>A bientôt sur <%= link_to "Get a Band", @url %> !</p>
 </body>
 </html>

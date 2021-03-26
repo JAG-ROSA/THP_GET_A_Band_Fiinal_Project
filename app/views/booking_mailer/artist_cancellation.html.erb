@@ -10,6 +10,6 @@
   <p><%= @booking.artist.artist_name %> a annulé votre réservation prévue pour le <%= @booking.start_date.strftime("%d/%m/%Y") %>.</p>
   <p>Vous allez être remboursé du montant de <%= number_to_currency(@booking.total_price, unit: "€", separator: ",", delimiter: "", format: "%n %u") %>.</p>
   <p>Retrouvez vite de nouveaux artistes disponibles pour votre mariage sur Get a Band !</p>
-  <p>A bientôt sur Get a Band !</p>
+  <p>A bientôt sur <%= link_to "Get a Band", @url %> !</p>
 </body>
 </html>

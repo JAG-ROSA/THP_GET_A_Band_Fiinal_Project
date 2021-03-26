@@ -17,8 +17,9 @@ class Artist < ApplicationRecord
   validates :hourly_price, numericality: { allow_nil: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 300 }
 
   validates :playlist, length:{maximum: 100}, if: :valid_playlist_link? , on: :update
-  validates :avatar, attached: true, limit: {max: 1} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
-  validates :pictures, attached: true, limit: {max: 4} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
+  validates :avatar, limit: {max: 1} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
+  validates :pictures, limit: {max: 4} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
+
 
   has_one_attached :avatar
   has_many_attached :pictures
@@ -30,11 +31,17 @@ class Artist < ApplicationRecord
   scope :approved, -> { where(status: "approved") }
 
   after_create :welcome_email_artist, if: -> { Rails.env.production? }
+  around_update :artist_approval_email
 
   def welcome_email_artist
     UserMailer.new_artist(self).deliver_now
   end
 
+  def artist_approval_email
+    if self.status == "approved" && status_changed?
+      UserMailer.approved_artist(self).deliver_now
+    end
+  end
 
   def valid_playlist_link?
     if !self.playlist.blank?

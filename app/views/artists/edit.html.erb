@@ -15,13 +15,13 @@
 
   <div class="d-flex align-items-center">
     <%= form.label :hourly_price, "Tarif horaire", class: "mr-4" %>
-    <%= form.number_field :hourly_price, min: 1 %>
+    <%= form.number_field :hourly_price, min: 1, class: "custom-date"%>
   </div>
   <br/>
 
-  <div class="d-flex align-items-center">
+  <div class="d-flex align-items-center justify-content-start">
     <%= form.label :location_id, "Département d'activité", class: "mr-4" %>
-    <%= form.select :location_id, options_from_collection_for_select(@all_locations.order("department ASC"), "id", "department") %>
+    <%= form.select :location_id, options_from_collection_for_select(@all_locations.order("department ASC"), "id", "department"), { include_blank: "Département d'activité" }, { class: "custom-select w-50" } %>
   </div>
   <br/>
 

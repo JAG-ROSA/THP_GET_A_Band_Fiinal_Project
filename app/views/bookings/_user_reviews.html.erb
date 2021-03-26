@@ -14,7 +14,14 @@
       <% reviews.each do |review| %>
         <tr>
           <th scope="row"><%= review.booking.id %></th>
-            <td  style="max-width: 20%"><%= review.user.first_name %></td>
+            
+              <td  style="max-width: 20%"> 
+                <% if review.user.first_name.empty? %>
+                  John Doe
+                <%else%>
+                  <%= review.user.first_name %>
+                <%end%>              
+              </td>
             <td  style="max-width: 20%">
               <% show_star_rating(review.rating.to_i).each do |star| %>
               <i class="<%= star %>"></i> 
