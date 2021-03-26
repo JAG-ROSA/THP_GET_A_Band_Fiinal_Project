@@ -1,5 +1,5 @@
 <%= form_with(model: @artist, local: true, multipart: true) do |form| %>
-  <%= form.file_field :pictures, multiple: true, required: true %>
+  <%= form.file_field :pictures, multiple: true, required: true, accept: 'image/png,image/gif,image/jpeg' %>
   <%= form.submit "Ajouter des images", class: "form-control btn btn-primary btn-block mx-auto w-50" %>
 <% end %>
 
