@@ -8,11 +8,8 @@ class PicturesController < ApplicationController
 
   def destroy
     @picture = ActiveStorage::Attachment.find(params[:id])
-    if @picture.purge
-      flash[:success] = "Image bien effacée"
-    else
-      flash[:danger] = "Une erreur s'est produite, veuillez ré-essayer"
-    end
+    @picture.purge
+    flash[:success] = "Image bien effacée"
     redirect_to artist_bookings_path(artist_id: @artist.id)
   end
 

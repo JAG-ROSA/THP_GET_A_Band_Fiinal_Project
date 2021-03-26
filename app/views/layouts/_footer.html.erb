@@ -3,13 +3,19 @@
       <div class="row align-items-center">
           <div class="col-lg-4 text-center">Copyright © Get a Band 2021</div>
           <div class="col-lg-4 my-3 my-lg-0 text-center">
-              <a class="btn btn-primary btn-social mx-2" href="https://www.instagram.com/awkwardfamilyphotos/"><i class="fab fa-instagram"></i></a>
-              <a class="btn btn-primary btn-social mx-2" href="https://www.facebook.com/getaband/"><i class="fab fa-facebook"></i></a>
-              <a class="btn btn-primary btn-social mx-2" href="https://twitter.com/search?q=%23weddingfails&src=typed_query"><i class="fab fa-twitter"></i></a>
+            <%= link_to "https://www.instagram.com/awkwardfamilyphotos/", class: "btn btn-primary btn-social mx-2" do %>
+              <i class="fab fa-instagram"></i>
+            <% end %>
+            <%= link_to "https://www.facebook.com/getaband/", class: "btn btn-primary btn-social mx-2" do %>
+              <i class="fab fa-facebook"></i>
+            <% end %>
+            <%= link_to "https://twitter.com/search?q=%23weddingfails&src=typed_query", class: "btn btn-primary btn-social mx-2" do %>
+              <i class="fab fa-twitter"></i>
+            <% end %>
           </div>
           <div class="col-lg-4 text-right">
-              <a class="mr-3 text-white" href="https://fr.wikipedia.org/wiki/Politique_de_confidentialit%C3%A9">Politique de confidentialité</a>
-              <a class="text-white" href="https://fr.wikipedia.org/wiki/Conditions_g%C3%A9n%C3%A9rales_d%27utilisation">Conditions d'utilisation</a>
+            <%= link_to "Politique de confidentialité", "https://fr.wikipedia.org/wiki/Politique_de_confidentialit%C3%A9", class: "mr-3 text-white" %>
+            <%= link_to "Conditions d'utilisation", "https://fr.wikipedia.org/wiki/Conditions_g%C3%A9n%C3%A9rales_d%27utilisation", class: "text-white" %>
           </div>
       </div>
   </div>
