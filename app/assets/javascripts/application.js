@@ -15,20 +15,3 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap.bundle
-
-function resetFilters() {
-  let resetButton = document.getElementById("delete-filters");
-
-  resetButton.addEventListener('click', function() {
-    document.getElementById("filter-artists").reset();
-    document.forms["filter-artists"].submit();
-  });
-};
-
-function isDocumentReady() {
-  if(document.getElementById("delete-filters") != undefined) {
-    resetFilters()
-  };
-};
-
-document.addEventListener('DOMContentLoaded', isDocumentReady);
