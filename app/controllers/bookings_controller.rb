@@ -112,7 +112,7 @@ class BookingsController < ApplicationController
   end
 
   def is_user_profile_complete?
-    if current_user.first_name.blank? && current_user.last_name.blank?
+    if current_user&.first_name.blank? && current_user&.last_name.blank?
       redirect_to user_path(current_user.id)
     end
   end
