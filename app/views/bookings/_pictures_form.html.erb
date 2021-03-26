@@ -7,10 +7,12 @@
   <div id="artist-dashboard-index" class="row container-horizontal d-flex justify-content-center">
     <% if artist.pictures.attached? %>
       <% artist.pictures.each do |picture| %>      
-        <div id="picture-<%= picture.id %>" class="img-thumbnail img-order my-2" >
+        <div id="picture-<%= picture.id %>" class=" img-order mr-2 text-center" >
           <% if picture.variable? %>
-            <%= image_tag picture.variant(resize: "400x400"), alt: "picture" %>     
-            <%= link_to "X", artist_picture_path(artist, picture), method: "Delete", alt: "picture" %>
+            <%= image_tag picture.variant(resize: "300x300"), alt: "picture", class: "border border-dark" %>
+            <%= link_to artist_picture_path(artist, picture), method: "Delete", alt: "picture", class:"btn btn-danger w-75" do %>
+              <i class="fas fa-trash-alt"></i>
+            <% end %>
           <% end %>
         </div>
       <% end %>
