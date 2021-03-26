@@ -1,11 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-# require 'Faker'
 Booking.destroy_all
 Artist.destroy_all
 Availability.destroy_all
@@ -15,18 +7,7 @@ Conversation.destroy_all
 Message.destroy_all
 Category.destroy_all
 ArtistCategory.destroy_all
-
-
-# Admin
-1.times do
-  admin = User.create!(
-    first_name: "getabandadmin",
-    last_name: Faker::Name.last_name,
-    email: "getabandadmin@yopmail.com",
-    password: "azerty",
-  )
-  puts "Create Admin"
-end
+Review.destroy_all
 
 # User
 10.times do
@@ -40,35 +21,44 @@ end
 end
 
 #Location
-["Oise", "Val-d'Oise", "Finistère", "Bouches-du-Rhône", "Paris"].each do |departement|
+["Nord", "Rhône", "Finistère", "Gironde", "Paris"].each do |departement|
   location = Location.create!(
     department: departement,
   )
   puts "Create location"
 end
 
-#Artists
+#Categories
 10.times do
+  Category.create!(label: Faker::Music.unique.genre)
+  puts "Create category"
+end
+
+#Artists
+30.times do
   artist = Artist.create!(
-    artist_name: Faker::Kpop.iii_groups,
-    description: Faker::Lorem.sentence(word_count: 8),
-    hourly_price: rand(20..300),
+    artist_name: Faker::Music.band,
+    description: Faker::Lorem.sentence(word_count: rand(10..20)),
+    hourly_price: rand(20..200),
     email: Faker::Name.first_name + "@yopmail.com",
     password: "azerty",
     location: Location.all.sample,
     status: "approved",
 
   )
+  image_index = rand(1..11)
+  artist.avatar.attach(io: File.open("app/assets/images/default_pictures/artist_#{image_index}.jpg"), filename: "artist_#{image_index}.jpg")
+  artist.categories << Category.all.sample(rand(1..3))
   puts "Create Artist"
 end
 
 #Availability
 index = Artist.first.id
-10.times do
+30.times do
   start_date = Faker::Time.between(from: DateTime.now, to: DateTime.now + 100)
   availability = Availability.create!(
     start_date: start_date,
-    end_date: start_date + rand(2..20).days,
+    end_date: start_date + 20.days,
     artist: Artist.find(index),
   )
   puts "Create Availability"
@@ -76,31 +66,31 @@ index = Artist.first.id
 end
 
 #Booking
-index = User.first.id
 Artist.all.each do |artist|
   Booking.create!(
     start_date: Faker::Time.between(from: artist.availabilities.first.start_date, to: artist.availabilities.first.end_date - 1.day, format: :default),
     duration: 24,
     description: Faker::Lorem.sentence(word_count: 8),
-    user: User.find(index),
+    user: User.all.sample,
     artist: artist,
     status: ["pending", "approved"].sample,
   )
   puts "Create booking"
+
   index += 1
 end
 
-#Categories
-5.times do
-  Category.create!(label: Faker::Music.unique.genre)
-  puts "Create category"
+
+
+#Reviews
+Booking.all.each do |booking|
+  Review.create!(
+    rating: rand(3..5),
+    comment: Faker::Lorem.paragraph_by_chars(number: 256, supplemental: false),
+    booking: booking,
+    artist: booking.artist,
+    user: booking.user,
+  )
+  puts "Create review"
 end
 
-#ArtistCategories
-Artist.all.each do |artist|
-  ArtistCategory.create!(
-    artist: artist,
-    category: Category.all.sample,
-  )
-  puts "Create a category for an artist"
-end
