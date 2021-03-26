@@ -27,7 +27,15 @@ function showMoreArtists() {
     } else {
       document.querySelector('label[for="filter_level"]').innerHTML = "Voir les artistes qui jouent tous les genres sélectionnés"
     };
+  });
+};
 
+function resetFilters() {
+  let resetButton = document.getElementById("delete-filters");
+
+  resetButton.addEventListener('click', function() {
+    document.getElementById("filter-artists").reset();
+    document.forms["filter-artists"].submit();
   });
 };
 
@@ -35,6 +43,7 @@ function isDocumentReady() {
   if(document.getElementById("headingOne") != undefined) {
     showMoreFilters();
     showMoreArtists();
+    resetFilters();
   };
 };
 
