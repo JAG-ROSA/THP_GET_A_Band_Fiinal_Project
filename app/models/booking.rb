@@ -1,14 +1,14 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :artist
-  has_one :review 
+  has_one :review
 
   before_validation :calculate_end_date
 
   after_update :booking_tracking
   validate :check_if_artist_is_available, on: [:create]
-  validates :description, length: {in: 0..600 }
-  validates :duration, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 24}
+  validates :description, length: { in: 0..600 }
+  validates :duration, numericality: { only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 24 }
 
   scope :approved, -> { where(status: "approved") }
 
@@ -58,5 +58,4 @@ class Booking < ApplicationRecord
       )
     end
   end
-
 end
