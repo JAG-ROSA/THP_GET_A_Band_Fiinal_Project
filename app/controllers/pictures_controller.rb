@@ -3,16 +3,17 @@ class PicturesController < ApplicationController
 
   def create
     @artist.pictures.attach(params[:pictures] )   
-    redirect_to artist_bookings_path(artist_id: @artist.id), success: "Picture well added!"
+    redirect_to artist_bookings_path(artist_id: @artist.id), success: "Image bien ajoutée"
   end 
 
   def destroy
     @picture = ActiveStorage::Attachment.find(params[:id])
     if @picture.purge
-      redirect_to artist_bookings_path(artist_id: @artist.id), success: "Picture well deleted!"
+      flash[:success] = "Image bien effacée"
     else
-      flash[:danger] = "Something went wrong"
+      flash[:danger] = "Une erreur s'est produite, veuillez ré-essayer"
     end
+    redirect_to artist_bookings_path(artist_id: @artist.id)
   end
 
   private
