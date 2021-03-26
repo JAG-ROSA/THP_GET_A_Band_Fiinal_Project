@@ -1048,8 +1048,8 @@
       "widget": null,
       "validations": []
     }, {
-      "field": "stripe_customer_id",
-      "type": "String",
+      "field": "artist",
+      "type": "Number",
       "default_value": null,
       "enums": null,
       "integration": null,
@@ -1064,8 +1064,8 @@
       "widget": null,
       "validations": []
     }, {
-      "field": "artist",
-      "type": "Number",
+      "field": "stripe_customer_id",
+      "type": "String",
       "default_value": null,
       "enums": null,
       "integration": null,
@@ -1074,9 +1074,8 @@
       "is_required": false,
       "is_sortable": true,
       "is_virtual": false,
-      "reference": "Artist.id",
-      "inverse_of": "bookings",
-      "relationship": "BelongsTo",
+      "reference": null,
+      "inverse_of": null,
       "widget": null,
       "validations": []
     }, {
