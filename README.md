@@ -75,7 +75,7 @@ Their profile gets enriched afterwards as customers leave reviews on the platfor
 The artist can follow their past and future reservations on their administrator interface. When a bride & groom make a reservation request, the artist is informed and must validate or refuse the pending reservation from their interface. An artist can cancel a reservation up until one week until the event.
 
 ### On the groom and bride's side
-The bride and groom create an account with an email and password, then are invited to fill out a questionnaire about their needs (date and place of the wedding, what style of music they are looking for, for what part of the day...). The results of their artist search are filtered accordingly. They choose an artist that interests them and can directly send a booking request, with payment of a deposit.
+The bride and groom create an account with an email and password, fill in their profile with a first and last name, then are invited to fill out a questionnaire about their needs (date and place of the wedding, what style of music they are looking for, for what part of the day...). The results of their artist search are filtered accordingly. They choose an artist that interests them and can directly send a booking request, with payment of a deposit.
 The bride and groom can cancel a reservation up until one week until the event.
 Once the booking is complete, the bride and groom can leave a review and a note on the artist's performance, which will then appear on their profile.
 
@@ -96,7 +96,7 @@ Once the booking is complete, the bride and groom can leave a review and a note 
 * As a registered user, I can choose my event's location and see matching artists
 * As a registered user, I can choose one or several music genres (strict or inclusive) and see matching artists
 * As a registered user, I can combine the latter three filters as I please in my query
-* As a registered user, I can send a booking request to an artist and pay for it online
+* As a registered user, I can send a booking request to an artist and pay for it online, provided that I filled in my profile with my first and last name
 * As a registered user, I can cancel a booking request or an approved booking up to a week before my event, and be refunded
 * As a registered user, I can communicate via a private chat with the artists I have bookings and booking requests with
 * As a registered user, I can leave a review on an artist when my event with them is complete
