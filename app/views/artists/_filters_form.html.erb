@@ -14,18 +14,18 @@
 
       <div class="accordion mt-2" id="accordionExample">
         <div id="headingOne">
-            <div class="text-center my-2" style="font-size: 18px" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <i class="fas fa-plus-square" id="filter-icon" style="font-size: 16px"></i>
-              <p class="d-inline text-link ml-1" style="font-size: 15px" id="more-filters">Voir plus d'options de recherche</p>
+            <div class="text-center my-2" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <i class="fas fa-plus-square" id="filter-icon" style="font-size: 120%"></i>
+              <p class="d-inline text-link ml-1" style="font-size: 120%" id="more-filters">Voir plus d'options de recherche</p>
             </div>
         </div>
 
         <div id="collapseOne" class="collapse mt-2" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <h5 class="text-center py-2">Quel genre de musique souhaitez-vous ?</h5>
+          <h5 class="text-center py-2" style="font-size: 125%">Quel genre de musique souhaitez-vous&nbsp;?</h5>
           <div class="form-check form-check-inline mx-0 my-2 row d-flex justify-content-center">
             <%= form.collection_check_boxes(:categories, @all_categories, :id, :label, include_hidden: false) do |f| %>
-              <div class="mx-2 col-2">
-                <%= f.label class: "form-check-label pr-2", style: "font-size: 0.85rem" do %>
+              <div class="col-6 col-lg-2">
+                <%= f.label class: "form-check-label" do %>
                   <%= f.check_box class: "form-check-input" %>
                   <%= f.text %>
                 <% end %>
