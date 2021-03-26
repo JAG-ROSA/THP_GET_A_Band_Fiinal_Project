@@ -74,6 +74,7 @@ class ArtistsController < ApplicationController
 
     if @artist.update(update_params.except(:categories))
       flash[:success] = "Vos informations ont bien été changées."
+      redirect_to artist_bookings_path(artist_id: @artist.id)
     else
       @all_locations = Location.all
       @all_categories = Category.all
