@@ -4,14 +4,14 @@ class ArtistsController < ApplicationController
   before_action :set_artist, only: [:edit, :update]
 
   def index
-    @pagy, @artists = pagy(Artist.approved)
+    @artists = Artist.approved
     @all_categories = Category.all
     @all_locations = Location.all
 
     if index_params[:start_date].present?
       @start_at = index_params[:start_date]
       @end_at = @start_at.to_date + 1.day
-      @pagy, @artists = pagy(Availability.available_artists(@start_at, @end_at))
+      @artists = Availability.available_artists(@start_at, @end_at)
       @start_date = @start_at
     else
       @start_date = Date.current
@@ -19,21 +19,23 @@ class ArtistsController < ApplicationController
 
     if index_params[:categories].present?
       if index_params[:filter_level] == "1"
-        @pagy, @artists = pagy(@artists.joins(:artist_categories)
+        @artists = @artists.joins(:artist_categories)
           .where("category_id IN (?)", index_params[:categories])
           .distinct
-          .reverse_order!)
+          .reverse_order!
       else
-        @pagy, @artists = pagy_arel(@artists.joins(:artist_categories)
+        @artists = @artists.joins(:artist_categories)
           .where("category_id IN (?)", index_params[:categories])
           .group("artists.id")
-          .having("count(*) >= (?)", index_params[:categories].size))
+          .having("count(*) >= (?)", index_params[:categories].size)
       end
     end
 
     if index_params[:location_id].present?
-      @pagy, @artists = pagy(@artists.where(location_id: index_params[:location_id]))
+      @artists = @artists.where(location_id: index_params[:location_id])
     end
+
+    @pagy, @artists = pagy_arel(@artists)
     respond_to do |format|
       format.html { }
       format.js { }

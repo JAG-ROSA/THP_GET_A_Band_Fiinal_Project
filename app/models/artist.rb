@@ -20,6 +20,7 @@ class Artist < ApplicationRecord
   validates :avatar, limit: {max: 1} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
   validates :pictures, limit: {max: 4} , content_type: ['image/png', 'image/jpg', 'image/jpeg'], size: { less_than: 1500.kilobytes }
 
+
   has_one_attached :avatar
   has_many_attached :pictures
 
@@ -30,11 +31,17 @@ class Artist < ApplicationRecord
   scope :approved, -> { where(status: "approved") }
 
   after_create :welcome_email_artist, if: -> { Rails.env.production? }
+  after_update :artist_approval_email
 
   def welcome_email_artist
     UserMailer.new_artist(self).deliver_now
   end
 
+  def artist_approval_email
+    if self.status == "approved"
+      UserMailer.approved_artist(self).deliver_now
+    end
+  end
 
   def valid_playlist_link?
     if !self.playlist.blank?

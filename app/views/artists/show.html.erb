@@ -10,6 +10,7 @@
   <div class="row pb-4">
     <div class="col">
     <h4>Voir ses disponibilités</h4>
+    <p class="font-weight-bold"><span class='text-danger'>05/08/99</span>: non disponible &mdash; <span class='text-success'>05/08/99</span>: disponible &mdash; <span class='btn btn-warning'>Déja réservé</span>: non disponible</p>
     <span id="my-calendar"><%= render "calendar", bookings: @bookings %></span>
     <%= link_to "Réservez cet artiste", new_artist_booking_path(@artist.id, start_date: @start_date), class: "btn btn-success btn-block mx-auto my-2" %>
     </div>
