@@ -1,10 +1,13 @@
 <div class="container pt-5 mt-5">
-  <h2 class="text-center">Mon calendrier</h2>
+  <h2 class="text-center text-primary">Mon calendrier</h2>
   <div id="my-calendar">
     <%= render partial: "calendar", locals: { bookings: @bookings } %>
   </div>
+  <p class="font-weight-bold"><span class='text-danger'>05/08/99</span>: non disponible &mdash; <span class='text-success'>05/08/99</span>: disponible</p>
+  <p class="font-weight-bold"><span class='btn btn-success'>Mr. Worldwide</span>: réservation validée &mdash; <span class='btn btn-warning'>Armando Christian Pérez</span>: réservation en attente de validation</p>
 
-  <h2 class="text-center mt-5">Mes disponibilités</h2>
+
+  <h2 class="text-center mt-5 text-primary">Mes disponibilités</h2>
   <%= form_with url: artist_availabilities_path(artist_id: current_artist.id), method: "post" do |form| %>
     <table class="table text-center my-5">
       <thead>
